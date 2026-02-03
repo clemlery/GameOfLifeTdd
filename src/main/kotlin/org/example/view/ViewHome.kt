@@ -1,15 +1,18 @@
 package jeudelavietdd.org.example.view
 
+import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.GridPane
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
-class ViewHomePage : BorderPane() {
+class ViewHome : StackPane() {
 
+    private val mainPage = BorderPane()
     private val title = Label("Game Of Life - Conway")
 
     private val gridInput : GridPane = GridPane()
@@ -30,7 +33,7 @@ class ViewHomePage : BorderPane() {
     private val vboxNbCells = VBox()
 
     // Button to launch game
-    private val startButton = Button()
+    private val startButton = Button("Start")
 
     init {
         // Adding childre for Width vbox
@@ -54,13 +57,19 @@ class ViewHomePage : BorderPane() {
         gridInput.add(vboxWidth, 0, 0)
         gridInput.add(vboxHeight, 1, 0)
         gridInput.add(vboxNbCells,0, 1)
-        gridInput.alignment = Pos.CENTER
 
-        this.top = title
-        this.center = gridInput
-        this.bottom = startButton
+        gridInput.alignment = Pos.CENTER
+        gridInput.hgap = 20.0
+
+        mainPage.top = title
+        mainPage.center = gridInput
+        mainPage.bottom = startButton
+        mainPage.padding = Insets(30.0, 0.0, 30.0, 0.0)
 
         BorderPane.setAlignment(title, Pos.CENTER)
+        BorderPane.setAlignment(startButton, Pos.CENTER)
+
+        this.children.add(mainPage)
     }
 
 }
