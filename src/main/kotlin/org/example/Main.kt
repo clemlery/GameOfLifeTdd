@@ -1,0 +1,26 @@
+package jeudelavietdd.org.example
+
+import javafx.application.Application
+import javafx.scene.Scene
+import javafx.stage.Stage
+import jeudelavietdd.org.example.config.AppConfig
+import jeudelavietdd.org.example.controler.ControlerChangeView
+import jeudelavietdd.org.example.view.ViewHome
+import jeudelavietdd.org.example.view.ViewMain
+
+class Main : Application() {
+    override fun start(stage: Stage) {
+        val view = ViewMain()
+        val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
+
+        view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view))
+        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view))
+        stage.title = "Game of Life - Conway"
+        stage.scene = scene
+        stage.show()
+    }
+}
+
+fun main() {
+    Application.launch(Main::class.java)
+}
