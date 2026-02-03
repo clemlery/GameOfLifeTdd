@@ -26,7 +26,7 @@ application {
     mainClass.set("org.example.jeudelavietdd.HelloApplication")
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 javafx {
