@@ -1,4 +1,4 @@
-package jeudelavietdd.org.example.view
+package gameoflifetdd.view
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -6,7 +6,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
-import jeudelavietdd.org.example.config.NodeConfig
+import gameoflifetdd.config.NodeConfig
 
 class ViewGame : StackPane() {
 

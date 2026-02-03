@@ -1,7 +1,7 @@
 
-import model.Cell
-import model.CellState
-import model.Grid
+import gameoflifetdd.model.Cell
+import gameoflifetdd.model.CellState
+import gameoflifetdd.model.Grid
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -14,7 +14,7 @@ class TestCellAtUnit {
 
     @BeforeEach
     fun gridSetUp() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             0 to 1,
             1 to 1,
             gridWidth = 3,

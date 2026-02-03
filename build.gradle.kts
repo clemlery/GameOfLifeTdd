@@ -22,8 +22,8 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("org.example.jeudelavietdd")
-    mainClass.set("org.example.jeudelavietdd.HelloApplication")
+    mainModule.set("gameoflifetdd")
+    mainClass.set("gameoflifetdd.MainKt")
 }
 kotlin {
     jvmToolchain(21)

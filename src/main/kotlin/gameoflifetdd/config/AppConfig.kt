@@ -1,4 +1,4 @@
-package jeudelavietdd.org.example.config
+package gameoflifetdd.config
 
 import javafx.scene.text.Font
 

@@ -1,7 +1,7 @@
 
-import model.CellState
-import model.Grid
-import model.NextGenerationCalculator
+import gameoflifetdd.model.CellState
+import gameoflifetdd.model.Grid
+import gameoflifetdd.model.NextGenerationCalculator
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,7 +19,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `alive cell with less than 2 neighbors dies`() {
-        grid = Grid.ofAliveCells(2 to 2, gridWidth = 5, gridHeight = 5)
+        grid = Grid.ofAliveCellsPlaced(2 to 2, gridWidth = 5, gridHeight = 5)
 
         val next = calculator.next(grid)
 
@@ -28,7 +28,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `alive cells with less than 2 neighbors dies`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             2 to 2,
             2 to 1,
             gridWidth = 5,
@@ -43,7 +43,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `alive cells with 2 or 3 neighbors survive`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             2 to 1,
             2 to 2,
             1 to 2,
@@ -62,7 +62,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `alive cell with 4-8 neighbors dies of overpopulation`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             2 to 1,
             2 to 2,
             1 to 2,
@@ -81,7 +81,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `dead cell with 3 neighbors reborn`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             2 to 1,
             2 to 2,
             1 to 2,
@@ -98,7 +98,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `dead cell with 0-2 neighbors stay dead`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             1 to 2,
             2 to 2,
             gridWidth = 4,
@@ -118,7 +118,7 @@ class TestNextGenerationCalculator {
 
     @Test
     fun `dead cell with 4-8 neighbors stay dead`() {
-        grid = Grid.ofAliveCells(
+        grid = Grid.ofAliveCellsPlaced(
             1 to 1,
             2 to 1,
             3 to 1,

@@ -1,4 +1,4 @@
-package jeudelavietdd.org.example.view
+package gameoflifetdd.view
 
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
@@ -10,7 +10,7 @@ class ViewMain() : StackPane() {
     init {
         this.children.add(viewHome)
     }
-    
+
     fun changeView(newView : Node) {
         this.children.clear()
         this.children.add(newView)

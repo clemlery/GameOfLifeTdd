@@ -1,7 +1,7 @@
 
-import model.CellState
-import model.Grid
-import model.Cell
+import gameoflifetdd.model.CellState
+import gameoflifetdd.model.Grid
+import gameoflifetdd.model.Cell
 
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
@@ -25,7 +25,7 @@ class TestGridIntegration {
     fun `Test ofAliveCells cells alive`() {
         val gridWidth = 5
         val gridHeight = 5
-        val grid = Grid.ofAliveCells(
+        val grid = Grid.ofAliveCellsPlaced(
             1 to 4,
             2 to 1,
             1 to 1,
@@ -40,10 +40,40 @@ class TestGridIntegration {
     }
 
     @Test
+    fun `ofAliveCellsRandom create grid with right number of cells`() {
+        val oracle = 5
+        val grid = Grid.ofAliveCellsRandom(
+            oracle,
+            5,
+            5
+        )
+
+        var countNumberOfCells = 0
+        grid.cells.forEach { cellsColumn ->
+            countNumberOfCells += cellsColumn.count { it.state == CellState.ALIVE }
+        }
+        Assertions.assertEquals(oracle, countNumberOfCells)
+    }
+
+    @Test
+    fun `Raise exception if numberOfCells is lower than 2`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            Grid.ofAliveCellsRandom(2, 5, 5)
+        }
+    }
+
+    @Test
+    fun `Raise exception if numberOfCells is bigger than grid aira divided by 2`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            Grid.ofAliveCellsRandom(13, 5, 5)
+        }
+    }
+
+    @Test
     fun `Test cell access outside grid`() {
         val gridWidth = 5
         val gridHeight = 5
-        val grid = Grid.ofAliveCells(
+        val grid = Grid.ofAliveCellsPlaced(
             1 to 4,
             2 to 1,
             1 to 1,
@@ -59,7 +89,7 @@ class TestGridIntegration {
     fun `Test cell access inside grid`() {
         val gridWidth = 5
         val gridHeight = 5
-        val grid = Grid.ofAliveCells(
+        val grid = Grid.ofAliveCellsPlaced(
             1 to 4,
             2 to 1,
             1 to 1,
