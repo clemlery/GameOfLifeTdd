@@ -1,4 +1,4 @@
-package controller
+package jeudelavietdd.org.example
 
 import javafx.fxml.FXML
 import javafx.scene.control.Label

@@ -1,4 +1,4 @@
-package view
+package jeudelavietdd.org.example
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -14,4 +14,3 @@ class HelloApplication : Application() {
         stage.show()
     }
 }
-  
