@@ -1,12 +1,11 @@
-package jeudelavietdd.org.example
+package gameoflifetdd
 
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
-import jeudelavietdd.org.example.config.AppConfig
-import jeudelavietdd.org.example.controler.ControlerChangeView
-import jeudelavietdd.org.example.view.ViewHome
-import jeudelavietdd.org.example.view.ViewMain
+import gameoflifetdd.config.AppConfig
+import gameoflifetdd.controler.ControlerChangeView
+import gameoflifetdd.view.ViewMain
 
 class Main : Application() {
     override fun start(stage: Stage) {

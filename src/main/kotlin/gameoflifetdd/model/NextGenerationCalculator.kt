@@ -1,4 +1,4 @@
-package model
+package gameoflifetdd.model
 
 class NextGenerationCalculator {
 

@@ -1,4 +1,4 @@
-package model
+package gameoflifetdd.model
 
 data class Cell(
     val x: Int,

@@ -1,4 +1,4 @@
-import model.Grid
+import gameoflifetdd.model.Grid
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
@@ -12,12 +12,12 @@ class TestGridUnit {
 
     @Test
     fun `Test grid not empty ok`() {
-        Assertions.assertDoesNotThrow { Grid.ofAliveCells(2 to 2, 3 to 4, gridWidth = 5, gridHeight = 5) }
+        Assertions.assertDoesNotThrow { Grid.ofAliveCellsPlaced(2 to 2, 3 to 4, gridWidth = 5, gridHeight = 5) }
     }
 
     @Test
     fun  `Test grid full ok`() {
-        Assertions.assertDoesNotThrow { Grid.ofAliveCells(
+        Assertions.assertDoesNotThrow { Grid.ofAliveCellsPlaced(
             0 to 0,
             0 to 1,
             1 to 0,
@@ -45,7 +45,7 @@ class TestGridUnit {
     @Test
     fun `Test grid ofAliveCells Illegal width`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            Grid.ofAliveCells(
+            Grid.ofAliveCellsPlaced(
                 0 to 1,
                 gridWidth = -2,
                 gridHeight = 2
@@ -56,7 +56,7 @@ class TestGridUnit {
     @Test
     fun `Test grid ofAliveCells Illegal height`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            Grid.ofAliveCells(
+            Grid.ofAliveCellsPlaced(
                 0 to 1,
                 gridWidth = 2,
                 gridHeight = -2
@@ -77,7 +77,7 @@ class TestGridUnit {
     @Test
     fun `Test grid ofAliveCells Illegal width & height`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            Grid.ofAliveCells(
+            Grid.ofAliveCellsPlaced(
                 0 to 1,
                 gridWidth = 0,
                 gridHeight = -0
@@ -88,7 +88,7 @@ class TestGridUnit {
     @Test
     fun `Test grid cells outside dimensions`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            Grid.ofAliveCells(
+            Grid.ofAliveCellsPlaced(
                 5 to 5,
                 gridWidth = 5,
                 gridHeight = 5
@@ -99,7 +99,7 @@ class TestGridUnit {
     @Test
     fun `Test grid illegal cell coordinates`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            Grid.ofAliveCells(
+            Grid.ofAliveCellsPlaced(
                 -1 to 2,
                 gridWidth = 5,
                 gridHeight = 5

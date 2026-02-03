@@ -1,4 +1,6 @@
-package model
+package gameoflifetdd.model
+
+import kotlin.random.Random
 
 class Grid(
     val cells: Array<Array<Cell>>,
@@ -19,6 +21,36 @@ class Grid(
     }
 
     companion object {
+
+        fun ofAliveCellsRandom(numberOfCells : Int, gridWidth: Int, gridHeight : Int) : Grid {
+            require(numberOfCells < gridWidth * gridHeight / 2 && numberOfCells > 2)
+
+            val rdmCoos : ArrayDeque<Pair<Int, Int>> = ArrayDeque(Array(numberOfCells) { Random.nextInt(0, gridWidth - 1)}
+                .zip(Array(numberOfCells) { Random.nextInt(0, gridHeight - 1)}.toList()))
+
+            val grid = empty(gridWidth, gridHeight)
+            val cooAlreadyUsed : MutableSet<Pair<Int, Int>> = mutableSetOf()
+
+            while (rdmCoos.isNotEmpty()) {
+                val rdmCoo = rdmCoos.firstOrNull() ?: break
+                if (rdmCoo !in cooAlreadyUsed) {
+                    grid.cells[rdmCoo.first][rdmCoo.first] = Cell(
+                        rdmCoo.first,
+                        rdmCoo.second,
+                        CellState.ALIVE
+                    )
+                    cooAlreadyUsed.add(rdmCoo)
+                } else {
+                    rdmCoos.add(Pair(
+                        Random.nextInt(0, gridWidth - 1),
+                        Random.nextInt(0, gridHeight - 1)
+                    ))
+                }
+            }
+
+            return grid
+        }
+
         /**
          * Creates an initial grid from the coordinates of living cells.
          *
@@ -32,7 +64,7 @@ class Grid(
          * @throws IllegalArgumentException if the height or width are not acceptable values (e.g., negative or too large)
          * @return a grid of size gridWidth x gridHeight containing the corresponding living and dead cells
          */
-        fun ofAliveCells(vararg aliveCells: Pair<Int, Int>, gridWidth : Int, gridHeight : Int): Grid {
+        fun ofAliveCellsPlaced(vararg aliveCells: Pair<Int, Int>, gridWidth : Int, gridHeight : Int): Grid {
             require(aliveCells.isNotEmpty() && gridWidth > 0 && gridHeight > 0)
 
             val grid = empty(gridWidth, gridHeight)

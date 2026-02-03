@@ -1,10 +1,10 @@
-package jeudelavietdd.org.example.controler
+package gameoflifetdd.controler
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
-import jeudelavietdd.org.example.config.NodeConfig
-import jeudelavietdd.org.example.view.ViewMain
+import gameoflifetdd.config.NodeConfig
+import gameoflifetdd.view.ViewMain
 
 class ControlerChangeView(var view : ViewMain) : EventHandler<ActionEvent> {
     override fun handle(event: ActionEvent?) {

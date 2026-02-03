@@ -1,8 +1,8 @@
-package jeudelavietdd.org.example.view
+package gameoflifetdd.view
 
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
-import model.CellState
+import gameoflifetdd.model.CellState
 
 class Cell(val cellState: CellState) : Rectangle() {
     init {

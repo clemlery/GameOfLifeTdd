@@ -1,4 +1,4 @@
-package jeudelavietdd.org.example.config
+package gameoflifetdd.config
 
 class NodeConfig {
     companion object {
