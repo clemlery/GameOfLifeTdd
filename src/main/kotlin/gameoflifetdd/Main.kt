@@ -32,6 +32,7 @@ class Main : Application() {
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene
+        stage.isFullScreen = true
         stage.show()
     }
 }

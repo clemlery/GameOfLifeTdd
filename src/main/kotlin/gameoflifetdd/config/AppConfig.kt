@@ -9,8 +9,6 @@ class AppConfig {
         const val INITIAL_HEIGHT = 480.0
 
         val TITLE_FONT : Font = loadFont("/fonts/PlayfairDisplay-Regular.ttf", 60.0)
-        val TEXT_FONT : Font = loadFont("/fonts/BungeeShade-Regular.ttf", 20.0)
-
-
+        val TEXT_FONT : Font = loadFont("/fonts/BungeeShade-Regular.ttf", 25.0)
     }
 }

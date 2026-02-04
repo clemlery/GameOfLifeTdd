@@ -32,6 +32,7 @@ class ViewHome : StackPane() {
     }
     private val inputWidth = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
+        minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_WIDTH
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
@@ -43,6 +44,7 @@ class ViewHome : StackPane() {
     }
     private val inputHeight = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
+        minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_HEIGHT
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
@@ -54,6 +56,7 @@ class ViewHome : StackPane() {
     }
     private val inputNbCells = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
+        minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_NB_OF_CELLS
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
@@ -63,6 +66,8 @@ class ViewHome : StackPane() {
     private val startButton = Button("Start").apply {
         font = AppConfig.TEXT_FONT
         id = NodeConfig.BUTTON_START_ID
+        minHeight = 40.0
+        maxWidth = NodeConfig.BUTTON_MAX_WIDTH
     }
 
     init {
@@ -89,8 +94,8 @@ class ViewHome : StackPane() {
         gridInput.add(vboxNbCells,0, 1)
 
         gridInput.alignment = Pos.CENTER
-        gridInput.vgap = 50.0
-        gridInput.hgap = 100.0
+        gridInput.vgap = 80.0
+        gridInput.hgap = 150.0
 
         mainPage.top = title
         mainPage.center = gridInput
