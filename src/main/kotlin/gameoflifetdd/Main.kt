@@ -5,6 +5,7 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.controler.ControlerChangeView
+import gameoflifetdd.model.Grid
 import gameoflifetdd.view.ViewMain
 
 class Main : Application() {

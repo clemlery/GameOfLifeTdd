@@ -33,8 +33,9 @@ class Grid(
 
             while (rdmCoos.isNotEmpty()) {
                 val rdmCoo = rdmCoos.firstOrNull() ?: break
+                rdmCoos.removeFirst()
                 if (rdmCoo !in cooAlreadyUsed) {
-                    grid.cells[rdmCoo.first][rdmCoo.first] = Cell(
+                    grid.cells[rdmCoo.first][rdmCoo.second] = Cell(
                         rdmCoo.first,
                         rdmCoo.second,
                         CellState.ALIVE
