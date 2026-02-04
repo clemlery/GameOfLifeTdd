@@ -33,5 +33,9 @@ class NodeConfig {
         const val TEXT_FIELDS_BORDER_RADIUS = 5
 
         val INPUT_LABELS = arrayOf("Grid Width", "Grid Height", "Number Of Cells")
+
+        // VIEW GAME
+
+        const val GRID_PADDING = 80.0
     }
 }
