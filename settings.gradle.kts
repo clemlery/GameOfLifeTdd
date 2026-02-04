@@ -1,1 +1,1 @@
-rootProject.name = "JeuDeLaVieTdd"
+rootProject.name = "gameOfLifeTdd"

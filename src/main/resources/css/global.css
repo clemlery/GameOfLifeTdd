@@ -1,0 +1,21 @@
+/* Constant variable */
+
+.root {
+    -scene-background-color: #D9D9D9;
+}
+
+.main-container {
+    -fx-background-color: -scene-background-color;
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+}
