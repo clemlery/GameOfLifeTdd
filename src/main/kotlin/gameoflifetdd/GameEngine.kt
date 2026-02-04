@@ -1,9 +1,18 @@
 package gameoflifetdd
 
 import gameoflifetdd.model.Grid
+import gameoflifetdd.model.NextGenerationCalculator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 
 class GameEngine {
-    private val grid = Grid()
+    private var grid = Grid()
+    private var gameSpeed = 16
+    private val gameScope = CoroutineScope(Dispatchers.Default)
     private val observers = mutableListOf<GameObserver>()
 
     fun addObserver(observer: GameObserver) {
@@ -14,19 +23,26 @@ class GameEngine {
         observers.forEach { it.onGridChanged(grid) }
     }
 
-    fun start() {
-        TODO()
+    fun start(gridWidth : Int, gridHeight : Int, numberOfCells : Int) {
+        grid = Grid.ofAliveCellsRandom(numberOfCells, gridWidth, gridHeight)
     }
 
     fun stop() {
-        TODO()
+        gameScope.cancel()
     }
 
     fun tick() {
-        TODO()
+        val generationCalculator = NextGenerationCalculator()
+        gameScope.launch {
+            while (isActive) {
+                grid = generationCalculator.next(grid)
+                notifyObservers()
+                delay(gameSpeed.toLong())
+            }
+        }
     }
 
-    fun setSpeed() {
-        TODO()
+    fun setSpeed(newSpeed : Int) {
+        gameSpeed = newSpeed
     }
 }
