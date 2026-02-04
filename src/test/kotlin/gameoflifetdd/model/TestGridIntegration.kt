@@ -1,7 +1,4 @@
-
-import gameoflifetdd.model.CellState
-import gameoflifetdd.model.Grid
-import gameoflifetdd.model.Cell
+package gameoflifetdd.model
 
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
@@ -40,18 +37,15 @@ class TestGridIntegration {
     }
 
     @Test
-    fun `ofAliveCellsRandom create grid with right number of cells`() {
+    fun `Test ofAliveCellsRandom create grid with right number of cells`() {
         val oracle = 5
-        val grid = Grid.ofAliveCellsRandom(
-            oracle,
-            5,
-            5
-        )
+        val grid = Grid.ofAliveCellsRandom(oracle, 5, 5)
 
         var countNumberOfCells = 0
         grid.cells.forEach { cellsColumn ->
             countNumberOfCells += cellsColumn.count { it.state == CellState.ALIVE }
         }
+
         Assertions.assertEquals(oracle, countNumberOfCells)
     }
 

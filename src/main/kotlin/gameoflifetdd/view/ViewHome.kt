@@ -30,6 +30,7 @@ class ViewHome : StackPane() {
     }
     private val inputWidth = TextField().apply {
         maxWidth = 150.0
+        id = NodeConfig.TEXT_FIELD_WIDTH
     }
     private val vboxWidth = VBox()
 
@@ -39,6 +40,7 @@ class ViewHome : StackPane() {
     }
     private val inputHeight = TextField().apply {
         maxWidth = 150.0
+        id = NodeConfig.TEXT_FIELD_HEIGHT
     }
     private val vboxHeight = VBox()
 
@@ -48,6 +50,7 @@ class ViewHome : StackPane() {
     }
     private val inputNbCells = TextField().apply {
         maxWidth = 150.0
+        id = NodeConfig.TEXT_FIELD_NB_OF_CELLS
     }
     private val vboxNbCells = VBox()
 
@@ -101,6 +104,15 @@ class ViewHome : StackPane() {
 
     fun getStartButton() : Button {
         return startButton
+    }
+
+    fun getTextFieldInputById(id : String) : TextField {
+        return when(id) {
+            NodeConfig.TEXT_FIELD_WIDTH -> inputWidth
+            NodeConfig.TEXT_FIELD_HEIGHT -> inputHeight
+            NodeConfig.TEXT_FIELD_NB_OF_CELLS -> inputNbCells
+            else -> throw IllegalArgumentException()
+        }
     }
 
 }

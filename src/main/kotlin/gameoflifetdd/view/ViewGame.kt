@@ -8,9 +8,10 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.StackPane
 import gameoflifetdd.config.NodeConfig
 
+
 class ViewGame : StackPane() {
 
-    private val gridCells = GridPane()
+    private var gridCells = GridPane()
     private val backButton = Button("back").apply {
         id = NodeConfig.BUTTON_BACK_ID
     }
@@ -25,6 +26,16 @@ class ViewGame : StackPane() {
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
         buttonToFix.onAction = controler
+    }
+
+    fun getGridCells() : GridPane {
+        return gridCells
+    }
+
+    fun setGridCells(newGrid : GridPane) {
+        this.children.remove(gridCells)
+        gridCells = newGrid
+        this.children.add(gridCells)
     }
 
     fun getBackButton() : Button {

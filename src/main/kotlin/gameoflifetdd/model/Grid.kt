@@ -1,12 +1,13 @@
 package gameoflifetdd.model
 
+import kotlin.properties.Delegates
 import kotlin.random.Random
 
-class Grid(
-    val cells: Array<Array<Cell>>,
-    val width : Int,
-    val height : Int,
-) {
+class Grid : GridInterface {
+    override lateinit var cells: Array<Array<Cell>>
+    override var width by Delegates.notNull<Int>()
+    override var height by Delegates.notNull<Int>()
+
     /**
      * Returns the cell located at the given coordinates in the grid.
      *
@@ -15,15 +16,30 @@ class Grid(
      * @throws IllegalArgumentException if the specified position is outside the grid
      * @return the cell at position (x, y)
      */
-    fun cellAt(x: Int, y: Int): Cell {
+    override fun cellAt(x: Int, y: Int): Cell {
         require(x in 0 ..< this.width && y in 0 ..< this.height)
         return this.cells[x][y]
     }
 
     companion object {
 
+        /**
+         * Creates a grid with living cells placed at random positions.
+         *
+         * The method generates unique random coordinates for the specified number
+         * of living cells. If a duplicate coordinate is generated, a new random
+         * position is chosen until all cells are placed.
+         *
+         * @param numberOfCells number of living cells to place in the grid
+         * @param gridWidth width of the grid
+         * @param gridHeight height of the grid
+         * @throws IllegalArgumentException if numberOfCells is not greater than 2
+         *         or is at least half of the total grid size
+         * @return a grid of size gridWidth x gridHeight with the specified number
+         *         of randomly placed living cells
+         */
         fun ofAliveCellsRandom(numberOfCells : Int, gridWidth: Int, gridHeight : Int) : Grid {
-            require(numberOfCells < gridWidth * gridHeight / 2 && numberOfCells > 2)
+            require(numberOfCells > 2)
 
             val rdmCoos : ArrayDeque<Pair<Int, Int>> = ArrayDeque(Array(numberOfCells) { Random.nextInt(0, gridWidth - 1)}
                 .zip(Array(numberOfCells) { Random.nextInt(0, gridHeight - 1)}.toList()))
@@ -33,8 +49,9 @@ class Grid(
 
             while (rdmCoos.isNotEmpty()) {
                 val rdmCoo = rdmCoos.firstOrNull() ?: break
+                rdmCoos.removeFirst()
                 if (rdmCoo !in cooAlreadyUsed) {
-                    grid.cells[rdmCoo.first][rdmCoo.first] = Cell(
+                    grid.cells[rdmCoo.first][rdmCoo.second] = Cell(
                         rdmCoo.first,
                         rdmCoo.second,
                         CellState.ALIVE
@@ -88,15 +105,16 @@ class Grid(
         fun empty(gridWidth: Int, gridHeight: Int) : Grid {
             require(gridWidth > 0 && gridHeight > 0)
 
-            return Grid(
-                cells = Array(gridWidth) { x ->
-                    Array(gridHeight) { y ->
-                        Cell(x, y, CellState.DEAD)
-                    }
-                },
-                gridWidth,
-                gridHeight
-            )
+            val grid = Grid()
+            grid.width = gridWidth
+            grid.height = gridHeight
+            grid.cells = Array(gridWidth) { x ->
+                Array(gridHeight) { y ->
+                    Cell(x, y, CellState.DEAD)
+                }
+            }
+
+            return grid
         }
     }
 }
