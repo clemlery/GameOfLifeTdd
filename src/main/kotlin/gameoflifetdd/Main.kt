@@ -13,8 +13,9 @@ class Main : Application() {
         val view = ViewMain()
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
         val modele : Grid = Grid()
-        view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view))
-        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view))
+        view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, modele))
+        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view, modele))
+
         stage.title = "Game of Life - Conway"
         stage.scene = scene
         stage.show()

@@ -4,7 +4,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 import gameoflifetdd.model.CellState
 
-class Cell(val cellState: CellState) : Rectangle() {
+class CellUI(val cellState: CellState) : Rectangle() {
     init {
         val color = if (cellState == CellState.ALIVE) {
             Color.BLACK

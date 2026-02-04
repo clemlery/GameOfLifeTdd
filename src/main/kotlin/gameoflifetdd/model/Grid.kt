@@ -39,7 +39,7 @@ class Grid : GridInterface {
          *         of randomly placed living cells
          */
         fun ofAliveCellsRandom(numberOfCells : Int, gridWidth: Int, gridHeight : Int) : Grid {
-            require(numberOfCells < gridWidth * gridHeight / 2 && numberOfCells > 2)
+            require(numberOfCells > 2)
 
             val rdmCoos : ArrayDeque<Pair<Int, Int>> = ArrayDeque(Array(numberOfCells) { Random.nextInt(0, gridWidth - 1)}
                 .zip(Array(numberOfCells) { Random.nextInt(0, gridHeight - 1)}.toList()))
