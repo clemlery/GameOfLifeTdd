@@ -1,0 +1,15 @@
+/* Constant variable */
+
+:root {
+    --scene-background-color: #D9D9D9;
+}
+
+.view {
+    -fx-background-color: var(--scene-background-color)
+}
+
+.text-field{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 5;
+}

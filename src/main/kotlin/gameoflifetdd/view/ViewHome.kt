@@ -1,5 +1,6 @@
 package gameoflifetdd.view
 
+import com.sun.prism.paint.Color
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
@@ -13,11 +14,12 @@ import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
+import javafx.scene.layout.Background
 
 class ViewHome : StackPane() {
 
     private val mainPage = BorderPane()
-    private val title = Label("Game Of Life - Conway").apply {
+    private val title = Label("Game Of Life").apply {
         font = AppConfig.TITLE_FONT
         alignment = Pos.CENTER
     }
@@ -29,8 +31,9 @@ class ViewHome : StackPane() {
         font = AppConfig.TEXT_FONT
     }
     private val inputWidth = TextField().apply {
-        maxWidth = 150.0
+        maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
         id = NodeConfig.TEXT_FIELD_WIDTH
+        background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
     private val vboxWidth = VBox()
 
@@ -39,8 +42,9 @@ class ViewHome : StackPane() {
         font = AppConfig.TEXT_FONT
     }
     private val inputHeight = TextField().apply {
-        maxWidth = 150.0
+        maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
         id = NodeConfig.TEXT_FIELD_HEIGHT
+        background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
     private val vboxHeight = VBox()
 
@@ -49,8 +53,9 @@ class ViewHome : StackPane() {
         font = AppConfig.TEXT_FONT
     }
     private val inputNbCells = TextField().apply {
-        maxWidth = 150.0
+        maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
         id = NodeConfig.TEXT_FIELD_NB_OF_CELLS
+        background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
     }
     private val vboxNbCells = VBox()
 
@@ -85,7 +90,7 @@ class ViewHome : StackPane() {
 
         gridInput.alignment = Pos.CENTER
         gridInput.vgap = 50.0
-        gridInput.hgap = 50.0
+        gridInput.hgap = 100.0
 
         mainPage.top = title
         mainPage.center = gridInput
