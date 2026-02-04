@@ -12,7 +12,7 @@ class Main : Application() {
     override fun start(stage: Stage) {
         val view = ViewMain()
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
-
+        val modele : Grid = Grid()
         view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view))
         view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view))
         stage.title = "Game of Life - Conway"
