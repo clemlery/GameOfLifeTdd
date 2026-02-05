@@ -9,7 +9,7 @@ class ViewMain() : StackPane() {
     var viewGame = ViewGame()
 
     init {
-        this.children.add(viewHome)
+        this.children.add(viewGame)
         this.styleClass.add(NodeConfig.MAIN_VIEW_CSS_CLASS)
     }
 

@@ -5,16 +5,11 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.controler.ControlerChangeView
-import gameoflifetdd.model.Grid
+import gameoflifetdd.controler.GameEngineSubscriber
 import gameoflifetdd.view.ViewMain
-import javafx.geometry.Insets
-import javafx.scene.layout.Background
-import javafx.scene.layout.BackgroundFill
-import javafx.scene.layout.CornerRadii
-import javafx.scene.paint.Color
-import org.controlsfx.dialog.ExceptionDialog
 
 class Main : Application() {
+
     override fun start(stage: Stage) {
         val view = ViewMain()
 
@@ -26,9 +21,12 @@ class Main : Application() {
         } catch (e: Exception) {
             throw e
         }
-        val modele : Grid = Grid()
-        view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, modele))
-        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view, modele))
+
+        val game = GameEngine()
+        game.addObserver(GameEngineSubscriber(view.viewGame))
+
+        view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, game))
+        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view, game))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene
