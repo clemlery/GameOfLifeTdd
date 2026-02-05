@@ -37,5 +37,6 @@ class NodeConfig {
         // VIEW GAME
 
         const val GRID_PADDING = 80.0
+        const val GRID_CELLS_CSS_CLASS = "grid-cells"
     }
 }

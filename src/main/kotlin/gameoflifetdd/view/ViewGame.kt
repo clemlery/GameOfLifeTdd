@@ -1,25 +1,23 @@
 package gameoflifetdd.view
 
-import gameoflifetdd.Main
 import gameoflifetdd.config.AppConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.GridPane
-import javafx.scene.layout.StackPane
 import gameoflifetdd.config.NodeConfig
 import javafx.geometry.Insets
 import javafx.scene.layout.Background
 import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.BorderPane
 import javafx.scene.layout.CornerRadii
-import kotlin.math.floor
+import javafx.scene.layout.StackPane
 
 
-class ViewGame : StackPane() {
+class ViewGame : BorderPane() {
 
     private val gridCells = GridPane().apply {
-        padding = Insets(NodeConfig.GRID_PADDING)
         alignment = Pos.TOP_LEFT
         background = Background(
             BackgroundFill(
@@ -28,24 +26,33 @@ class ViewGame : StackPane() {
                 Insets.EMPTY
             )
         )
+        styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
 
     private val backButton = Button("back").apply {
         id = NodeConfig.BUTTON_BACK_ID
     }
 
+    private val stopButton = Button("stop")
+
+    private val gridSettings = GridPane().apply {
+        alignment = Pos.CENTER
+        add(backButton, 0, 0)
+        add(stopButton, 1, 0)
+    }
+
     init {
-        this.children.addAll(
-            gridCells,
-            backButton
-        )
-        this.alignment = Pos.CENTER
-        gridCells.apply {
-            minWidth = floor(Main.getSceneWidth() / 2)
-            maxWidth = floor(Main.getSceneWidth() / 2)
-            minHeight = AppConfig.INITIAL_HEIGHT - NodeConfig.GRID_PADDING * 2
-            maxHeight = AppConfig.INITIAL_HEIGHT - NodeConfig.GRID_PADDING * 2
+        val lefContainer = StackPane(gridCells).apply {
+            padding = Insets(NodeConfig.GRID_PADDING)
+            prefWidthProperty().bind(heightProperty())
+            prefWidthProperty().bind(widthProperty().multiply(0.5))
         }
+        left = lefContainer
+
+        val rightContainer = StackPane(gridSettings).apply {
+            padding = Insets(NodeConfig.GRID_PADDING)
+        }
+        right = rightContainer
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
