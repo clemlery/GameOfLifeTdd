@@ -23,7 +23,6 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
                 val nbCells: Int = nbCellsTextField.text.toInt()
 
                 game.init(width, height, nbCells)
-                game.start()
             }
             NodeConfig.BUTTON_BACK_ID -> view.changeView(view.viewHome)
         }

@@ -4,7 +4,9 @@ import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
 import gameoflifetdd.config.AppConfig
+import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.controler.ControlerChangeView
+import gameoflifetdd.controler.ControlerFeatureGameButton
 import gameoflifetdd.controler.GameEngineSubscriber
 import gameoflifetdd.view.ViewMain
 
@@ -34,7 +36,13 @@ class Main : Application() {
         game.addObserver(GameEngineSubscriber(view.viewGame))
 
         view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, game))
-        view.viewGame.fixButtonControler(view.viewGame.getBackButton(), ControlerChangeView(view, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_BACK_ID), ControlerChangeView(view, game))
+
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_STOP_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_RUN_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_REGEN_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

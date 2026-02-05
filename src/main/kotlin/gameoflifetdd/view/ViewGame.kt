@@ -24,20 +24,21 @@ class ViewGame : BorderPane() {
                 Insets.EMPTY
             )
         )
+        isGridLinesVisible = true
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
 
-    private val stopButton = createIconButton("/icons/stop.svg")
+    private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
-    private val runButton = createIconButton("/icons/run.svg")
+    private val runButton = createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
 
-    private val backButton = createIconButton("/icons/back.svg")
+    private val backButton = createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
 
-    private val regenerateButton = createIconButton("/icons/regenerate.svg")
+    private val regenerateButton = createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
 
-    private val importButton = createIconButton("/icons/import.svg")
+    private val importButton = createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val exportButton = createIconButton("/icons/export.svg")
+    private val exportButton = createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
 
     private val gridSettings = GridPane().apply {
@@ -56,7 +57,7 @@ class ViewGame : BorderPane() {
         val lefContainer = StackPane(gridCells).apply {
             padding = Insets(NodeConfig.GRID_PADDING)
             prefWidthProperty().bind(heightProperty())
-            prefWidthProperty().bind(widthProperty())
+            prefWidthProperty().bind(widthProperty().multiply(0.5))
         }
         left = lefContainer
 
@@ -66,7 +67,7 @@ class ViewGame : BorderPane() {
         right = rightContainer
     }
 
-    fun createIconButton(path: String): Button {
+    fun createIconButton(path: String, buttonId : String): Button {
 
         val svgText = javaClass
             .getResource(path)
@@ -101,6 +102,7 @@ class ViewGame : BorderPane() {
             graphic = group
             alignment = Pos.CENTER
             styleClass.add("icon-button")
+            id = buttonId
         }
 
         return button
@@ -119,8 +121,14 @@ class ViewGame : BorderPane() {
         gridCells.add(newCell, col, row)
     }
 
-
-    fun getBackButton() : Button {
-        return backButton
+    fun getButtonById(id : String) : Button {
+        return when (id) {
+            NodeConfig.BUTTON_STOP_ID -> stopButton
+            NodeConfig.BUTTON_RUN_ID -> runButton
+            NodeConfig.BUTTON_BACK_ID -> backButton
+            NodeConfig.BUTTON_REGEN_ID -> regenerateButton
+            NodeConfig.BUTTON_IMPORT_ID -> importButton
+            else -> exportButton
+        }
     }
 }
