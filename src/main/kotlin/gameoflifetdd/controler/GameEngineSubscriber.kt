@@ -11,7 +11,7 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
         for (x in 0 until grid.width) {
             for (y in 0 until grid.height) {
                 val currentCellState = grid.cellAt(x, y).state
-                view.changeNodeAt(x, y, CellUI(currentCellState))
+                view.changeNodeAt(x, y, CellUI(currentCellState, view.getPerfectCellWidth(), view.getPerfectCellHeight()))
             }
         }
     }

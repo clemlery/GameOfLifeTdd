@@ -7,6 +7,7 @@ import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.controler.ControlerChangeView
 import gameoflifetdd.controler.ControlerFeatureGameButton
+import gameoflifetdd.controler.ControlerSpeedSlider
 import gameoflifetdd.controler.GameEngineSubscriber
 import gameoflifetdd.view.ViewMain
 
@@ -15,9 +16,8 @@ class Main : Application() {
     override fun start(stage: Stage) {
         val view = ViewMain()
 
-
-
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
+
         try {
             scene.stylesheets.add(
                 javaClass.getResource("/css/global.css")!!.toExternalForm()
@@ -43,6 +43,9 @@ class Main : Application() {
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_REGEN_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
+
+        view.viewGame.fixProgressBarControler(view.viewGame.getProgressBarById(NodeConfig.SLIDER_SPEED_ID),
+            ControlerSpeedSlider(view.viewGame, game))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene
