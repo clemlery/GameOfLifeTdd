@@ -13,4 +13,12 @@ class CellUI(val cellState: CellState) : Rectangle() {
         this.height = 10.0
         fill = color
     }
+
+    fun updateState(newCellState: CellState) {
+        fill = if (newCellState == CellState.ALIVE) {
+            Color.BLACK
+        } else {
+            Color.WHITE
+        }
+    }
 }

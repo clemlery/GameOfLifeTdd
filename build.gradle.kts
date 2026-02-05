@@ -35,16 +35,16 @@ javafx {
 }
 
 dependencies {
-    // dépendance de base
+    // Base dependencies
     implementation("org.controlsfx:controlsfx:11.2.1")
     implementation("org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
-    // dépendances rajoutées
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    // Added dependencies
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.8.1")
 
-    // dépendance pour les tests
+    // Test dependencies
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2") // Utile pour introduire des tests paramétriques
 }
