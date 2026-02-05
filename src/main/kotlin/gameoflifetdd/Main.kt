@@ -13,10 +13,18 @@ class Main : Application() {
     override fun start(stage: Stage) {
         val view = ViewMain()
 
+
+
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
         try {
             scene.stylesheets.add(
                 javaClass.getResource("/css/global.css")!!.toExternalForm()
+            )
+            view.viewHome.stylesheets.add(
+                javaClass.getResource("/css/views/view-home-style.css")!!.toExternalForm()
+            )
+            view.viewGame.stylesheets.add(
+                javaClass.getResource("/css/views/view-game-style.css")!!.toExternalForm()
             )
         } catch (e: Exception) {
             throw e
