@@ -1,62 +1,134 @@
 package gameoflifetdd.view
 
+import gameoflifetdd.config.AppConfig
+import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.StackPane
-import gameoflifetdd.config.NodeConfig
 import javafx.geometry.Insets
-import kotlin.math.floor
+import javafx.geometry.Pos
+import javafx.scene.Group
+import javafx.scene.control.Button
+import javafx.scene.layout.*
+import javafx.scene.shape.SVGPath
+import kotlin.math.max
 
 
-class ViewGame : StackPane() {
+class ViewGame : BorderPane() {
 
-    private var gridCells = GridPane().apply {
-        padding = Insets(NodeConfig.GRID_PADDING)
+    private val gridCells = GridPane().apply {
         alignment = Pos.TOP_LEFT
-        minWidth = floor(this.width / 2)
-        maxWidth = floor(this.width / 2)
-        minHeight = this.height - NodeConfig.GRID_PADDING * 2
-        maxHeight = this.height - NodeConfig.GRID_PADDING * 2
+        background = Background(
+            BackgroundFill(
+                javafx.scene.paint.Color.WHITE,
+                CornerRadii.EMPTY,
+                Insets.EMPTY
+            )
+        )
+        isGridLinesVisible = true
+        styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
-    private val backButton = Button("back").apply {
-        id = NodeConfig.BUTTON_BACK_ID
+
+    private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
+
+    private val runButton = createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
+
+    private val backButton = createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
+
+    private val regenerateButton = createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
+
+    private val importButton = createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
+
+    private val exportButton = createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
+
+
+    private val gridSettings = GridPane().apply {
+        alignment = Pos.TOP_CENTER
+        add(stopButton, 0, 0)
+        add(runButton, 1, 0)
+        add(backButton, 2, 0)
+        add(regenerateButton, 0, 1)
+        add(importButton, 1, 1)
+        add(exportButton, 2, 1)
+        vgap = 80.0
+        hgap = 80.0
     }
 
     init {
-        this.children.addAll(
-            gridCells,
-            backButton
-        )
-        this.alignment = Pos.CENTER
-        gridCells.width
+        val lefContainer = StackPane(gridCells).apply {
+            padding = Insets(NodeConfig.GRID_PADDING)
+            prefWidthProperty().bind(heightProperty())
+            prefWidthProperty().bind(widthProperty().multiply(0.5))
+        }
+        left = lefContainer
+
+        val rightContainer = StackPane(gridSettings).apply {
+            padding = Insets(NodeConfig.GRID_PADDING)
+        }
+        right = rightContainer
     }
+
+    fun createIconButton(path: String, buttonId : String): Button {
+
+        val svgText = javaClass
+            .getResource(path)
+            ?.readText()
+            ?: error("SVG not found: $path")
+
+        val paths = Regex("d=\"([^\"]+)\"")
+            .findAll(svgText)
+            .map { match -> match.groupValues[1] }
+            .toList()
+
+        val svgNodes = paths.map { d ->
+            SVGPath().apply {
+                content = d
+                styleClass.add("button-icon")
+            }
+        }
+
+        val group = Group().apply {
+            children.addAll(svgNodes)
+        }
+
+        val bounds = group.boundsInLocal
+
+        val scaleFactor = 40 / max(bounds.width, bounds.height)
+
+        group.scaleX = scaleFactor
+        group.scaleY = scaleFactor
+
+        val button = Button().apply {
+            isPickOnBounds = true
+            graphic = group
+            alignment = Pos.CENTER
+            styleClass.add("icon-button")
+            id = buttonId
+        }
+
+        return button
+    }
+
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
         buttonToFix.onAction = controler
     }
 
-    fun getGridCells() : GridPane {
-        return gridCells
-    }
-
-    fun setGridCells(newGrid : GridPane) {
-        this.children.remove(gridCells)
-        gridCells = newGrid.apply {
-            padding = Insets(NodeConfig.GRID_PADDING)
-            alignment = Pos.TOP_LEFT
-            minWidth = floor(this.width / 2)
-            maxWidth = floor(this.width / 2)
-            minHeight = this.height - NodeConfig.GRID_PADDING * 2
-            maxHeight = this.height - NodeConfig.GRID_PADDING * 2
+    fun changeNodeAt(col: Int, row: Int, newCell : CellUI) {
+        val nodeToRemove = gridCells.children.find { node ->
+            (GridPane.getColumnIndex(node) ?: 0) == col && (GridPane.getRowIndex(node) ?: 0) == row
         }
-        this.children.add(gridCells)
+        nodeToRemove?.let { gridCells.children.remove(it) }
+        gridCells.add(newCell, col, row)
     }
 
-    fun getBackButton() : Button {
-        return backButton
+    fun getButtonById(id : String) : Button {
+        return when (id) {
+            NodeConfig.BUTTON_STOP_ID -> stopButton
+            NodeConfig.BUTTON_RUN_ID -> runButton
+            NodeConfig.BUTTON_BACK_ID -> backButton
+            NodeConfig.BUTTON_REGEN_ID -> regenerateButton
+            NodeConfig.BUTTON_IMPORT_ID -> importButton
+            else -> exportButton
+        }
     }
-
 }

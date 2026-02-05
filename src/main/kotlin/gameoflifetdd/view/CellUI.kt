@@ -12,5 +12,6 @@ class CellUI(val cellState: CellState) : Rectangle() {
         this.width = 10.0
         this.height = 10.0
         fill = color
+        toBack()
     }
 }

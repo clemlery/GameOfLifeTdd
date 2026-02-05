@@ -1,0 +1,32 @@
+/*
+Source - https://stackoverflow.com/a/50655798
+Posted by fabian
+Retrieved 2026-02-05, License - CC BY-SA 4.0
+*/
+
+/* set default fill of svg path */
+.icon-button .button-icon {
+    -fx-fill: black;
+}
+
+/* set default fill of svg path */
+.icon-button:focused {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+/* remove default button style & set size */
+.icon-button {
+    -fx-background-color: transparent, transparent, transparent, transparent, transparent;
+    -fx-pref-height: 60;
+    -fx-pref-width: 60;
+    -fx-min-height: 60;
+    -fx-min-width: 60;
+    -fx-max-height: 60;
+    -fx-max-width: 60;
+}
+
+/* modify svg path fill for hovered/pressed button */
+.icon-button:pressed .button-icon {
+    -fx-fill: #444444;
+}
