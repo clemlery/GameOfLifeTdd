@@ -44,8 +44,8 @@ class Main : Application() {
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
 
-        view.viewGame.fixProgressBarControler(view.viewGame.getProgressBarById(NodeConfig.SLIDER_SPEED_ID),
-            ControlerSpeedSlider(view.viewGame, game))
+        view.viewGame.fixSliderControler(view.viewGame.getProgressBarById(NodeConfig.SLIDER_SPEED_ID),
+            ControlerSpeedSlider(game))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

@@ -5,7 +5,6 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.model.Grid
 import gameoflifetdd.view.ViewMain
 
 class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandler<ActionEvent> {
@@ -23,7 +22,6 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
                 val nbCells: Int = nbCellsTextField.text.toInt()
 
                 game.init(width, height, nbCells)
-                view.viewGame.calculCellPerfectShape(width, height)
             }
             NodeConfig.BUTTON_BACK_ID -> view.changeView(view.viewHome)
         }

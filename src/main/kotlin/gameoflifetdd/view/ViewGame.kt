@@ -8,7 +8,7 @@ import javafx.geometry.Pos
 import javafx.scene.Group
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
-import javafx.scene.input.DragEvent
+import javafx.beans.value.ChangeListener
 import javafx.scene.layout.*
 import javafx.scene.shape.SVGPath
 import kotlin.math.max
@@ -35,6 +35,8 @@ class ViewGame : BorderPane() {
 
     private val speedSlider = Slider().apply {
         id = NodeConfig.SLIDER_SPEED_ID
+        min = 20.0
+        max = 500.0
     }
 
     private val nbCellsSlider = Slider().apply {
@@ -69,6 +71,10 @@ class ViewGame : BorderPane() {
             padding = Insets(NodeConfig.GRID_PADDING)
         }
         right = rightContainer
+
+        widthProperty().addListener { _, _, newWidth ->
+            calculCellPerfectShape(gridCells.columnCount, gridCells.rowCount, newWidth.toDouble())
+        }
     }
 
     fun createIconButton(path: String, buttonId : String): Button {
@@ -117,8 +123,8 @@ class ViewGame : BorderPane() {
         buttonToFix.onAction = controler
     }
 
-    fun fixProgressBarControler(progressBarToFix : Slider, controler: EventHandler<DragEvent>) {
-        progressBarToFix.onDragDone = controler
+    fun fixSliderControler(sliderToFix: Slider, controler: ChangeListener<Number>) {
+        sliderToFix.valueProperty().addListener(controler)
     }
 
     fun changeNodeAt(col: Int, row: Int, newCell : CellUI) {
@@ -149,12 +155,9 @@ class ViewGame : BorderPane() {
         }
     }
 
-    fun calculCellPerfectShape(nbColumns: Int, nbRows: Int) {
-        println("BorderPane width ${this.width}")
-        println("BorderPane height ${this.height}")
-
-        cellPerfectHeight = (this.width / 2) / nbRows
-        cellPerfectWidth = (this.width / 2) / nbColumns
+    fun calculCellPerfectShape(nbColumns: Int, nbRows: Int, newWidth : Double) {
+        cellPerfectHeight = (newWidth / 2) / nbRows
+        cellPerfectWidth = (newWidth / 2) / nbColumns
     }
 
     fun getPerfectCellWidth() = cellPerfectWidth

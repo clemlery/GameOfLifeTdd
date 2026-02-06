@@ -1,13 +1,11 @@
 package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.view.ViewGame
-import javafx.event.EventHandler
-import javafx.scene.control.ProgressBar
-import javafx.scene.input.DragEvent
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 
-class ControlerSpeedSlider(val view: ViewGame, val game : GameEngine) : EventHandler<DragEvent> {
-    override fun handle(event: DragEvent?) {
-        game.setSpeed((event!!.source as ProgressBar).progress.toInt())
+class ControlerSpeedSlider(val game: GameEngine) : ChangeListener<Number> {
+    override fun changed(observable: ObservableValue<out Number>?, oldValue: Number?, newValue: Number?) {
+        newValue?.let { game.setSpeed(it.toInt()) }
     }
 }

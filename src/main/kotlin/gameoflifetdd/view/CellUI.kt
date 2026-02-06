@@ -4,7 +4,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 import gameoflifetdd.model.CellState
 
-class CellUI(cellState: CellState, val perfectWidth : Double, val perfectHeight : Double) : Rectangle() {
+class CellUI(cellState: CellState, val perfectWidth : Double, val perfectHeight : Double, val x : Int, val y : Int) : Rectangle() {
     init {
         val color = if (cellState == CellState.ALIVE) {
             Color.BLACK
@@ -13,5 +13,9 @@ class CellUI(cellState: CellState, val perfectWidth : Double, val perfectHeight 
         height = perfectHeight
         fill = color
         toBack()
+    }
+
+    fun updateCellColor() {
+        TODO()
     }
 }
