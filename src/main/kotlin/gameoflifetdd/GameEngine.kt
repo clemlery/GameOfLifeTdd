@@ -1,11 +1,11 @@
 package gameoflifetdd
 
+import gameoflifetdd.model.Cell
 import gameoflifetdd.model.Grid
 import gameoflifetdd.model.NextGenerationCalculator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.javafx.JavaFx
@@ -13,15 +13,19 @@ import kotlinx.coroutines.launch
 
 class GameEngine {
     private var nbCellsInit = 0
+    private val observers = mutableListOf<GameObserver>()
     private var grid = Grid()
     private val generationCalculator = NextGenerationCalculator()
-    private var gameSpeed = 16
+    private var gameSpeed = 250
     private lateinit var gameJob : Job
     private val gameScope = CoroutineScope(Dispatchers.JavaFx)
-    private val observers = mutableListOf<GameObserver>()
 
     fun addObserver(observer: GameObserver) {
         observers.add(observer)
+    }
+
+    private fun notifyInitObservers() {
+        observers.forEach { it.onGridInit(this) }
     }
 
     private fun notifyObservers() {
@@ -36,7 +40,7 @@ class GameEngine {
     fun init(gridWidth : Int, gridHeight : Int, numberOfCells : Int) {
         grid = Grid.ofAliveCellsRandom(numberOfCells, gridWidth, gridHeight)
         nbCellsInit = numberOfCells
-        notifyObservers()
+        notifyInitObservers()
     }
 
     fun start() {
@@ -59,7 +63,22 @@ class GameEngine {
 
     fun setSpeed(newSpeed : Int) {
         gameSpeed = newSpeed
+        if (::gameJob.isInitialized && gameJob.isActive) {
+            stop()
+            start()
+        }
     }
+
+    fun changeCellAt(x : Int, y : Int, newCell : Cell) {
+        grid.cells[x][y] = newCell
+        notifyObservers()
+    }
+
+    fun getCellAt(x: Int, y : Int) = grid.cells[x][y]
+
+    fun getGridWidth() = grid.width
+
+    fun getGridHeight() = grid.height
 
     fun import() {
         TODO()

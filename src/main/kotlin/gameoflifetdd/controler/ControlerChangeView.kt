@@ -5,7 +5,7 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.model.Grid
+import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewMain
 
 class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandler<ActionEvent> {

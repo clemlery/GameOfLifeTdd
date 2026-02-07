@@ -1,6 +1,5 @@
 package gameoflifetdd.view
 
-import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -8,25 +7,21 @@ import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Group
 import javafx.scene.control.Button
+import javafx.scene.control.Slider
+import javafx.beans.value.ChangeListener
 import javafx.scene.layout.*
 import javafx.scene.shape.SVGPath
 import kotlin.math.max
-
 
 class ViewGame : BorderPane() {
 
     private val gridCells = GridPane().apply {
         alignment = Pos.TOP_LEFT
-        background = Background(
-            BackgroundFill(
-                javafx.scene.paint.Color.WHITE,
-                CornerRadii.EMPTY,
-                Insets.EMPTY
-            )
-        )
         isGridLinesVisible = true
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
+
+    var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
 
     private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
@@ -40,6 +35,15 @@ class ViewGame : BorderPane() {
 
     private val exportButton = createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
+    private val speedSlider = Slider().apply {
+        id = NodeConfig.SLIDER_SPEED_ID
+        min = 20.0
+        max = 500.0
+    }
+
+    private val nbCellsSlider = Slider().apply {
+        id = NodeConfig.SLIDER_NB_CELLS_ID
+    }
 
     private val gridSettings = GridPane().apply {
         alignment = Pos.TOP_CENTER
@@ -49,22 +53,30 @@ class ViewGame : BorderPane() {
         add(regenerateButton, 0, 1)
         add(importButton, 1, 1)
         add(exportButton, 2, 1)
+        add(speedSlider, 0, 2, 3, 1)
         vgap = 80.0
         hgap = 80.0
     }
 
+    private var cellPerfectWidth = 0.0
+    private var cellPerfectHeight = 0.0
+
     init {
         val lefContainer = StackPane(gridCells).apply {
             padding = Insets(NodeConfig.GRID_PADDING)
+            prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
-            prefWidthProperty().bind(widthProperty().multiply(0.5))
         }
-        left = lefContainer
+        center = lefContainer
 
         val rightContainer = StackPane(gridSettings).apply {
             padding = Insets(NodeConfig.GRID_PADDING)
         }
         right = rightContainer
+
+        widthProperty().addListener { _, _, newWidth ->
+            calculCellPerfectShape(gridCells.columnCount, gridCells.rowCount, newWidth.toDouble())
+        }
     }
 
     fun createIconButton(path: String, buttonId : String): Button {
@@ -113,12 +125,20 @@ class ViewGame : BorderPane() {
         buttonToFix.onAction = controler
     }
 
-    fun changeNodeAt(col: Int, row: Int, newCell : CellUI) {
-        val nodeToRemove = gridCells.children.find { node ->
-            (GridPane.getColumnIndex(node) ?: 0) == col && (GridPane.getRowIndex(node) ?: 0) == row
+    fun fixSliderControler(sliderToFix: Slider, controler: ChangeListener<Number>) {
+        sliderToFix.valueProperty().addListener(controler)
+    }
+
+    fun addCellUIToGrid(x : Int, y : Int, cellToAdd : CellUI) {
+        gridCells.add(cellToAdd, x, y)
+    }
+
+    fun getProgressBarById(id: String) : Slider {
+        return when(id) {
+            NodeConfig.SLIDER_SPEED_ID -> speedSlider
+            NodeConfig.SLIDER_NB_CELLS_ID -> nbCellsSlider
+            else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
-        nodeToRemove?.let { gridCells.children.remove(it) }
-        gridCells.add(newCell, col, row)
     }
 
     fun getButtonById(id : String) : Button {
@@ -128,7 +148,19 @@ class ViewGame : BorderPane() {
             NodeConfig.BUTTON_BACK_ID -> backButton
             NodeConfig.BUTTON_REGEN_ID -> regenerateButton
             NodeConfig.BUTTON_IMPORT_ID -> importButton
-            else -> exportButton
+            NodeConfig.BUTTON_EXPORT_ID -> exportButton
+            else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
     }
+
+    fun calculCellPerfectShape(nbColumns: Int, nbRows: Int, newWidth : Double) {
+        cellPerfectHeight = (newWidth / 2) / nbRows
+        cellPerfectWidth = (newWidth / 2) / nbColumns
+    }
+
+    fun getPerfectCellWidth() = cellPerfectWidth
+
+    fun getPerfectCellHeight() = cellPerfectHeight
+
+
 }
