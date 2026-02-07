@@ -7,6 +7,7 @@ import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.controler.ControlerChangeView
 import gameoflifetdd.controler.ControlerFeatureGameButton
+import gameoflifetdd.controler.ControlerNbCellsSlider
 import gameoflifetdd.controler.ControlerSpeedSlider
 import gameoflifetdd.controler.GameEngineSubscriber
 import gameoflifetdd.view.ViewMain
@@ -44,8 +45,12 @@ class Main : Application() {
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
 
-        view.viewGame.fixSliderControler(view.viewGame.getProgressBarById(NodeConfig.SLIDER_SPEED_ID),
+        view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_SPEED_ID),
             ControlerSpeedSlider(game))
+
+        view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_NB_CELLS_ID),
+            ControlerNbCellsSlider(game))
+
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

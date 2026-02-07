@@ -69,6 +69,10 @@ class GameEngine {
         }
     }
 
+    fun setNbCellsInit(newNbCells : Int) {
+        nbCellsInit = newNbCells
+    }
+
     fun changeCellAt(x : Int, y : Int, newCell : Cell) {
         grid.cells[x][y] = newCell
         notifyObservers()

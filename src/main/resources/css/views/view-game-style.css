@@ -30,3 +30,8 @@ Retrieved 2026-02-05, License - CC BY-SA 4.0
 .icon-button:pressed .button-icon {
     -fx-fill: #444444;
 }
+
+.icon-button:hover, .button-icon:hover {
+    -fx-border-color: black;
+    -fx-border-radius: 5.0;
+}

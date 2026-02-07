@@ -29,6 +29,7 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
         }
         view.cellsMatrixUI = cellsMatrix.toTypedArray()
         view.updateCellsShape(view.width)
+        view.setSliderNbCellsMax((gridWidth * gridHeight) * 0.75)
     }
 
     override fun onGridChanged(grid: Grid) {
