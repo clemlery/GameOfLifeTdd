@@ -21,7 +21,7 @@ class ViewGame : BorderPane() {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
 
-    private val cellsUI : Array<Array<CellUI>> = arrayOf()
+    var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
 
     private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
@@ -129,12 +129,8 @@ class ViewGame : BorderPane() {
         sliderToFix.valueProperty().addListener(controler)
     }
 
-    fun changeNodeAt(col: Int, row: Int, newCell : CellUI) {
-        val nodeToRemove = gridCells.children.find { node ->
-            (GridPane.getColumnIndex(node) ?: 0) == col && (GridPane.getRowIndex(node) ?: 0) == row
-        }
-        nodeToRemove?.let { gridCells.children.remove(it) }
-        gridCells.add(newCell, col, row)
+    fun addCellUIToGrid(x : Int, y : Int, cellToAdd : CellUI) {
+        gridCells.add(cellToAdd, x, y)
     }
 
     fun getProgressBarById(id: String) : Slider {
@@ -165,4 +161,6 @@ class ViewGame : BorderPane() {
     fun getPerfectCellWidth() = cellPerfectWidth
 
     fun getPerfectCellHeight() = cellPerfectHeight
+
+
 }

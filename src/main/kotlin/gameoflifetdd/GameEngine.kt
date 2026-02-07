@@ -24,6 +24,10 @@ class GameEngine {
         observers.add(observer)
     }
 
+    private fun notifyInitObservers() {
+        observers.forEach { it.onGridInit(this) }
+    }
+
     private fun notifyObservers() {
         observers.forEach { it.onGridChanged(grid) }
     }
@@ -36,7 +40,7 @@ class GameEngine {
     fun init(gridWidth : Int, gridHeight : Int, numberOfCells : Int) {
         grid = Grid.ofAliveCellsRandom(numberOfCells, gridWidth, gridHeight)
         nbCellsInit = numberOfCells
-        notifyObservers()
+        notifyInitObservers()
     }
 
     fun start() {
