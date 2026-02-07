@@ -21,6 +21,8 @@ class ViewGame : BorderPane() {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
 
+    private val cellsUI : Array<Array<CellUI>> = arrayOf()
+
     private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
     private val runButton = createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)

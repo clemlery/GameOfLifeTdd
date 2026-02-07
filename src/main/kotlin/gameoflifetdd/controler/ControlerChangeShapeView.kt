@@ -10,8 +10,7 @@ import javafx.event.EventHandler
 class ControlerChangeShapeView(val view : ViewGame, val game : GameEngine) : ChangeListener<Number> {
 
     override fun changed(p0: ObservableValue<out Number?>?, p1: Number?, newWidth: Number?) {
-        val currentGrid = game.getGrid()
-        view.calculCellPerfectShape(currentGrid.width, currentGrid.height, 0.0)
+        view.calculCellPerfectShape(game.getGridWidth(), game.getGridHeight(), 0.0)
     }
 }
 

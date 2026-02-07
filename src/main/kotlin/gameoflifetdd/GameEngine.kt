@@ -72,6 +72,10 @@ class GameEngine {
 
     fun getCellAt(x: Int, y : Int) = grid.cells[x][y]
 
+    fun getGridWidth() = grid.width
+
+    fun getGridHeight() = grid.height
+
     fun import() {
         TODO()
     }
