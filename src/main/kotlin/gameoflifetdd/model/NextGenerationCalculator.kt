@@ -1,6 +1,6 @@
 package gameoflifetdd.model
 
-class NextGenerationCalculator {
+class  NextGenerationCalculator {
 
     fun next(grid: Grid): Grid {
 
