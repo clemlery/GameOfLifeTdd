@@ -1,5 +1,6 @@
 package gameoflifetdd.view
 
+import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -9,6 +10,7 @@ import javafx.scene.Group
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
+import javafx.scene.control.Label
 import javafx.scene.layout.*
 import javafx.scene.shape.SVGPath
 import kotlin.math.max
@@ -23,6 +25,8 @@ class ViewGame : BorderPane() {
 
     var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
 
+    private var leftContainer = StackPane()
+
     private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
     private val runButton = createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
@@ -35,12 +39,18 @@ class ViewGame : BorderPane() {
 
     private val exportButton = createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
+    private val speedLabel = Label("Speed").apply {
+        font = AppConfig.TEXT_FONT
+    }
     private val speedSlider = Slider().apply {
         id = NodeConfig.SLIDER_SPEED_ID
         min = 20.0
         max = 500.0
     }
 
+    private val nbCellsLabel = Label("Number of cells").apply {
+        font = AppConfig.TEXT_FONT
+    }
     private val nbCellsSlider = Slider().apply {
         id = NodeConfig.SLIDER_NB_CELLS_ID
     }
@@ -53,21 +63,19 @@ class ViewGame : BorderPane() {
         add(regenerateButton, 0, 1)
         add(importButton, 1, 1)
         add(exportButton, 2, 1)
-        add(speedSlider, 0, 2, 3, 1)
+        add(VBox(speedLabel, speedSlider), 0, 2, 3, 1)
+        add(VBox(nbCellsLabel, nbCellsSlider), 0, 3, 3, 1)
         vgap = 80.0
         hgap = 80.0
     }
 
-    private var cellPerfectWidth = 0.0
-    private var cellPerfectHeight = 0.0
-
     init {
-        val lefContainer = StackPane(gridCells).apply {
+        leftContainer = StackPane(gridCells).apply {
             padding = Insets(NodeConfig.GRID_PADDING)
             prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
         }
-        center = lefContainer
+        center = leftContainer
 
         val rightContainer = StackPane(gridSettings).apply {
             padding = Insets(NodeConfig.GRID_PADDING)
@@ -75,7 +83,7 @@ class ViewGame : BorderPane() {
         right = rightContainer
 
         widthProperty().addListener { _, _, newWidth ->
-            calculCellPerfectShape(gridCells.columnCount, gridCells.rowCount, newWidth.toDouble())
+            updateCellsShape(newWidth.toDouble())
         }
     }
 
@@ -133,7 +141,7 @@ class ViewGame : BorderPane() {
         gridCells.add(cellToAdd, x, y)
     }
 
-    fun getProgressBarById(id: String) : Slider {
+    fun getSliderById(id: String) : Slider {
         return when(id) {
             NodeConfig.SLIDER_SPEED_ID -> speedSlider
             NodeConfig.SLIDER_NB_CELLS_ID -> nbCellsSlider
@@ -153,14 +161,26 @@ class ViewGame : BorderPane() {
         }
     }
 
-    fun calculCellPerfectShape(nbColumns: Int, nbRows: Int, newWidth : Double) {
-        cellPerfectHeight = (newWidth / 2) / nbRows
-        cellPerfectWidth = (newWidth / 2) / nbColumns
+    fun updateCellsShape(width: Double) {
+        val cellsMatrixUIWidth = cellsMatrixUI.size
+        val cellsMatrixUIHeight = cellsMatrixUI[0].size
+        for (x in 0 until cellsMatrixUIWidth) {
+            for (y in 0 until cellsMatrixUIHeight) {
+                cellsMatrixUI[x][y].updateShape(
+                    (width / 2) / cellsMatrixUIWidth,
+                    (width / 2) / cellsMatrixUIHeight
+                )
+            }
+        }
     }
 
-    fun getPerfectCellWidth() = cellPerfectWidth
+    fun setSliderNbCellsMax(max: Double) {
+        nbCellsSlider.max = max
+    }
 
-    fun getPerfectCellHeight() = cellPerfectHeight
-
-
+    fun clearGrid() {
+        if (gridCells.children.isNotEmpty()) {
+            gridCells.children.clear()
+        }
+    }
 }
