@@ -11,6 +11,8 @@ import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
+import javafx.scene.input.DragEvent
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
 import javafx.scene.shape.SVGPath
 import kotlin.math.max
@@ -137,9 +139,15 @@ class ViewGame : BorderPane() {
         sliderToFix.valueProperty().addListener(controler)
     }
 
+    fun fixGridPaneControler(gridPaneToFix: GridPane, controler: EventHandler<MouseEvent>) {
+        gridPaneToFix.onMouseDragged = controler
+    }
+
     fun addCellUIToGrid(x : Int, y : Int, cellToAdd : CellUI) {
         gridCells.add(cellToAdd, x, y)
     }
+
+    fun getGridCells() = gridCells
 
     fun getSliderById(id: String) : Slider {
         return when(id) {
