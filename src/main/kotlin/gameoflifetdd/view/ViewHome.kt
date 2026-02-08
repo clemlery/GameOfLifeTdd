@@ -16,7 +16,7 @@ import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.scene.layout.Background
 
-class ViewHome : StackPane() {
+class ViewHome() : StackPane() {
 
     private val mainPage = BorderPane()
     private val title = Label("Game Of Life").apply {
@@ -68,6 +68,7 @@ class ViewHome : StackPane() {
         id = NodeConfig.BUTTON_START_ID
         minHeight = 40.0
         maxWidth = NodeConfig.BUTTON_MAX_WIDTH
+        styleClass.add(NodeConfig.BUTTON_STANDARD_CSS_CLASS)
     }
 
     init {

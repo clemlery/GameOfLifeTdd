@@ -17,7 +17,7 @@ import javafx.scene.layout.*
 import javafx.scene.shape.SVGPath
 import kotlin.math.max
 
-class ViewGame : BorderPane() {
+class ViewGame() : BorderPane() {
 
     private val gridCells = GridPane().apply {
         alignment = Pos.TOP_LEFT
@@ -29,17 +29,17 @@ class ViewGame : BorderPane() {
 
     private var leftContainer = StackPane()
 
-    private val stopButton = createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
+    private val stopButton = Util.createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
-    private val runButton = createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
+    private val runButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
 
-    private val backButton = createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
+    private val backButton = Util.createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
 
-    private val regenerateButton = createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
+    private val regenerateButton = Util.createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
 
-    private val importButton = createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
+    private val importButton = Util.createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val exportButton = createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
+    private val exportButton = Util.createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
     private val speedLabel = Label("Speed").apply {
         font = AppConfig.TEXT_FONT
@@ -88,48 +88,6 @@ class ViewGame : BorderPane() {
             updateCellsShape(newWidth.toDouble())
         }
     }
-
-    fun createIconButton(path: String, buttonId : String): Button {
-
-        val svgText = javaClass
-            .getResource(path)
-            ?.readText()
-            ?: error("SVG not found: $path")
-
-        val paths = Regex("d=\"([^\"]+)\"")
-            .findAll(svgText)
-            .map { match -> match.groupValues[1] }
-            .toList()
-
-        val svgNodes = paths.map { d ->
-            SVGPath().apply {
-                content = d
-                styleClass.add("button-icon")
-            }
-        }
-
-        val group = Group().apply {
-            children.addAll(svgNodes)
-        }
-
-        val bounds = group.boundsInLocal
-
-        val scaleFactor = 40 / max(bounds.width, bounds.height)
-
-        group.scaleX = scaleFactor
-        group.scaleY = scaleFactor
-
-        val button = Button().apply {
-            isPickOnBounds = true
-            graphic = group
-            alignment = Pos.CENTER
-            styleClass.add("icon-button")
-            id = buttonId
-        }
-
-        return button
-    }
-
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
         buttonToFix.onAction = controler

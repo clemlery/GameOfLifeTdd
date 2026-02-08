@@ -12,6 +12,8 @@ class NodeConfig {
         const val MAIN_VIEW_CSS_CLASS = "main-container"
 
         // VIEW HOME
+        const val BUTTON_STANDARD_CSS_CLASS = "button-standard"
+
         const val BUTTON_START_ID = "start-game-button"
         const val BUTTON_BACK_ID = "back-home-button"
 
@@ -30,9 +32,6 @@ class NodeConfig {
                 Insets.EMPTY
             )
         )
-        const val TEXT_FIELDS_BORDER_RADIUS = 5
-
-        val INPUT_LABELS = arrayOf("Grid Width", "Grid Height", "Number Of Cells")
 
         // VIEW GAME
 
@@ -47,5 +46,10 @@ class NodeConfig {
 
         const val SLIDER_SPEED_ID = "game-progress-bar-speed-id"
         const val SLIDER_NB_CELLS_ID = "game-progress-bar-nb-cells-id"
+
+        // TOP BAR
+
+        const val BUTTON_CLOSE_ID = "top-bar-button-close"
+        const val BUTTON_SETTINGS_ID = "top-bar-button-settings"
     }
 }

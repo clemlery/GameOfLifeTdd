@@ -10,13 +10,20 @@ import gameoflifetdd.controler.ControlerFeatureGameButton
 import gameoflifetdd.controler.ControlerNbCellsSlider
 import gameoflifetdd.controler.ControlerOnCellDragHold
 import gameoflifetdd.controler.ControlerSpeedSlider
+import gameoflifetdd.controler.ControlerTopBarButton
 import gameoflifetdd.controler.GameEngineSubscriber
+import gameoflifetdd.view.TopBar
 import gameoflifetdd.view.ViewMain
 
 class Main : Application() {
 
     override fun start(stage: Stage) {
-        val view = ViewMain()
+        val topBar = TopBar()
+
+        topBar.fixButtonControler(topBar.getButtonById(NodeConfig.BUTTON_CLOSE_ID), ControlerTopBarButton())
+        topBar.fixButtonControler(topBar.getButtonById(NodeConfig.BUTTON_SETTINGS_ID), ControlerTopBarButton())
+
+        val view = ViewMain(topBar)
 
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
 
@@ -36,6 +43,7 @@ class Main : Application() {
 
         val game = GameEngine()
         game.addObserver(GameEngineSubscriber(view.viewGame))
+
 
         view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_BACK_ID), ControlerChangeView(view, game))

@@ -5,7 +5,6 @@ import gameoflifetdd.model.Cell
 import gameoflifetdd.model.CellState
 import gameoflifetdd.view.ViewGame
 import javafx.event.EventHandler
-import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import kotlin.math.floor
 
