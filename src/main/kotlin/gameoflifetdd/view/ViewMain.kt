@@ -2,9 +2,9 @@ package gameoflifetdd.view
 
 import gameoflifetdd.config.NodeConfig
 import javafx.scene.Node
-import javafx.scene.layout.StackPane
+import javafx.scene.layout.VBox
 
-class ViewMain(val topBar: TopBar) : StackPane() {
+class ViewMain(val topBar: TopBar) : VBox() {
     var viewHome = ViewHome()
     var viewGame = ViewGame()
 

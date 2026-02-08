@@ -73,7 +73,6 @@ class ViewGame() : BorderPane() {
 
     init {
         leftContainer = StackPane(gridCells).apply {
-            padding = Insets(NodeConfig.GRID_PADDING)
             prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
         }

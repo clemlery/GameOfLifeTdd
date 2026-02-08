@@ -105,7 +105,8 @@ class ViewHome() : StackPane() {
 
         BorderPane.setAlignment(title, Pos.CENTER)
         BorderPane.setAlignment(startButton, Pos.CENTER)
-
+        BorderPane.setMargin(gridInput, Insets(100.0, 0.0, 0.0, 0.0))
+        BorderPane.setMargin(startButton,Insets(150.0, 0.0, 0.0, 0.0))
         this.children.add(mainPage)
     }
 
