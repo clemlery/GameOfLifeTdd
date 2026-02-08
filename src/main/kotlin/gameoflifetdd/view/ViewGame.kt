@@ -20,7 +20,7 @@ import kotlin.math.max
 class ViewGame() : BorderPane() {
 
     private val gridCells = GridPane().apply {
-        alignment = Pos.TOP_LEFT
+        alignment = Pos.CENTER
         isGridLinesVisible = true
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
     }
@@ -83,9 +83,11 @@ class ViewGame() : BorderPane() {
         }
         right = rightContainer
 
-        widthProperty().addListener { _, _, newWidth ->
+        heightProperty().addListener { _, _, newWidth ->
             updateCellsShape(newWidth.toDouble())
         }
+
+        StackPane.setMargin(leftContainer, Insets(60.0, 0.0, 0.0, 100.0))
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -132,8 +134,8 @@ class ViewGame() : BorderPane() {
         for (x in 0 until cellsMatrixUIWidth) {
             for (y in 0 until cellsMatrixUIHeight) {
                 cellsMatrixUI[x][y].updateShape(
-                    (width / 2) / cellsMatrixUIWidth,
-                    (width / 2) / cellsMatrixUIHeight
+                    width / cellsMatrixUIWidth,
+                    width / cellsMatrixUIHeight
                 )
             }
         }
