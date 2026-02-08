@@ -12,8 +12,6 @@ class CellUI(cellState: CellState, val x : Int, val y : Int) : Rectangle() {
         val color = if (cellState == CellState.ALIVE) {
             Color.BLACK
         } else Color.WHITE
-
-
         fill = color
         toBack()
     }
