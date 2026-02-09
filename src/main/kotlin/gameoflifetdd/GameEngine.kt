@@ -24,6 +24,10 @@ class GameEngine {
         observers.add(observer)
     }
 
+    fun removeObserver() {
+        observers.removeFirst()
+    }
+
     private fun notifyInitObservers() {
         observers.forEach { it.onGridInit(this) }
     }
