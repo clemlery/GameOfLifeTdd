@@ -9,11 +9,18 @@ import javafx.scene.control.Button
 
 class ControlerFeatureGameButton(val view : ViewGame, val game : GameEngine) : EventHandler<ActionEvent> {
 
+    var toggle = false
+
     override fun handle(event: ActionEvent?) {
         val buttonId = (event!!.source as Button).id
         when (buttonId) {
-            NodeConfig.BUTTON_STOP_ID -> game.stop()
-            NodeConfig.BUTTON_RUN_ID -> game.start()
+            NodeConfig.BUTTON_CONTINUE_ID -> {
+                if (toggle) game.stop()
+                else game.start()
+                toggle = !toggle
+                view.toggleIcon(toggle)
+            }
+            NodeConfig.BUTTON_CLEAR_ID -> game.clear()
             NodeConfig.BUTTON_REGEN_ID -> game.regenerate()
             NodeConfig.BUTTON_IMPORT_ID -> game.import()
             NodeConfig.BUTTON_EXPORT_ID -> game.export()

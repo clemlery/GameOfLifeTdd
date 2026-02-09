@@ -6,16 +6,12 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.Group
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
-import javafx.scene.input.DragEvent
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
-import javafx.scene.shape.SVGPath
-import kotlin.math.max
 
 class ViewGame() : BorderPane() {
 
@@ -29,13 +25,14 @@ class ViewGame() : BorderPane() {
 
     private var leftContainer = StackPane()
 
-    private val stopButton = Util.createIconButton("/icons/stop.svg", NodeConfig.BUTTON_STOP_ID)
 
-    private val runButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_RUN_ID)
+    private var continueButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
 
-    private val backButton = Util.createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
+    private val clearButton = Util.createIconButton("/icons/clear.svg", NodeConfig.BUTTON_CLEAR_ID)
 
     private val regenerateButton = Util.createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
+
+    private val backButton = Util.createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
 
     private val importButton = Util.createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
@@ -59,10 +56,10 @@ class ViewGame() : BorderPane() {
 
     private val gridSettings = GridPane().apply {
         alignment = Pos.TOP_CENTER
-        add(stopButton, 0, 0)
-        add(runButton, 1, 0)
-        add(backButton, 2, 0)
-        add(regenerateButton, 0, 1)
+        add(continueButton, 0, 0)
+        add(clearButton, 1, 0)
+        add(regenerateButton, 2, 0)
+        add(backButton, 0, 1)
         add(importButton, 1, 1)
         add(exportButton, 2, 1)
         add(VBox(speedLabel, speedSlider), 0, 2, 3, 1)
@@ -128,10 +125,10 @@ class ViewGame() : BorderPane() {
 
     fun getButtonById(id : String) : Button {
         return when (id) {
-            NodeConfig.BUTTON_STOP_ID -> stopButton
-            NodeConfig.BUTTON_RUN_ID -> runButton
-            NodeConfig.BUTTON_BACK_ID -> backButton
+            NodeConfig.BUTTON_CONTINUE_ID -> continueButton
+            NodeConfig.BUTTON_CLEAR_ID -> clearButton
             NodeConfig.BUTTON_REGEN_ID -> regenerateButton
+            NodeConfig.BUTTON_BACK_ID -> backButton
             NodeConfig.BUTTON_IMPORT_ID -> importButton
             NodeConfig.BUTTON_EXPORT_ID -> exportButton
             else -> throw IllegalArgumentException("Id : $id doesn't exist")
@@ -164,6 +161,14 @@ class ViewGame() : BorderPane() {
     fun clearGrid() {
         if (gridCells.children.isNotEmpty()) {
             gridCells.children.clear()
+        }
+    }
+
+    fun toggleIcon(state: Boolean) {
+        continueButton = if (state) {
+            Util.changeButtonIcon("/icons/stop.svg", continueButton)
+        } else {
+            Util.changeButtonIcon("/icons/run.svg", continueButton)
         }
     }
 }
