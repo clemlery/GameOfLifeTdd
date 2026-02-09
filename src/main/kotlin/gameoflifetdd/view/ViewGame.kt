@@ -73,8 +73,19 @@ class ViewGame() : BorderPane() {
 
     init {
         leftContainer = StackPane(gridCells).apply {
+            alignment = Pos.CENTER
             prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
+            maxWidthProperty().bind(
+                this@ViewGame.heightProperty()
+                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
+                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
+            )
+            maxHeightProperty().bind(
+                this@ViewGame.heightProperty()
+                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
+                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
+            )
         }
         center = leftContainer
 
@@ -83,11 +94,10 @@ class ViewGame() : BorderPane() {
         }
         right = rightContainer
 
-        heightProperty().addListener { _, _, newWidth ->
-            updateCellsShape(newWidth.toDouble())
-        }
-
-        StackPane.setMargin(leftContainer, Insets(60.0, 0.0, 0.0, 100.0))
+        setMargin(center, Insets(
+            NodeConfig.GRID_CELLS_UP_MARGIN,
+            0.0, 0.0,
+            NodeConfig.GRID_CELLS_LEFT_MARGIN))
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -128,14 +138,20 @@ class ViewGame() : BorderPane() {
         }
     }
 
-    fun updateCellsShape(width: Double) {
+    fun updateCellsShape(height: Double) {
         val cellsMatrixUIWidth = cellsMatrixUI.size
         val cellsMatrixUIHeight = cellsMatrixUI[0].size
+        val newWidth = height / cellsMatrixUIWidth
+        val newHeight = height / cellsMatrixUIHeight
+        println("ViewGame Height : $height")
+        println("Cell newWidth : $newWidth")
+        println("Cell newHeight : $newHeight")
+
         for (x in 0 until cellsMatrixUIWidth) {
             for (y in 0 until cellsMatrixUIHeight) {
                 cellsMatrixUI[x][y].updateShape(
-                    width / cellsMatrixUIWidth,
-                    width / cellsMatrixUIHeight
+                    newWidth,
+                    newHeight
                 )
             }
         }

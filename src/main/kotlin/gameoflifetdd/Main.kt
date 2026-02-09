@@ -37,6 +37,7 @@ class Main : Application() {
             view.viewGame.stylesheets.add(
                 javaClass.getResource("/css/views/view-game-style.css")!!.toExternalForm()
             )
+
         } catch (e: Exception) {
             throw e
         }
