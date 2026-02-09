@@ -56,6 +56,11 @@ class GameEngine {
         gameJob.cancel()
     }
 
+    fun clear() {
+        grid = Grid.empty(grid.width, grid.height)
+        notifyObservers()
+    }
+
     private fun tick() {
         grid = generationCalculator.next(grid)
         notifyObservers()

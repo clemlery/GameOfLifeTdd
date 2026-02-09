@@ -5,6 +5,7 @@ import gameoflifetdd.GameObserver
 import gameoflifetdd.model.Grid
 import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewGame
+import javafx.application.Platform
 
 class GameEngineSubscriber(val view: ViewGame) : GameObserver{
 
@@ -28,7 +29,9 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
             cellsMatrix.add(newCellsColumn.toTypedArray())
         }
         view.cellsMatrixUI = cellsMatrix.toTypedArray()
-        view.updateCellsShape(view.width)
+        Platform.runLater {
+            view.updateCellsShape(view.height)
+        }
         view.setSliderNbCellsMax((gridWidth * gridHeight) * 0.75)
     }
 

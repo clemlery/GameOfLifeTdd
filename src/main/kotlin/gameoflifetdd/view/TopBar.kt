@@ -1,8 +1,11 @@
 package gameoflifetdd.view
 
+import com.sun.prism.paint.Color
+import com.sun.prism.paint.Paint
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
+import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.HBox
@@ -13,11 +16,12 @@ class TopBar : HBox() {
     private val settingsButton = Util.createIconButton("/icons/settings.svg", NodeConfig.BUTTON_SETTINGS_ID)
 
     init {
-        this.children.addAll(
+        children.addAll(
             settingsButton,
                     closeButton
         )
         alignment = Pos.TOP_RIGHT
+        styleClass.add("topbar")
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {

@@ -7,8 +7,7 @@ import javafx.scene.shape.SVGPath
 import kotlin.math.max
 
 object Util {
-    fun createIconButton(path: String, buttonId : String?): Button {
-
+    fun getIconGroup(path : String) : Group {
         val svgText = javaClass
             .getResource(path)
             ?.readText()
@@ -37,6 +36,13 @@ object Util {
         group.scaleX = scaleFactor
         group.scaleY = scaleFactor
 
+        return group
+    }
+
+    fun createIconButton(path: String, buttonId : String?): Button {
+
+        val group = getIconGroup(path)
+
         val button = Button().apply {
             isPickOnBounds = true
             graphic = group
@@ -46,5 +52,13 @@ object Util {
         }
 
         return button
+    }
+
+    fun changeButtonIcon(path : String, button: Button) : Button {
+        val group = getIconGroup(path)
+
+        return button.apply {
+            graphic = group
+        }
     }
 }

@@ -38,8 +38,8 @@ class NodeConfig {
         const val GRID_PADDING = 80.0
         const val GRID_CELLS_CSS_CLASS = "grid-cells"
 
-        const val BUTTON_STOP_ID = "game-button-stop-id"
-        const val BUTTON_RUN_ID = "game-button-run-id"
+        const val BUTTON_CONTINUE_ID = "game-button-continue-id"
+        const val BUTTON_CLEAR_ID = "game-button-clear-id"
         const val BUTTON_IMPORT_ID = "game-button-import-id"
         const val BUTTON_EXPORT_ID = "game-button-export-id"
         const val BUTTON_REGEN_ID = "game-button-regen-id"
@@ -47,9 +47,14 @@ class NodeConfig {
         const val SLIDER_SPEED_ID = "game-progress-bar-speed-id"
         const val SLIDER_NB_CELLS_ID = "game-progress-bar-nb-cells-id"
 
+        const val GRID_CELLS_UP_MARGIN = 60.0
+        const val GRID_CELLS_LEFT_MARGIN = 100.0
+
         // TOP BAR
 
         const val BUTTON_CLOSE_ID = "top-bar-button-close"
         const val BUTTON_SETTINGS_ID = "top-bar-button-settings"
+
+        const val BUTTONS_WIDTH = 60.0
     }
 }

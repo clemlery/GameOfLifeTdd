@@ -37,6 +37,7 @@ class Main : Application() {
             view.viewGame.stylesheets.add(
                 javaClass.getResource("/css/views/view-game-style.css")!!.toExternalForm()
             )
+
         } catch (e: Exception) {
             throw e
         }
@@ -48,8 +49,8 @@ class Main : Application() {
         view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_BACK_ID), ControlerChangeView(view, game))
 
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_STOP_ID), ControlerFeatureGameButton(view.viewGame, game))
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_RUN_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CONTINUE_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CLEAR_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_REGEN_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
