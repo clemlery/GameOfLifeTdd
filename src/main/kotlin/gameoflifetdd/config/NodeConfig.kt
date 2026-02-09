@@ -56,5 +56,12 @@ class NodeConfig {
         const val BUTTON_SETTINGS_ID = "top-bar-button-settings"
 
         const val BUTTONS_WIDTH = 60.0
+
+        // BACKGROUND GAME OF LIFE
+
+        const val CELL_RECT_WIDTH = 50.0
+        const val CELL_RECT_HEIGHT = 50.0
+        const val BACKGROUND_GRID_WIDTH = 50
+        const val BACKGROUND_GRID_HEIGHT = 50
     }
 }

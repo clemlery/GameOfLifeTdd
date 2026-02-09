@@ -2,24 +2,30 @@ package gameoflifetdd.view
 
 import gameoflifetdd.config.NodeConfig
 import javafx.scene.Node
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
-class ViewMain(val topBar: TopBar) : VBox() {
+class ViewMain() : StackPane() {
+
     var viewHome = ViewHome()
     var viewGame = ViewGame()
+    val topBar = TopBar()
+    val background = BackgroundGameOfLife()
+
+    val mainContainer = VBox(
+        topBar,
+        viewHome
+    )
 
     init {
-        this.children.add(topBar)
-        this.children.add(viewHome)
-        this.styleClass.add(NodeConfig.MAIN_VIEW_CSS_CLASS)
-        topBar.stylesheets.add(
-            javaClass.getResource("/css/global.css")!!.toExternalForm()
-        )
+        children.add(background)
+        children.add(mainContainer)
+        styleClass.add(NodeConfig.MAIN_VIEW_CSS_CLASS)
     }
 
     fun changeView(newView : Node) {
-        this.children.clear()
-        this.children.add(topBar)
-        this.children.add(newView)
+        mainContainer.children.clear()
+        mainContainer.children.add(topBar)
+        mainContainer.children.add(newView)
     }
 }

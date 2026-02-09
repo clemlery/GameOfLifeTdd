@@ -5,7 +5,7 @@
 }
 
 .main-container {
-    -fx-background-color: -scene-background-color;
+    -fx-background-color: transparent;
 }
 
 /*

@@ -12,18 +12,15 @@ import gameoflifetdd.controler.ControlerOnCellDragHold
 import gameoflifetdd.controler.ControlerSpeedSlider
 import gameoflifetdd.controler.ControlerTopBarButton
 import gameoflifetdd.controler.GameEngineSubscriber
+import gameoflifetdd.controler.GameEngineSubscriberBackground
 import gameoflifetdd.view.TopBar
 import gameoflifetdd.view.ViewMain
 
 class Main : Application() {
 
     override fun start(stage: Stage) {
-        val topBar = TopBar()
 
-        topBar.fixButtonControler(topBar.getButtonById(NodeConfig.BUTTON_CLOSE_ID), ControlerTopBarButton())
-        topBar.fixButtonControler(topBar.getButtonById(NodeConfig.BUTTON_SETTINGS_ID), ControlerTopBarButton())
-
-        val view = ViewMain(topBar)
+        val view = ViewMain()
 
         val scene = Scene(view, AppConfig.INITIAL_WIDTH, AppConfig.INITIAL_HEIGHT)
 
@@ -37,14 +34,17 @@ class Main : Application() {
             view.viewGame.stylesheets.add(
                 javaClass.getResource("/css/views/view-game-style.css")!!.toExternalForm()
             )
-
         } catch (e: Exception) {
             throw e
         }
 
         val game = GameEngine()
-        game.addObserver(GameEngineSubscriber(view.viewGame))
+        game.addObserver(GameEngineSubscriberBackground(view.background))
+        game.init(50, 50, 500)
+        game.start()
 
+        view.topBar.fixButtonControler(view.topBar.getButtonById(NodeConfig.BUTTON_CLOSE_ID), ControlerTopBarButton())
+        view.topBar.fixButtonControler(view.topBar.getButtonById(NodeConfig.BUTTON_SETTINGS_ID), ControlerTopBarButton())
 
         view.viewHome.fixButtonControler(view.viewHome.getStartButton(), ControlerChangeView(view, game))
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_BACK_ID), ControlerChangeView(view, game))
