@@ -19,6 +19,7 @@ class ViewGame() : BorderPane() {
         alignment = Pos.CENTER
         isGridLinesVisible = true
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
+        toFront()
     }
 
     var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
