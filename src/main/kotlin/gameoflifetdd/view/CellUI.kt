@@ -13,7 +13,6 @@ class CellUI(cellState: CellState, val x : Int, val y : Int) : Rectangle() {
             Color.BLACK
         } else Color.WHITE
         fill = color
-        toBack()
     }
 
     fun updateColor(newState: CellState) {

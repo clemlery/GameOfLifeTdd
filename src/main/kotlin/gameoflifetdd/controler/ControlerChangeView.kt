@@ -7,6 +7,11 @@ import javafx.scene.control.Button
 import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewMain
+import javafx.geometry.Insets
+import javafx.scene.layout.Background
+import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.CornerRadii
+import javafx.scene.paint.Color
 
 class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandler<ActionEvent> {
     override fun handle(event: ActionEvent?) {
@@ -22,8 +27,9 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
                 val height: Int = heightTextField.text.toInt()
                 val nbCells: Int = nbCellsTextField.text.toInt()
 
-                game.addObserver(GameEngineSubscriber(view.viewGame))
                 game.removeObserver()
+                game.addObserver(GameEngineSubscriber(view.viewGame))
+                view.background.clearCanvas()
                 game.init(width, height, nbCells)
             }
             NodeConfig.BUTTON_BACK_ID -> view.changeView(view.viewHome)

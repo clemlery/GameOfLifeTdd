@@ -140,9 +140,6 @@ class ViewGame() : BorderPane() {
         val cellsMatrixUIHeight = cellsMatrixUI[0].size
         val newWidth = height / cellsMatrixUIWidth
         val newHeight = height / cellsMatrixUIHeight
-        println("ViewGame Height : $height")
-        println("Cell newWidth : $newWidth")
-        println("Cell newHeight : $newHeight")
 
         for (x in 0 until cellsMatrixUIWidth) {
             for (y in 0 until cellsMatrixUIHeight) {
