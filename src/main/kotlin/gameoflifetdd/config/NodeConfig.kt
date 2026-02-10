@@ -10,6 +10,7 @@ class NodeConfig {
     companion object {
         // VIEW MAIN
         const val MAIN_VIEW_CSS_CLASS = "main-container"
+        val COLOR_BACKGROUND = Color.web("#D9D9D9")
 
         // VIEW HOME
         const val BUTTON_STANDARD_CSS_CLASS = "button-standard"
@@ -34,6 +35,14 @@ class NodeConfig {
         )
 
         // VIEW GAME
+
+        val VIEW_GAME_BACKGROUND : Background = Background(
+            BackgroundFill(
+                COLOR_BACKGROUND,
+                CornerRadii.EMPTY,
+                Insets.EMPTY
+            )
+        )
 
         const val GRID_PADDING = 80.0
         const val GRID_CELLS_CSS_CLASS = "grid-cells"

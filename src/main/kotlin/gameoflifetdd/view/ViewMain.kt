@@ -24,6 +24,11 @@ class ViewMain() : StackPane() {
     }
 
     fun changeView(newView : Node) {
+        if (newView is ViewHome) {
+            children.add(background)
+        } else if (newView is ViewGame) {
+            children.remove(background)
+        }
         mainContainer.children.clear()
         mainContainer.children.add(topBar)
         mainContainer.children.add(newView)
