@@ -95,7 +95,9 @@ class ViewGame() : BorderPane() {
         setMargin(center, Insets(
             NodeConfig.GRID_CELLS_UP_MARGIN,
             0.0, 0.0,
-            NodeConfig.GRID_CELLS_LEFT_MARGIN))
+            NodeConfig.GRID_CELLS_LEFT_MARGIN)
+        )
+        styleClass.add(NodeConfig.VIEW_GAME_CSS_CLASS)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {

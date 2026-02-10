@@ -13,6 +13,9 @@ class NodeConfig {
         val COLOR_BACKGROUND = Color.web("#D9D9D9")
 
         // VIEW HOME
+
+        const val VIEW_HOME_CSS_CLASS = "view-home-container"
+
         const val BUTTON_STANDARD_CSS_CLASS = "button-standard"
 
         const val BUTTON_START_ID = "start-game-button"
@@ -36,13 +39,7 @@ class NodeConfig {
 
         // VIEW GAME
 
-        val VIEW_GAME_BACKGROUND : Background = Background(
-            BackgroundFill(
-                COLOR_BACKGROUND,
-                CornerRadii.EMPTY,
-                Insets.EMPTY
-            )
-        )
+        const val VIEW_GAME_CSS_CLASS = "view-game-container"
 
         const val GRID_PADDING = 80.0
         const val GRID_CELLS_CSS_CLASS = "grid-cells"
@@ -60,6 +57,8 @@ class NodeConfig {
         const val GRID_CELLS_LEFT_MARGIN = 100.0
 
         // TOP BAR
+
+        const val TOP_BAR_CSS_CLASS = "top-bar-container"
 
         const val BUTTON_CLOSE_ID = "top-bar-button-close"
         const val BUTTON_SETTINGS_ID = "top-bar-button-settings"

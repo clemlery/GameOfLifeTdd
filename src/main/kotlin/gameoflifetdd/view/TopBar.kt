@@ -21,7 +21,7 @@ class TopBar : HBox() {
                     closeButton
         )
         alignment = Pos.TOP_RIGHT
-        styleClass.add("topbar")
+        styleClass.add(NodeConfig.TOP_BAR_CSS_CLASS)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {

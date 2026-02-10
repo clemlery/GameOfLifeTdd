@@ -27,12 +27,24 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
                 val height: Int = heightTextField.text.toInt()
                 val nbCells: Int = nbCellsTextField.text.toInt()
 
+                game.stop()
                 game.removeObserver()
                 game.addObserver(GameEngineSubscriber(view.viewGame))
                 view.background.clearCanvas()
                 game.init(width, height, nbCells)
             }
-            NodeConfig.BUTTON_BACK_ID -> view.changeView(view.viewHome)
+            NodeConfig.BUTTON_BACK_ID -> {
+                view.changeView(view.viewHome)
+                game.stop()
+                game.removeObserver()
+                game.addObserver(GameEngineSubscriberBackground(view.background))
+                game.init(
+                    NodeConfig.BACKGROUND_GRID_WIDTH,
+                    NodeConfig.BACKGROUND_GRID_HEIGHT,
+                    NodeConfig.BACKGROUND_GRID_WIDTH * NodeConfig.BACKGROUND_GRID_HEIGHT / 4
+                )
+                game.start()
+            }
         }
     }
 }

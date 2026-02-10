@@ -40,7 +40,11 @@ class Main : Application() {
 
         val game = GameEngine()
         game.addObserver(GameEngineSubscriberBackground(view.background))
-        game.init(50, 50, 500)
+        game.init(
+            NodeConfig.BACKGROUND_GRID_WIDTH,
+            NodeConfig.BACKGROUND_GRID_HEIGHT,
+            NodeConfig.BACKGROUND_GRID_WIDTH * NodeConfig.BACKGROUND_GRID_HEIGHT / 4
+        )
         game.start()
 
         view.topBar.fixButtonControler(view.topBar.getButtonById(NodeConfig.BUTTON_CLOSE_ID), ControlerTopBarButton())

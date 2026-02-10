@@ -33,7 +33,7 @@ class BackgroundGameOfLife(
     }
 
     fun drawDeadCell(x : Double, y : Double) {
-        graphicsContext2D.fill = Color.WHITE
+        graphicsContext2D.fill = NodeConfig.COLOR_BACKGROUND
         graphicsContext2D.fillRect(x, y, cellWidth, cellHeight)
     }
 }
