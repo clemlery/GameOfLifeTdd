@@ -15,14 +15,21 @@ import javafx.scene.layout.*
 
 class ViewGame() : BorderPane() {
 
-    private val gridCells = GridPane().apply {
-        alignment = Pos.CENTER
-        isGridLinesVisible = true
+    val cellGrid = CellGrid(
+        0.0,
+        0.0,
+        NodeConfig.GRID_BACKGROUND_COLOR
+    ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
         toFront()
+        parentProperty().addListener { _, _, parent ->
+            if (parent is Region) {
+                widthProperty().bind(parent.widthProperty())
+                heightProperty().bind(parent.heightProperty())
+            }
+        }
     }
 
-    var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
 
     private var leftContainer = StackPane()
 
@@ -70,7 +77,7 @@ class ViewGame() : BorderPane() {
     }
 
     init {
-        leftContainer = StackPane(gridCells).apply {
+        leftContainer = StackPane(cellGrid).apply {
             alignment = Pos.CENTER
             prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
@@ -112,11 +119,7 @@ class ViewGame() : BorderPane() {
         gridPaneToFix.onMouseDragged = controler
     }
 
-    fun addCellUIToGrid(x : Int, y : Int, cellToAdd : CellUI) {
-        gridCells.add(cellToAdd, x, y)
-    }
-
-    fun getGridCells() = gridCells
+    fun getGridCells() = cellGrid
 
     fun getSliderById(id: String) : Slider {
         return when(id) {
@@ -138,20 +141,10 @@ class ViewGame() : BorderPane() {
         }
     }
 
-    fun updateCellsShape(height: Double) {
-        val cellsMatrixUIWidth = cellsMatrixUI.size
-        val cellsMatrixUIHeight = cellsMatrixUI[0].size
-        val newWidth = height / cellsMatrixUIWidth
-        val newHeight = height / cellsMatrixUIHeight
-
-        for (x in 0 until cellsMatrixUIWidth) {
-            for (y in 0 until cellsMatrixUIHeight) {
-                cellsMatrixUI[x][y].updateShape(
-                    newWidth,
-                    newHeight
-                )
-            }
-        }
+    fun updateCellsShape(newHeight: Double, gridWidth: Int) {
+        val newCellSize = newHeight / gridWidth
+        cellGrid.cellWidth = newCellSize
+        cellGrid.cellHeight = newCellSize
     }
 
     fun setSliderNbCellsMax(max: Double) {
@@ -159,9 +152,7 @@ class ViewGame() : BorderPane() {
     }
 
     fun clearGrid() {
-        if (gridCells.children.isNotEmpty()) {
-            gridCells.children.clear()
-        }
+        cellGrid.clearCanvas()
     }
 
     fun toggleIcon(state: Boolean) {

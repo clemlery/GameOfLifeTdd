@@ -2,49 +2,45 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
-import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.model.CellState
 import gameoflifetdd.model.Grid
-import gameoflifetdd.view.BackgroundGameOfLife
-import gameoflifetdd.view.CellUI
-import javafx.application.Platform
+import gameoflifetdd.view.CellGrid
 import javafx.scene.effect.GaussianBlur
 
-class GameEngineSubscriberBackground(val view: BackgroundGameOfLife) : GameObserver {
+class GameEngineSubscriberBackground(val component: CellGrid) : GameObserver {
 
     override fun onGridInit(game: GameEngine) {
         val gridWidth = game.getGridWidth()
         val gridHeight = game.getGridHeight()
 
-        view.clearCanvas()
+        component.clearCanvas()
 
         val cellsMatrix = mutableListOf<Array<Pair<Double, Double>>>()
         for (x in 0 until gridWidth) {
             val newCellsColumn = mutableListOf<Pair<Double, Double>>()
             for (y in 0 until gridHeight) {
                 newCellsColumn.add(Pair(
-                    x * view.cellWidth,
-                    y * view.cellHeight
+                    x * component.cellWidth,
+                    y * component.cellHeight
                 ))
             }
             cellsMatrix.add(newCellsColumn.toTypedArray())
         }
-        view.cellsMatrix = cellsMatrix.toTypedArray()
-        view.effect = GaussianBlur(20.0)
+        component.cellsMatrix = cellsMatrix.toTypedArray()
+        component.effect = GaussianBlur(20.0)
     }
 
     override fun onGridChanged(grid: Grid) {
-        view.clearCanvas()
-        view.cellsMatrix.forEach { cellsColumns ->
+        component.clearCanvas()
+        component.cellsMatrix.forEach { cellsColumns ->
             cellsColumns.forEach { cell ->
-                val state = grid.cellAt(
-                    (cell.first / view.cellWidth).toInt(),
-                    (cell.second / view.cellHeight).toInt()
-                ).state
-                if (state == CellState.ALIVE) view.drawAlivedCell(cell.first, cell.second)
-                else view.drawDeadCell(cell.first, cell.second)
+                val cellX = (cell.first / component.cellWidth).toInt()
+                val cellY = (cell.second / component.cellHeight).toInt()
+                val state = grid.cellAt(cellX, cellY).state
+
+                if (state == CellState.ALIVE) component.drawAliveCell(cell.first, cell.second)
+                else component.drawDeadCell(cell.first, cell.second)
             }
         }
     }
-
 }

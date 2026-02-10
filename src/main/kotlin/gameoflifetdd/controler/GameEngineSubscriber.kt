@@ -2,8 +2,8 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
+import gameoflifetdd.model.CellState
 import gameoflifetdd.model.Grid
-import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewGame
 import javafx.application.Platform
 
@@ -15,30 +15,34 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
 
         view.clearGrid()
 
-        val cellsMatrix = mutableListOf<Array<CellUI>>()
+        val cellsMatrix = mutableListOf<Array<Pair<Double, Double>>>()
         for (x in 0 until gridWidth) {
-            val newCellsColumn = mutableListOf<CellUI>()
+            val newCellsColumn = mutableListOf<Pair<Double, Double>>()
             for (y in 0 until gridHeight) {
-                val newCell = CellUI(game.getCellAt(x, y).state, x, y)
-                view.addCellUIToGrid(x, y, newCell)
-                newCell.apply {
-                    fixCellControler(ControlerOnCellClick(this, game))
-                }
-                newCellsColumn.add(newCell)
+                newCellsColumn.add(Pair(
+                    x * view.cellGrid.cellWidth,
+                    y * view.cellGrid.cellHeight
+                ))
             }
             cellsMatrix.add(newCellsColumn.toTypedArray())
         }
-        view.cellsMatrixUI = cellsMatrix.toTypedArray()
+        view.cellGrid.cellsMatrix = cellsMatrix.toTypedArray()
         Platform.runLater {
-            view.updateCellsShape(view.height)
+            view.updateCellsShape(view.height, gridWidth)
         }
         view.setSliderNbCellsMax((gridWidth * gridHeight) * 0.75)
     }
 
     override fun onGridChanged(grid: Grid) {
-        view.cellsMatrixUI.forEach { cellsUIColumns ->
-            cellsUIColumns.forEach { cellUI ->
-                cellUI.updateColor(grid.cellAt(cellUI.x, cellUI.y).state)
+        view.cellGrid.clearCanvas()
+        view.cellGrid.cellsMatrix.forEach { cellsColumns ->
+            cellsColumns.forEach { cell ->
+                val cellX = (cell.first / view.cellGrid.cellWidth).toInt()
+                val cellY = (cell.second / view.cellGrid.cellHeight).toInt()
+                val state = grid.cellAt(cellX, cellY).state
+
+                if (state == CellState.ALIVE) view.cellGrid.drawAliveCell(cell.first, cell.second)
+                else view.cellGrid.drawDeadCell(cell.first, cell.second)
             }
         }
     }

@@ -10,7 +10,7 @@ class NodeConfig {
     companion object {
         // VIEW MAIN
         const val MAIN_VIEW_CSS_CLASS = "main-container"
-        val COLOR_BACKGROUND = Color.web("#D9D9D9")
+        val COLOR_BACKGROUND: Color = Color.web("#D9D9D9")
 
         // VIEW HOME
 
@@ -43,6 +43,7 @@ class NodeConfig {
 
         const val GRID_PADDING = 80.0
         const val GRID_CELLS_CSS_CLASS = "grid-cells"
+        val GRID_BACKGROUND_COLOR : Color = Color.WHITE
 
         const val BUTTON_CONTINUE_ID = "game-button-continue-id"
         const val BUTTON_CLEAR_ID = "game-button-clear-id"
@@ -67,8 +68,8 @@ class NodeConfig {
 
         // BACKGROUND GAME OF LIFE
 
-        const val CELL_RECT_WIDTH = 50.0
-        const val CELL_RECT_HEIGHT = 50.0
+        const val BKGRD_CELL_WIDTH = 50.0
+        const val BKGRD_CELL_HEIGHT = 50.0
         const val BACKGROUND_GRID_WIDTH = 50
         const val BACKGROUND_GRID_HEIGHT = 50
     }
