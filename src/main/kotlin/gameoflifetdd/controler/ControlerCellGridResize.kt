@@ -10,6 +10,11 @@ class ControlerCellGridResize(val cellGrid: CellGrid, val game: GameEngine) : Ch
 
     override fun changed(observable: ObservableValue<out Number?>?, oldHeight: Number?, newHeight: Number?) {
         val newCellSize = newHeight!!.toInt() / game.getGridWidth()
+        println("Grid dimensions: ${game.getGridWidth()} x ${game.getGridHeight()}")
+        println("Cell size: $newCellSize")
+        println("Canvas size: ${cellGrid.width} x ${cellGrid.height}")
+        cellGrid.width = (newCellSize * game.getGridWidth()).toDouble()
+        cellGrid.height = (newCellSize * game.getGridHeight()).toDouble()
         cellGrid.cellWidth = newCellSize.toDouble()
         cellGrid.cellHeight = newCellSize.toDouble()
         cellGrid.clearCanvas()

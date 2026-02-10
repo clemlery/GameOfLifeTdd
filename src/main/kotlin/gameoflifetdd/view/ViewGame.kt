@@ -22,12 +22,6 @@ class ViewGame() : BorderPane() {
     ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
         toFront()
-        parentProperty().addListener { _, _, parent ->
-            if (parent is Region) {
-                widthProperty().bind(parent.widthProperty())
-                heightProperty().bind(parent.heightProperty())
-            }
-        }
     }
 
 
