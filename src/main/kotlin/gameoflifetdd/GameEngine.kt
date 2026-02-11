@@ -94,6 +94,8 @@ class GameEngine {
 
     fun getGridHeight() = grid.height
 
+    fun getGrid() = grid
+
     fun import() {
         TODO()
     }

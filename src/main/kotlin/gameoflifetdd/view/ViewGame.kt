@@ -10,6 +10,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
@@ -23,12 +24,6 @@ class ViewGame() : BorderPane() {
         NodeConfig.GRID_BACKGROUND_COLOR
     ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
-        parentProperty().addListener { _, _, parent ->
-            if (parent is Region) {
-                widthProperty().bind(parent.widthProperty())
-                heightProperty().bind(parent.heightProperty())
-            }
-        }
         toFront()
     }
 
@@ -79,23 +74,7 @@ class ViewGame() : BorderPane() {
     }
 
     init {
-        centerContainer.children.add(cellGrid)
-        centerContainer.apply {
-            id = NodeConfig.CENTER_CONTAINER_ID
-            prefHeightProperty().bind(heightProperty())
-            prefWidthProperty().bind(heightProperty())
-            maxWidthProperty().bind(
-                this@ViewGame.heightProperty()
-                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
-                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
-            )
-            maxHeightProperty().bind(
-                this@ViewGame.heightProperty()
-                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
-                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
-            )
-        }
-        center = centerContainer
+        center = cellGrid
 
         rightContainer.children.add(gridSettings)
         rightContainer.apply {
@@ -110,6 +89,8 @@ class ViewGame() : BorderPane() {
             NodeConfig.GRID_CELLS_LEFT_MARGIN)
         )
         styleClass.add(NodeConfig.VIEW_GAME_CSS_CLASS)
+
+        setAlignment(cellGrid, Pos.CENTER)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {

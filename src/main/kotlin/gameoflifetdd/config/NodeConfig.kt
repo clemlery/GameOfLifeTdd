@@ -54,7 +54,7 @@ class NodeConfig {
         const val SLIDER_SPEED_ID = "game-progress-bar-speed-id"
         const val SLIDER_NB_CELLS_ID = "game-progress-bar-nb-cells-id"
 
-        const val GRID_CELLS_UP_MARGIN = 60.0
+        const val GRID_CELLS_UP_MARGIN = 30.0
         const val GRID_CELLS_LEFT_MARGIN = 100.0
 
         const val CENTER_CONTAINER_ID = "game-left-container-id"
