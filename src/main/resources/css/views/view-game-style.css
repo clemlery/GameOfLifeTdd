@@ -35,3 +35,11 @@ Retrieved 2026-02-05, License - CC BY-SA 4.0
     -fx-border-color: black;
     -fx-border-radius: 5.0;
 }
+
+.grid-cells {
+    -fx-border-color: black;
+}
+
+.view-game-container {
+    -fx-background-color: #D9D9D9;
+}

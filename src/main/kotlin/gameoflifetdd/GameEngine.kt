@@ -44,6 +44,7 @@ class GameEngine {
     fun init(gridWidth : Int, gridHeight : Int, numberOfCells : Int) {
         grid = Grid.ofAliveCellsRandom(numberOfCells, gridWidth, gridHeight)
         nbCellsInit = numberOfCells
+        gameSpeed = 250
         notifyInitObservers()
     }
 
@@ -92,6 +93,8 @@ class GameEngine {
     fun getGridWidth() = grid.width
 
     fun getGridHeight() = grid.height
+
+    fun getGrid() = grid
 
     fun import() {
         TODO()

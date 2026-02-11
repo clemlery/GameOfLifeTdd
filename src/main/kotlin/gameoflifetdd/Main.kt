@@ -8,12 +8,9 @@ import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.controler.ControlerChangeView
 import gameoflifetdd.controler.ControlerFeatureGameButton
 import gameoflifetdd.controler.ControlerNbCellsSlider
-import gameoflifetdd.controler.ControlerOnCellDragHold
 import gameoflifetdd.controler.ControlerSpeedSlider
 import gameoflifetdd.controler.ControlerTopBarButton
-import gameoflifetdd.controler.GameEngineSubscriber
 import gameoflifetdd.controler.GameEngineSubscriberBackground
-import gameoflifetdd.view.TopBar
 import gameoflifetdd.view.ViewMain
 
 class Main : Application() {
@@ -40,7 +37,11 @@ class Main : Application() {
 
         val game = GameEngine()
         game.addObserver(GameEngineSubscriberBackground(view.background))
-        game.init(50, 50, 500)
+        game.init(
+            NodeConfig.BACKGROUND_GRID_WIDTH,
+            NodeConfig.BACKGROUND_GRID_HEIGHT,
+            NodeConfig.BACKGROUND_GRID_WIDTH * NodeConfig.BACKGROUND_GRID_HEIGHT / 4
+        )
         game.start()
 
         view.topBar.fixButtonControler(view.topBar.getButtonById(NodeConfig.BUTTON_CLOSE_ID), ControlerTopBarButton())
@@ -61,7 +62,10 @@ class Main : Application() {
         view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_NB_CELLS_ID),
             ControlerNbCellsSlider(game))
 
-        view.viewGame.fixGridPaneControler(view.viewGame.getGridCells(), ControlerOnCellDragHold(view.viewGame, game))
+//        view.viewGame.getContainerById(NodeConfig.CENTER_CONTAINER_ID).heightProperty().addListener {
+//            ControlerCellGridResize(view.viewGame.cellGrid, game)
+//        }
+//        view.viewGame.fixGridPaneControler(view.viewGame.getGridCells(), ControlerOnCellDragHold(view.viewGame, game))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

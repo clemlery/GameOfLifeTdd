@@ -2,10 +2,14 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
+import gameoflifetdd.config.NodeConfig
+import gameoflifetdd.model.CellState
 import gameoflifetdd.model.Grid
-import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewGame
 import javafx.application.Platform
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
+import kotlin.math.floor
 
 class GameEngineSubscriber(val view: ViewGame) : GameObserver{
 
@@ -15,30 +19,38 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
 
         view.clearGrid()
 
-        val cellsMatrix = mutableListOf<Array<CellUI>>()
-        for (x in 0 until gridWidth) {
-            val newCellsColumn = mutableListOf<CellUI>()
-            for (y in 0 until gridHeight) {
-                val newCell = CellUI(game.getCellAt(x, y).state, x, y)
-                view.addCellUIToGrid(x, y, newCell)
-                newCell.apply {
-                    fixCellControler(ControlerOnCellClick(this, game))
-                }
-                newCellsColumn.add(newCell)
+        if (view.height > 0) {
+            updateCellShape(view.height, game)
+            draw(game.getGrid())
+        } else {
+            // NOTE : replace Platform.runlater by Task
+            Platform.runLater {
+                updateCellShape(view.height, game)
+                draw(game.getGrid())
             }
-            cellsMatrix.add(newCellsColumn.toTypedArray())
         }
-        view.cellsMatrixUI = cellsMatrix.toTypedArray()
-        Platform.runLater {
-            view.updateCellsShape(view.height)
-        }
+
         view.setSliderNbCellsMax((gridWidth * gridHeight) * 0.75)
     }
 
     override fun onGridChanged(grid: Grid) {
-        view.cellsMatrixUI.forEach { cellsUIColumns ->
-            cellsUIColumns.forEach { cellUI ->
-                cellUI.updateColor(grid.cellAt(cellUI.x, cellUI.y).state)
+        draw(grid)
+    }
+
+    fun updateCellShape(newHeight: Double, game: GameEngine) {
+        val availableHeight: Double = newHeight - NodeConfig.GRID_CELLS_UP_MARGIN * 2
+        view.cellGrid.cellSize  = availableHeight / game.getGridWidth()
+        view.cellGrid.width = view.cellGrid.cellSize * game.getGridWidth()
+        view.cellGrid.height = view.cellGrid.cellSize * game.getGridHeight()
+    }
+
+    fun draw(grid: Grid) {
+        grid.cells.forEach { cellsColumn ->
+            cellsColumn.forEach { cell ->
+                val cellX : Double = cell.x * view.cellGrid.cellSize
+                val cellY : Double = cell.y * view.cellGrid.cellSize
+                if (cell.state == CellState.ALIVE) view.cellGrid.drawAliveCell(cellX, cellY)
+                else view.cellGrid.drawDeadCell(cellX, cellY)
             }
         }
     }

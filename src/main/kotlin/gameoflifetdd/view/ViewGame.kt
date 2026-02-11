@@ -1,5 +1,6 @@
 package gameoflifetdd.view
 
+import com.sun.javafx.property.adapter.PropertyDescriptor
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
@@ -9,22 +10,25 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
+import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
 
 class ViewGame() : BorderPane() {
 
-    private val gridCells = GridPane().apply {
-        alignment = Pos.CENTER
-        isGridLinesVisible = true
+    val cellGrid = CellGrid(
+        0.0,
+        NodeConfig.GRID_BACKGROUND_COLOR
+    ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
+        toFront()
     }
 
-    var cellsMatrixUI : Array<Array<CellUI>> = arrayOf()
 
-    private var leftContainer = StackPane()
-
+    private var centerContainer = StackPane()
+    private val rightContainer = StackPane()
 
     private var continueButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
 
@@ -69,24 +73,11 @@ class ViewGame() : BorderPane() {
     }
 
     init {
-        leftContainer = StackPane(gridCells).apply {
-            alignment = Pos.CENTER
-            prefHeightProperty().bind(heightProperty())
-            prefWidthProperty().bind(heightProperty())
-            maxWidthProperty().bind(
-                this@ViewGame.heightProperty()
-                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
-                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
-            )
-            maxHeightProperty().bind(
-                this@ViewGame.heightProperty()
-                .subtract(NodeConfig.GRID_CELLS_UP_MARGIN * 2)
-                .subtract(NodeConfig.BUTTONS_WIDTH * 2)
-            )
-        }
-        center = leftContainer
+        center = cellGrid
 
-        val rightContainer = StackPane(gridSettings).apply {
+        rightContainer.children.add(gridSettings)
+        rightContainer.apply {
+            id = NodeConfig.RIGHT_CONTAINER_ID
             padding = Insets(NodeConfig.GRID_PADDING)
         }
         right = rightContainer
@@ -94,7 +85,11 @@ class ViewGame() : BorderPane() {
         setMargin(center, Insets(
             NodeConfig.GRID_CELLS_UP_MARGIN,
             0.0, 0.0,
-            NodeConfig.GRID_CELLS_LEFT_MARGIN))
+            NodeConfig.GRID_CELLS_LEFT_MARGIN)
+        )
+        styleClass.add(NodeConfig.VIEW_GAME_CSS_CLASS)
+
+        setAlignment(cellGrid, Pos.CENTER)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -105,15 +100,7 @@ class ViewGame() : BorderPane() {
         sliderToFix.valueProperty().addListener(controler)
     }
 
-    fun fixGridPaneControler(gridPaneToFix: GridPane, controler: EventHandler<MouseEvent>) {
-        gridPaneToFix.onMouseDragged = controler
-    }
-
-    fun addCellUIToGrid(x : Int, y : Int, cellToAdd : CellUI) {
-        gridCells.add(cellToAdd, x, y)
-    }
-
-    fun getGridCells() = gridCells
+    fun getGridCells() = cellGrid
 
     fun getSliderById(id: String) : Slider {
         return when(id) {
@@ -135,19 +122,11 @@ class ViewGame() : BorderPane() {
         }
     }
 
-    fun updateCellsShape(height: Double) {
-        val cellsMatrixUIWidth = cellsMatrixUI.size
-        val cellsMatrixUIHeight = cellsMatrixUI[0].size
-        val newWidth = height / cellsMatrixUIWidth
-        val newHeight = height / cellsMatrixUIHeight
-
-        for (x in 0 until cellsMatrixUIWidth) {
-            for (y in 0 until cellsMatrixUIHeight) {
-                cellsMatrixUI[x][y].updateShape(
-                    newWidth,
-                    newHeight
-                )
-            }
+    fun getContainerById(id: String): Region {
+        return when (id) {
+            NodeConfig.CENTER_CONTAINER_ID -> centerContainer
+            NodeConfig.RIGHT_CONTAINER_ID -> rightContainer
+            else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
     }
 
@@ -156,9 +135,7 @@ class ViewGame() : BorderPane() {
     }
 
     fun clearGrid() {
-        if (gridCells.children.isNotEmpty()) {
-            gridCells.children.clear()
-        }
+        cellGrid.clearCanvas()
     }
 
     fun toggleIcon(state: Boolean) {
@@ -167,5 +144,13 @@ class ViewGame() : BorderPane() {
         } else {
             Util.changeButtonIcon("/icons/run.svg", continueButton)
         }
+    }
+
+    // debug
+    fun getCenterContainerShape() : Pair<Double, Double>{
+        return Pair(
+            centerContainer.width,
+            centerContainer.height
+        )
     }
 }

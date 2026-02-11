@@ -10,9 +10,12 @@ class NodeConfig {
     companion object {
         // VIEW MAIN
         const val MAIN_VIEW_CSS_CLASS = "main-container"
-        val COLOR_BACKGROUND = Color.web("#D9D9D9")
+        val COLOR_BACKGROUND: Color = Color.web("#D9D9D9")
 
         // VIEW HOME
+
+        const val VIEW_HOME_CSS_CLASS = "view-home-container"
+
         const val BUTTON_STANDARD_CSS_CLASS = "button-standard"
 
         const val BUTTON_START_ID = "start-game-button"
@@ -36,16 +39,11 @@ class NodeConfig {
 
         // VIEW GAME
 
-        val VIEW_GAME_BACKGROUND : Background = Background(
-            BackgroundFill(
-                COLOR_BACKGROUND,
-                CornerRadii.EMPTY,
-                Insets.EMPTY
-            )
-        )
+        const val VIEW_GAME_CSS_CLASS = "view-game-container"
 
         const val GRID_PADDING = 80.0
         const val GRID_CELLS_CSS_CLASS = "grid-cells"
+        val GRID_BACKGROUND_COLOR : Color = Color.WHITE
 
         const val BUTTON_CONTINUE_ID = "game-button-continue-id"
         const val BUTTON_CLEAR_ID = "game-button-clear-id"
@@ -56,10 +54,15 @@ class NodeConfig {
         const val SLIDER_SPEED_ID = "game-progress-bar-speed-id"
         const val SLIDER_NB_CELLS_ID = "game-progress-bar-nb-cells-id"
 
-        const val GRID_CELLS_UP_MARGIN = 60.0
+        const val GRID_CELLS_UP_MARGIN = 30.0
         const val GRID_CELLS_LEFT_MARGIN = 100.0
 
+        const val CENTER_CONTAINER_ID = "game-left-container-id"
+        const val RIGHT_CONTAINER_ID = "game-right-container-id"
+
         // TOP BAR
+
+        const val TOP_BAR_CSS_CLASS = "top-bar-container"
 
         const val BUTTON_CLOSE_ID = "top-bar-button-close"
         const val BUTTON_SETTINGS_ID = "top-bar-button-settings"
@@ -68,8 +71,7 @@ class NodeConfig {
 
         // BACKGROUND GAME OF LIFE
 
-        const val CELL_RECT_WIDTH = 50.0
-        const val CELL_RECT_HEIGHT = 50.0
+        const val BKGRD_CELL_SIZE = 50.0
         const val BACKGROUND_GRID_WIDTH = 50
         const val BACKGROUND_GRID_HEIGHT = 50
     }

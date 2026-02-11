@@ -2,6 +2,7 @@ package gameoflifetdd.view
 
 import gameoflifetdd.config.NodeConfig
 import javafx.scene.Node
+import javafx.scene.layout.Region
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 
@@ -10,7 +11,18 @@ class ViewMain() : StackPane() {
     var viewHome = ViewHome()
     var viewGame = ViewGame()
     val topBar = TopBar()
-    val background = BackgroundGameOfLife()
+    val background = CellGrid(
+        NodeConfig.BKGRD_CELL_SIZE,
+        NodeConfig.COLOR_BACKGROUND
+    ).apply {
+        toBack()
+        parentProperty().addListener { _, _, parent ->
+            if (parent is Region) {
+                widthProperty().bind(parent.widthProperty())
+                heightProperty().bind(parent.heightProperty())
+            }
+        }
+    }
 
     val mainContainer = VBox(
         topBar,
@@ -26,6 +38,7 @@ class ViewMain() : StackPane() {
     fun changeView(newView : Node) {
         if (newView is ViewHome) {
             children.add(background)
+            background.toBack()
         } else if (newView is ViewGame) {
             children.remove(background)
         }
