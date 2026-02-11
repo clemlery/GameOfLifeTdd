@@ -5,21 +5,18 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.paint.Color
 
 class CellGrid(
-    var cellWidth: Double,
-    var cellHeight: Double,
+    var cellSize: Double,
     val backgroundColor: Color
 ) : Canvas() {
 
-    var cellsMatrix: Array<Array<Pair<Double, Double>>> = arrayOf()
-
     fun drawAliveCell(x: Double, y: Double) {
         graphicsContext2D.fill = Color.BLACK
-        graphicsContext2D.fillRect(x, y, cellWidth, cellHeight)
+        graphicsContext2D.fillRect(x, y, cellSize, cellSize)
     }
 
     fun drawDeadCell(x: Double, y: Double) {
         graphicsContext2D.fill = backgroundColor
-        graphicsContext2D.fillRect(x, y, cellWidth, cellHeight)
+        graphicsContext2D.fillRect(x, y, cellSize, cellSize)
     }
 
     fun clearCanvas() {

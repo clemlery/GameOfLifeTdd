@@ -12,8 +12,7 @@ class ViewMain() : StackPane() {
     var viewGame = ViewGame()
     val topBar = TopBar()
     val background = CellGrid(
-        NodeConfig.BKGRD_CELL_WIDTH,
-        NodeConfig.BKGRD_CELL_HEIGHT,
+        NodeConfig.BKGRD_CELL_SIZE,
         NodeConfig.COLOR_BACKGROUND
     ).apply {
         toBack()

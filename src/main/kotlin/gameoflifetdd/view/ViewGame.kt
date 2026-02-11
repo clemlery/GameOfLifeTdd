@@ -20,7 +20,6 @@ class ViewGame() : BorderPane() {
 
     val cellGrid = CellGrid(
         0.0,
-        0.0,
         NodeConfig.GRID_BACKGROUND_COLOR
     ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)

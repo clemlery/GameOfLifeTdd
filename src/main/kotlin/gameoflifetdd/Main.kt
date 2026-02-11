@@ -5,7 +5,6 @@ import javafx.scene.Scene
 import javafx.stage.Stage
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.controler.ControlerCellGridResize
 import gameoflifetdd.controler.ControlerChangeView
 import gameoflifetdd.controler.ControlerFeatureGameButton
 import gameoflifetdd.controler.ControlerNbCellsSlider
