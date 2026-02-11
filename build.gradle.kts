@@ -43,6 +43,8 @@ dependencies {
 
     // Added dependencies
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.8.1")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14") // HTTP client for parsing
+    implementation("org.jsoup:jsoup:1.18.1") // HTML parser
 
     // Test dependencies
     testImplementation(kotlin("test"))

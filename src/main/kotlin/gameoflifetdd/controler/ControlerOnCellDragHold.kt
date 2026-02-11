@@ -1,26 +1,24 @@
 package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.Cell
-import gameoflifetdd.model.CellState
-import gameoflifetdd.view.ViewGame
+import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.view.CellGrid
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import kotlin.math.floor
 
-//class ControlerOnCellDragHold(val view: ViewGame, val game: GameEngine) : EventHandler<MouseEvent> {
-//
-//    override fun handle(event: MouseEvent?) {
-//        val cell = view.cellsMatrixUI[0][0]
-//
-//        val xMouse = event?.x!!
-//        val yMouse = event.y
-//        val xNewCell : Int = floor(xMouse / cell.width).toInt()
-//        val yNewCell : Int = floor(yMouse / cell.height).toInt()
-//        game.changeCellAt(
-//            xNewCell,
-//            yNewCell,
-//            Cell(xNewCell, yNewCell, CellState.ALIVE)
-//        )
-//    }
-//}
+class ControlerOnCellDragHold(val cellGrid: CellGrid, val game: GameEngine) : EventHandler<MouseEvent> {
+
+    override fun handle(event: MouseEvent?) {
+        val xMouse = event?.x!!
+        val yMouse = event.y
+        val xNewCell : Int = floor(xMouse / cellGrid.cellSize).toInt()
+        val yNewCell : Int = floor(yMouse / cellGrid.cellSize).toInt()
+        game.changeCellAt(
+            xNewCell,
+            yNewCell,
+            Cell(xNewCell, yNewCell, CellState.ALIVE)
+        )
+    }
+}

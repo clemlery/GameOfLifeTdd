@@ -1,6 +1,6 @@
 package gameoflifetdd
 
-import gameoflifetdd.model.Grid
+import gameoflifetdd.model.game.Grid
 
 
 interface GameObserver {

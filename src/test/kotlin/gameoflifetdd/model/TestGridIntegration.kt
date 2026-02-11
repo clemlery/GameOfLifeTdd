@@ -1,5 +1,8 @@
 package gameoflifetdd.model
 
+import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.model.game.Grid
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 

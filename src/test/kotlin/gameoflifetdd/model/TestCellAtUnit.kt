@@ -1,4 +1,7 @@
 package gameoflifetdd.model
+import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.model.game.Grid
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

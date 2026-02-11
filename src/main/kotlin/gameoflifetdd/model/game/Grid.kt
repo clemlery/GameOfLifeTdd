@@ -1,4 +1,4 @@
-package gameoflifetdd.model
+package gameoflifetdd.model.game
 
 import kotlin.properties.Delegates
 import kotlin.random.Random

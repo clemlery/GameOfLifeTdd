@@ -2,8 +2,8 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
-import gameoflifetdd.model.CellState
-import gameoflifetdd.model.Grid
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.model.game.Grid
 import gameoflifetdd.view.CellGrid
 import javafx.scene.effect.GaussianBlur
 
