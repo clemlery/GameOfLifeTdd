@@ -57,6 +57,9 @@ class NodeConfig {
         const val GRID_CELLS_UP_MARGIN = 60.0
         const val GRID_CELLS_LEFT_MARGIN = 100.0
 
+        const val CENTER_CONTAINER_ID = "game-left-container-id"
+        const val RIGHT_CONTAINER_ID = "game-right-container-id"
+
         // TOP BAR
 
         const val TOP_BAR_CSS_CLASS = "top-bar-container"

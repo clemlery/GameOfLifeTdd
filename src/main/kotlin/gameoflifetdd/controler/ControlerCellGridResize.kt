@@ -9,14 +9,16 @@ import javafx.beans.value.ObservableValue
 class ControlerCellGridResize(val cellGrid: CellGrid, val game: GameEngine) : ChangeListener<Number> {
 
     override fun changed(observable: ObservableValue<out Number?>?, oldHeight: Number?, newHeight: Number?) {
-        val newCellSize = newHeight!!.toInt() / game.getGridWidth()
+        val newCellSize = newHeight!!.toDouble() / game.getGridWidth()
+        println("====================== ControlerCellGridResize ======================")
+        println("CenterContainer new height")
         println("Grid dimensions: ${game.getGridWidth()} x ${game.getGridHeight()}")
         println("Cell size: $newCellSize")
         println("Canvas size: ${cellGrid.width} x ${cellGrid.height}")
-        cellGrid.width = (newCellSize * game.getGridWidth()).toDouble()
-        cellGrid.height = (newCellSize * game.getGridHeight()).toDouble()
-        cellGrid.cellWidth = newCellSize.toDouble()
-        cellGrid.cellHeight = newCellSize.toDouble()
+        cellGrid.width = (newCellSize * game.getGridWidth())
+        cellGrid.height = (newCellSize * game.getGridHeight())
+        cellGrid.cellWidth = newCellSize
+        cellGrid.cellHeight = newCellSize
         cellGrid.clearCanvas()
         cellGrid.cellsMatrix.forEach { cellsColumns ->
             cellsColumns.forEach { cell ->

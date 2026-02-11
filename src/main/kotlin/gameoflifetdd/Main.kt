@@ -63,8 +63,9 @@ class Main : Application() {
         view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_NB_CELLS_ID),
             ControlerNbCellsSlider(game))
 
-        view.viewGame.heightProperty().addListener(ControlerCellGridResize(view.viewGame.cellGrid, game))
-
+        view.viewGame.getContainerById(NodeConfig.CENTER_CONTAINER_ID).heightProperty().addListener {
+            ControlerCellGridResize(view.viewGame.cellGrid, game)
+        }
 //        view.viewGame.fixGridPaneControler(view.viewGame.getGridCells(), ControlerOnCellDragHold(view.viewGame, game))
 
         stage.title = "Game of Life - Conway"

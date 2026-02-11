@@ -1,5 +1,6 @@
 package gameoflifetdd.view
 
+import com.sun.javafx.property.adapter.PropertyDescriptor
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
@@ -9,6 +10,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
+import javafx.scene.Node
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
@@ -21,12 +23,18 @@ class ViewGame() : BorderPane() {
         NodeConfig.GRID_BACKGROUND_COLOR
     ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
+        parentProperty().addListener { _, _, parent ->
+            if (parent is Region) {
+                widthProperty().bind(parent.widthProperty())
+                heightProperty().bind(parent.heightProperty())
+            }
+        }
         toFront()
     }
 
 
-    private var leftContainer = StackPane()
-
+    private var centerContainer = StackPane()
+    private val rightContainer = StackPane()
 
     private var continueButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
 
@@ -71,8 +79,9 @@ class ViewGame() : BorderPane() {
     }
 
     init {
-        leftContainer = StackPane(cellGrid).apply {
-            alignment = Pos.CENTER
+        centerContainer.children.add(cellGrid)
+        centerContainer.apply {
+            id = NodeConfig.CENTER_CONTAINER_ID
             prefHeightProperty().bind(heightProperty())
             prefWidthProperty().bind(heightProperty())
             maxWidthProperty().bind(
@@ -86,9 +95,11 @@ class ViewGame() : BorderPane() {
                 .subtract(NodeConfig.BUTTONS_WIDTH * 2)
             )
         }
-        center = leftContainer
+        center = centerContainer
 
-        val rightContainer = StackPane(gridSettings).apply {
+        rightContainer.children.add(gridSettings)
+        rightContainer.apply {
+            id = NodeConfig.RIGHT_CONTAINER_ID
             padding = Insets(NodeConfig.GRID_PADDING)
         }
         right = rightContainer
@@ -107,10 +118,6 @@ class ViewGame() : BorderPane() {
 
     fun fixSliderControler(sliderToFix: Slider, controler: ChangeListener<Number>) {
         sliderToFix.valueProperty().addListener(controler)
-    }
-
-    fun fixGridPaneControler(gridPaneToFix: GridPane, controler: EventHandler<MouseEvent>) {
-        gridPaneToFix.onMouseDragged = controler
     }
 
     fun getGridCells() = cellGrid
@@ -135,10 +142,12 @@ class ViewGame() : BorderPane() {
         }
     }
 
-    fun updateCellsShape(newHeight: Double, gridWidth: Int) {
-        val newCellSize = newHeight / gridWidth
-        cellGrid.cellWidth = newCellSize
-        cellGrid.cellHeight = newCellSize
+    fun getContainerById(id: String): Region {
+        return when (id) {
+            NodeConfig.CENTER_CONTAINER_ID -> centerContainer
+            NodeConfig.RIGHT_CONTAINER_ID -> rightContainer
+            else -> throw IllegalArgumentException("Id : $id doesn't exist")
+        }
     }
 
     fun setSliderNbCellsMax(max: Double) {
@@ -155,5 +164,13 @@ class ViewGame() : BorderPane() {
         } else {
             Util.changeButtonIcon("/icons/run.svg", continueButton)
         }
+    }
+
+    // debug
+    fun getCenterContainerShape() : Pair<Double, Double>{
+        return Pair(
+            centerContainer.width,
+            centerContainer.height
+        )
     }
 }
