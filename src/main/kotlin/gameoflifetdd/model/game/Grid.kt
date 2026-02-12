@@ -49,7 +49,7 @@ class Grid : GridInterface {
 
         for ((i, x) in (startPointX until endPointX).withIndex()) {
             for ((j, y) in (startPointY until endPointY).withIndex()) {
-                newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern[i][j])
+                newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern.getOrNull(i)?.get(j) ?: CellState.DEAD)
             }
         }
 

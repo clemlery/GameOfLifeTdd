@@ -7,7 +7,7 @@ import gameoflifetdd.model.game.CellState
 object ConcreteStrategyCells : Strategy {
     override fun load(pattern: Pattern): MutableList<MutableList<CellState>> {
         val body = Scraper.getPatternContent(pattern) ?: throw IllegalArgumentException("Can't find pattern : $pattern")
-        val content : MutableList<String> = body.split("/n").toMutableList()
+        val content : MutableList<String> = body.split("\n").toMutableList()
         content.removeAll { it.startsWith("!") }
 
         val cellsMatrix : MutableList<MutableList<CellState>> = mutableListOf()
