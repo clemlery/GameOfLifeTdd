@@ -1,5 +1,7 @@
 package gameoflifetdd.model.game
 
+import gameoflifetdd.model.dataccess.Pattern
+import gameoflifetdd.model.strategy.Context
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
@@ -19,6 +21,37 @@ class Grid : GridInterface {
     override fun cellAt(x: Int, y: Int): Cell {
         require(x in 0 ..< this.width && y in 0 ..< this.height)
         return this.cells[x][y]
+    }
+
+    fun loadPatternInGrid(pattern: Pattern) {
+        val context = Context()
+        val cellsMatrixPattern = context.load(pattern)
+
+        var patternWidth = 0
+        cellsMatrixPattern.forEach { cellColumn ->
+            if (cellColumn.size > patternWidth) {
+                patternWidth = cellColumn.size
+            }
+        }
+        val patternHeight : Int = cellsMatrixPattern.size
+        val maxGridWidth = patternWidth + patternWidth / 2
+        val maxGridHeight = patternHeight + patternHeight / 2
+
+        val newCells = empty(maxGridWidth, maxGridHeight).cells
+
+        val gridCenterX = maxGridWidth / 2
+        val gridCenterY = maxGridHeight / 2
+        val startPointX = gridCenterX - patternWidth / 2
+        val startPointY = gridCenterY - patternHeight / 2
+        val endPointX = gridCenterX + patternWidth / 2
+        val endPointY = gridCenterY + patternHeight / 2
+
+        for ((i, x) in (startPointX until endPointX).withIndex()) {
+            for ((j, y)in (startPointY until endPointY).withIndex()) {
+                newCells[x][y] = cellsMatrixPattern[i][j]
+            }
+        }
+        cells = newCells
     }
 
     companion object {
