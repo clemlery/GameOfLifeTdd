@@ -2,6 +2,7 @@ package gameoflifetdd.model.game
 
 import gameoflifetdd.model.dataccess.Pattern
 import gameoflifetdd.model.strategy.Context
+import kotlin.math.ceil
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
@@ -34,24 +35,28 @@ class Grid : GridInterface {
             }
         }
         val patternHeight : Int = cellsMatrixPattern.size
-        val maxGridWidth = patternWidth + patternWidth / 2
-        val maxGridHeight = patternHeight + patternHeight / 2
+        val maxGridWidth = patternWidth * 2
+        val maxGridHeight = patternHeight * 2
 
-        val newCells = empty(maxGridWidth, maxGridHeight).cells
+        val newGrid = empty(maxGridWidth, maxGridHeight)
 
         val gridCenterX = maxGridWidth / 2
         val gridCenterY = maxGridHeight / 2
         val startPointX = gridCenterX - patternWidth / 2
         val startPointY = gridCenterY - patternHeight / 2
-        val endPointX = gridCenterX + patternWidth / 2
-        val endPointY = gridCenterY + patternHeight / 2
+        val endPointX = gridCenterX + ceil(patternWidth / 2.0).toInt()
+        val endPointY = gridCenterY + ceil(patternHeight / 2.0).toInt()
 
         for ((i, x) in (startPointX until endPointX).withIndex()) {
-            for ((j, y)in (startPointY until endPointY).withIndex()) {
-                newCells[x][y] = cellsMatrixPattern[i][j]
+            for ((j, y) in (startPointY until endPointY).withIndex()) {
+                newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern[i][j])
             }
         }
-        cells = newCells
+
+        width = newGrid.width
+        height = newGrid.height
+        cells = newGrid.cells
+
     }
 
     companion object {
