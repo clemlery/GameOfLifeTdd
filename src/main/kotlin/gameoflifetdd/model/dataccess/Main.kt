@@ -1,6 +1,14 @@
 package gameoflifetdd.model.dataccess
 
 fun main() {
-    val scraper = Scraper()
-    println(scraper.getPatternContent(Pattern("", PatternType.CELLS)))
+    val patterns = Scraper.getAllPatterns(10)
+
+    patterns.forEachIndexed { i, pattern ->
+        println("$i: $pattern")
+    }
+
+    if (patterns.isNotEmpty()) {
+        println("\n--- Content of ${patterns[0]} ---")
+        println(Scraper.getPatternContent(patterns[0]))
+    }
 }

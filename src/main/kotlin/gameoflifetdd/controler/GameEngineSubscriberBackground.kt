@@ -11,7 +11,7 @@ class GameEngineSubscriberBackground(val component: CellGrid) : GameObserver {
 
     override fun onGridInit(game: GameEngine) {
         component.clearCanvas()
-        component.effect = GaussianBlur(20.0)
+        component.effect = GaussianBlur(30.0)
     }
 
     override fun onGridChanged(grid: Grid) {

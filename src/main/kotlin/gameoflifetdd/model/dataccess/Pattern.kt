@@ -5,6 +5,6 @@ data class Pattern(
     val type: PatternType
 ) {
     override fun toString(): String {
-        return name+type.toString()
+        return "$name.$type"
     }
 }
