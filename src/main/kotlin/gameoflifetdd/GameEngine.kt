@@ -1,8 +1,8 @@
 package gameoflifetdd
 
-import gameoflifetdd.model.Cell
-import gameoflifetdd.model.Grid
-import gameoflifetdd.model.NextGenerationCalculator
+import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.game.Grid
+import gameoflifetdd.model.game.NextGenerationCalculator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

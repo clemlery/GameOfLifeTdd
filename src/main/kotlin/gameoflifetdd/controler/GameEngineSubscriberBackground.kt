@@ -2,8 +2,8 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
-import gameoflifetdd.model.CellState
-import gameoflifetdd.model.Grid
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.model.game.Grid
 import gameoflifetdd.view.CellGrid
 import javafx.scene.effect.GaussianBlur
 
@@ -11,7 +11,7 @@ class GameEngineSubscriberBackground(val component: CellGrid) : GameObserver {
 
     override fun onGridInit(game: GameEngine) {
         component.clearCanvas()
-        component.effect = GaussianBlur(20.0)
+        component.effect = GaussianBlur(30.0)
     }
 
     override fun onGridChanged(grid: Grid) {

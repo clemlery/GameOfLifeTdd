@@ -2,7 +2,7 @@ package gameoflifetdd.view
 
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
-import gameoflifetdd.model.CellState
+import gameoflifetdd.model.game.CellState
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 

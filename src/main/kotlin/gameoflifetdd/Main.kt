@@ -8,6 +8,8 @@ import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.controler.ControlerChangeView
 import gameoflifetdd.controler.ControlerFeatureGameButton
 import gameoflifetdd.controler.ControlerNbCellsSlider
+import gameoflifetdd.controler.ControlerOnCellClick
+import gameoflifetdd.controler.ControlerOnCellDragHold
 import gameoflifetdd.controler.ControlerSpeedSlider
 import gameoflifetdd.controler.ControlerTopBarButton
 import gameoflifetdd.controler.GameEngineSubscriberBackground
@@ -62,10 +64,8 @@ class Main : Application() {
         view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_NB_CELLS_ID),
             ControlerNbCellsSlider(game))
 
-//        view.viewGame.getContainerById(NodeConfig.CENTER_CONTAINER_ID).heightProperty().addListener {
-//            ControlerCellGridResize(view.viewGame.cellGrid, game)
-//        }
-//        view.viewGame.fixGridPaneControler(view.viewGame.getGridCells(), ControlerOnCellDragHold(view.viewGame, game))
+        view.viewGame.cellGrid.onMouseClicked = ControlerOnCellClick(view.viewGame.cellGrid, game)
+        view.viewGame.cellGrid.onMouseDragged = ControlerOnCellDragHold(view.viewGame.cellGrid, game)
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

@@ -3,13 +3,10 @@ package gameoflifetdd.controler
 import gameoflifetdd.GameEngine
 import gameoflifetdd.GameObserver
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.model.CellState
-import gameoflifetdd.model.Grid
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.model.game.Grid
 import gameoflifetdd.view.ViewGame
 import javafx.application.Platform
-import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
-import kotlin.math.floor
 
 class GameEngineSubscriber(val view: ViewGame) : GameObserver{
 

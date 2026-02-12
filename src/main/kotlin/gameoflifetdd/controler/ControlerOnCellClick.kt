@@ -1,20 +1,24 @@
 package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.Cell
-import gameoflifetdd.model.CellState
-import gameoflifetdd.view.CellUI
-import javafx.event.ActionEvent
+import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.game.CellState
+import gameoflifetdd.view.CellGrid
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
+import kotlin.math.floor
 
-class ControlerOnCellClick(val cell : CellUI, val game: GameEngine) : EventHandler<MouseEvent> {
+class ControlerOnCellClick(val cellGrid: CellGrid, val game: GameEngine) : EventHandler<MouseEvent> {
 
-    override fun handle(p0: MouseEvent?) {
-        if (game.getCellAt(cell.x, cell.y).state == CellState.ALIVE) {
-            game.changeCellAt(cell.x, cell.y, Cell(cell.x, cell.y, CellState.DEAD))
-        } else if (game.getCellAt(cell.x, cell.y).state == CellState.DEAD) {
-            game.changeCellAt(cell.x, cell.y, Cell(cell.x, cell.y, CellState.ALIVE))
+    override fun handle(event: MouseEvent?) {
+        val xMouse = event?.x!!
+        val yMouse = event.y
+        val xNewCell : Int = floor(xMouse / cellGrid.cellSize).toInt()
+        val yNewCell : Int = floor(yMouse / cellGrid.cellSize).toInt()
+        if (game.getCellAt(xNewCell, yNewCell).state == CellState.ALIVE) {
+            game.changeCellAt(xNewCell, yNewCell, Cell(xNewCell, yNewCell, CellState.DEAD))
+        } else if (game.getCellAt(xNewCell, yNewCell).state == CellState.DEAD) {
+            game.changeCellAt(xNewCell, yNewCell, Cell(xNewCell, yNewCell, CellState.ALIVE))
         }
     }
 
