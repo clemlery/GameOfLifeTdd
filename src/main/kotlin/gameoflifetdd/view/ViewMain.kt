@@ -10,7 +10,7 @@ class ViewMain() : StackPane() {
 
     var viewHome = ViewHome()
     var viewGame = ViewGame()
-    val viewSearchPattern = ViewSearchPattern()
+    val viewSearchPattern = ModalImportPattern()
     val topBar = TopBar()
     val background = CellGrid(
         NodeConfig.BKGRD_CELL_SIZE,

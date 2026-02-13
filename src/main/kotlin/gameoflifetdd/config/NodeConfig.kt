@@ -74,5 +74,9 @@ class NodeConfig {
         const val BKGRD_CELL_SIZE = 50.0
         const val BACKGROUND_GRID_WIDTH = 50
         const val BACKGROUND_GRID_HEIGHT = 50
+
+        // MODAL PATTERN
+        const val MODAL_WIDTH = 200.0
+        const val MODAL_HEIGHT = 50.0
     }
 }
