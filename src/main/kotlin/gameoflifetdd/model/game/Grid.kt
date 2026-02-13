@@ -56,7 +56,6 @@ class Grid : GridInterface {
         width = newGrid.width
         height = newGrid.height
         cells = newGrid.cells
-
     }
 
     companion object {
