@@ -22,7 +22,7 @@ class ControlerFeatureGameButton(val view : ViewGame, val game : GameEngine) : E
             }
             NodeConfig.BUTTON_CLEAR_ID -> game.clear()
             NodeConfig.BUTTON_REGEN_ID -> game.regenerate()
-            NodeConfig.BUTTON_IMPORT_ID -> game.import()
+            NodeConfig.BUTTON_IMPORT_ID -> view.showImportModal()
             NodeConfig.BUTTON_EXPORT_ID -> game.export()
         }
     }

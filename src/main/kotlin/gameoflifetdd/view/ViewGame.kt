@@ -1,6 +1,5 @@
 package gameoflifetdd.view
 
-import com.sun.javafx.property.adapter.PropertyDescriptor
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
@@ -10,13 +9,12 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
-import javafx.scene.Node
 import javafx.scene.control.Label
-import javafx.scene.input.MouseEvent
 import javafx.scene.layout.*
+import javafx.scene.paint.Color
+import javafx.scene.shape.Rectangle
 
-class ViewGame() : BorderPane() {
+class ViewGame() : StackPane() {
 
     val cellGrid = CellGrid(
         0.0,
@@ -24,6 +22,21 @@ class ViewGame() : BorderPane() {
     ).apply {
         styleClass.add(NodeConfig.GRID_CELLS_CSS_CLASS)
         toFront()
+    }
+
+    private val modalOverlay = StackPane().apply {
+        isVisible = false
+
+        val backgroundRect = Rectangle().apply {
+            widthProperty().bind(this@ViewGame.widthProperty())
+            heightProperty().bind(this@ViewGame.heightProperty())
+            fill = Color.rgb(150, 150, 150, 0.5)
+        }
+        val modal =  ModalImportPattern().apply {
+            padding = Insets(200.0)
+        }
+        children.addAll(backgroundRect, modal)
+        alignment = Pos.CENTER
     }
 
 
@@ -73,16 +86,17 @@ class ViewGame() : BorderPane() {
     }
 
     init {
-        center = cellGrid
+        val mainContainer = BorderPane()
+        mainContainer.center = cellGrid
 
         rightContainer.children.add(gridSettings)
         rightContainer.apply {
             id = NodeConfig.RIGHT_CONTAINER_ID
             padding = Insets(NodeConfig.GRID_PADDING)
         }
-        right = rightContainer
+        mainContainer.right = rightContainer
 
-        setMargin(center, Insets(
+        setMargin(mainContainer.center, Insets(
             NodeConfig.GRID_CELLS_UP_MARGIN,
             0.0, 0.0,
             NodeConfig.GRID_CELLS_LEFT_MARGIN)
@@ -90,6 +104,8 @@ class ViewGame() : BorderPane() {
         styleClass.add(NodeConfig.VIEW_GAME_CSS_CLASS)
 
         setAlignment(cellGrid, Pos.CENTER)
+        children.add(mainContainer)
+        children.add(modalOverlay)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -99,8 +115,6 @@ class ViewGame() : BorderPane() {
     fun fixSliderControler(sliderToFix: Slider, controler: ChangeListener<Number>) {
         sliderToFix.valueProperty().addListener(controler)
     }
-
-    fun getGridCells() = cellGrid
 
     fun getSliderById(id: String) : Slider {
         return when(id) {
@@ -146,11 +160,14 @@ class ViewGame() : BorderPane() {
         }
     }
 
-    // debug
-    fun getCenterContainerShape() : Pair<Double, Double>{
-        return Pair(
-            centerContainer.width,
-            centerContainer.height
-        )
+    fun showImportModal() {
+        modalOverlay.isVisible = true
+        modalOverlay.toFront()
+        modalOverlay.isMouseTransparent = false
+    }
+
+    fun hideImportModal() {
+        modalOverlay.isVisible = false
+        modalOverlay.isMouseTransparent = true
     }
 }

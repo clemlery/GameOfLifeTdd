@@ -10,6 +10,7 @@ class ViewMain() : StackPane() {
 
     var viewHome = ViewHome()
     var viewGame = ViewGame()
+    val viewSearchPattern = ModalImportPattern()
     val topBar = TopBar()
     val background = CellGrid(
         NodeConfig.BKGRD_CELL_SIZE,
@@ -45,5 +46,9 @@ class ViewMain() : StackPane() {
         mainContainer.children.clear()
         mainContainer.children.add(topBar)
         mainContainer.children.add(newView)
+    }
+
+    fun displayModal(modal : Node) {
+        mainContainer.children.add(modal)
     }
 }

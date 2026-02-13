@@ -3,7 +3,6 @@ package gameoflifetdd.model.dataccess
 import gameoflifetdd.config.ModelConfig
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.util.Locale.getDefault
 
 object Scraper {
     private val client = OkHttpClient()
