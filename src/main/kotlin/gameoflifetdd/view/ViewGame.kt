@@ -24,20 +24,6 @@ class ViewGame() : StackPane() {
         toFront()
     }
 
-    private val modalOverlay = StackPane().apply {
-        isVisible = false
-
-        val backgroundRect = Rectangle().apply {
-            widthProperty().bind(this@ViewGame.widthProperty())
-            heightProperty().bind(this@ViewGame.heightProperty())
-            fill = Color.rgb(150, 150, 150, 0.5)
-        }
-        val modal =  ModalImportPattern().apply {
-            padding = Insets(200.0)
-        }
-        children.addAll(backgroundRect, modal)
-        alignment = Pos.CENTER
-    }
 
 
     private var centerContainer = StackPane()
@@ -105,7 +91,6 @@ class ViewGame() : StackPane() {
 
         setAlignment(cellGrid, Pos.CENTER)
         children.add(mainContainer)
-        children.add(modalOverlay)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -158,16 +143,5 @@ class ViewGame() : StackPane() {
         } else {
             Util.changeButtonIcon("/icons/run.svg", continueButton)
         }
-    }
-
-    fun showImportModal() {
-        modalOverlay.isVisible = true
-        modalOverlay.toFront()
-        modalOverlay.isMouseTransparent = false
-    }
-
-    fun hideImportModal() {
-        modalOverlay.isVisible = false
-        modalOverlay.isMouseTransparent = true
     }
 }

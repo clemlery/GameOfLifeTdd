@@ -46,7 +46,7 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
                 game.start()
             }
             NodeConfig.BUTTON_IMPORT_ID -> {
-                view.displayModal(view.viewSearchPattern)
+                view.showImportModal()
             }
         }
     }
