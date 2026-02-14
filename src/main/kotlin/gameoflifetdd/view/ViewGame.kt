@@ -118,14 +118,6 @@ class ViewGame() : StackPane() {
         }
     }
 
-    fun getContainerById(id: String): Region {
-        return when (id) {
-            NodeConfig.CENTER_CONTAINER_ID -> centerContainer
-            NodeConfig.RIGHT_CONTAINER_ID -> rightContainer
-            else -> throw IllegalArgumentException("Id : $id doesn't exist")
-        }
-    }
-
     fun setSliderNbCellsMax(max: Double) {
         nbCellsSlider.max = max
     }

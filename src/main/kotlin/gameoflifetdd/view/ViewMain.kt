@@ -30,20 +30,17 @@ class ViewMain() : StackPane() {
             }
         }
     }
+    val modal = ModalImportPattern()
+    val backgroundModal = Rectangle().apply {
+        widthProperty().bind(this@ViewMain.widthProperty())
+        heightProperty().bind(this@ViewMain.heightProperty())
+        fill = Color.rgb(150, 150, 150, 0.5)
+    }
 
     val modalOverlay = StackPane().apply {
         isVisible = false
-
-        val backgroundRect = Rectangle().apply {
-            widthProperty().bind(this@ViewMain.widthProperty())
-            heightProperty().bind(this@ViewMain.heightProperty())
-            fill = Color.rgb(150, 150, 150, 0.5)
-        }
-        val modal =  ModalImportPattern()
-
-        children.addAll(backgroundRect, modal)
+        children.addAll(backgroundModal, modal)
     }
-
 
     val mainContainer = VBox(
         topBar,

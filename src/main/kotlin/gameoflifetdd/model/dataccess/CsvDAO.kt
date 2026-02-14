@@ -11,7 +11,10 @@ class CsvDAO(
     val bookmarks: File
 ) {
 
+    private val limit = 9
     private val patterns : MutableList<Pattern> = mutableListOf()
+    private var lastSearch = ""
+    private var lastOffset = 0
 
     init {
         loadAllPatterns(source)
@@ -38,7 +41,6 @@ class CsvDAO(
 
     fun searchPatterns(
         search: String = "",
-        limit: Int = 9,
         offset: Int = 0
     ): MutableList<Pattern> {
         val patternsFound = mutableListOf<Pattern>()
@@ -53,10 +55,34 @@ class CsvDAO(
         } else {
             offset+limit
         }
-        for (i in offset+1 until stop) {
+        for (i in offset until stop) {
             patternsFound.add(patternsUsed[i])
         }
-        return patterns
+        return patternsFound
+    }
+
+    fun next() : MutableList<Pattern>? {
+        val currentSearch = searchPatterns(lastSearch, lastOffset)
+        if (currentSearch.size == limit) {
+            lastOffset += 9
+            return searchPatterns(
+                lastSearch,
+                lastOffset
+            )
+        } else {
+            return null
+        }
+    }
+
+    fun previous() : MutableList<Pattern>? {
+        if (lastOffset == 0) return null
+        else {
+            lastOffset -= 9
+            return searchPatterns(
+                lastSearch,
+                lastOffset
+            )
+        }
     }
 
     fun addToBookmarks(

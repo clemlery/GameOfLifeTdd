@@ -2,6 +2,8 @@ package gameoflifetdd.view
 
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
@@ -26,6 +28,7 @@ class ModalImportPattern : StackPane() {
         styleClass.add(NodeConfig.TEXTFIELD_SEARCH_CSS_CLASS)
         font = AppConfig.TEXT_FONT_SMALL
     }
+
     private val gridContainer = GridPane().apply {
         hgap = NodeConfig.GRID_CONTAINER_HGAP
         vgap = NodeConfig.GRID_CONTAINER_VGAP
@@ -40,7 +43,7 @@ class ModalImportPattern : StackPane() {
     }
 
     private val patterns = Array(9) {
-        i -> Label("pattern${i+1}").apply {
+        _ -> Label().apply {
             padding = Insets(10.0)
             maxWidth = Double.MAX_VALUE
             styleClass.add(NodeConfig.LABEL_PATTERN_CSS_CLASS)
@@ -102,6 +105,26 @@ class ModalImportPattern : StackPane() {
         maxHeight = NodeConfig.MODAL_HEIGHT
         alignment = Pos.CENTER
         styleClass.add(NodeConfig.MODAL_IMPORT_CSS_CLASS)
+    }
+
+    fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
+        buttonToFix.onAction = controler
+    }
+
+    fun getButtonById(id : String) : Button {
+        return when (id) {
+            NodeConfig.BUTTON_PREVIOUS_ID -> previousButton
+            NodeConfig.BUTTON_CURRENT_PAGE_ID -> pagination1Button
+            NodeConfig.BUTTON_NEXT_PAGE_ID -> pagination2Button
+            NodeConfig.BUTTON_NEXT_ID -> nextButton
+            else -> throw IllegalArgumentException("Id : $id doesn't exist")
+        }
+    }
+
+    fun loadLabels(patternsName: List<String>) {
+        patterns.zip(patternsName).forEach { (pattern, patternName) ->
+            pattern.text = patternName
+        }
     }
 
 }
