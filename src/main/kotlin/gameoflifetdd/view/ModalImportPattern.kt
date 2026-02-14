@@ -8,18 +8,33 @@ import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.Background
 import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.ColumnConstraints
 import javafx.scene.layout.CornerRadii
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 
 class ModalImportPattern : StackPane() {
 
-    private val searchTextField = TextField()
-
-    private val gridContainer = GridPane()
+    private val searchTextField = TextField().apply {
+        promptText = "Type Something ..."
+        maxWidth = Double.MAX_VALUE
+    }
+    private val gridContainer = GridPane().apply {
+        hgap = NodeConfig.GRID_CONTAINER_HGAP
+        vgap = NodeConfig.GRID_CONTAINER_VGAP
+        columnConstraints.addAll(
+            ColumnConstraints().apply {
+                percentWidth = 33.33
+                hgrow = Priority.ALWAYS  // Permet de grandir
+            },
+            ColumnConstraints().apply { percentWidth = 33.33; hgrow = Priority.ALWAYS },
+            ColumnConstraints().apply { percentWidth = 33.33; hgrow = Priority.ALWAYS }
+        )
+    }
 
     private val patterns = Array(9) {
         i -> Label("pattern${i+1}").apply {
@@ -31,6 +46,7 @@ class ModalImportPattern : StackPane() {
                     Insets.EMPTY
                 )
             )
+            maxWidth = Double.MAX_VALUE
         }
     }
 
@@ -48,8 +64,7 @@ class ModalImportPattern : StackPane() {
             val row = i/3
             gridContainer.add(patternLabel, column, row+1)
         }
-        gridContainer.vgap = 5.0
-        gridContainer.hgap = 5.0
+
         val mainContainer = VBox(
             gridContainer,
             HBox(
@@ -61,6 +76,16 @@ class ModalImportPattern : StackPane() {
             )
         )
         children.add(mainContainer)
+        padding = Insets(NodeConfig.MODAL_PADDING)
+        maxWidth = NodeConfig.MODAL_WIDTH
+        maxHeight = NodeConfig.MODAL_HEIGHT
+        background = Background(
+            BackgroundFill(
+                NodeConfig.COLOR_BACKGROUND,
+                CornerRadii.EMPTY,
+                Insets.EMPTY
+            )
+        )
         alignment = Pos.CENTER
     }
 

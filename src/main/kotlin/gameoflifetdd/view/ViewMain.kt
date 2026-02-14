@@ -39,18 +39,7 @@ class ViewMain() : StackPane() {
             heightProperty().bind(this@ViewMain.heightProperty())
             fill = Color.rgb(150, 150, 150, 0.5)
         }
-        val modal =  ModalImportPattern().apply {
-            padding = Insets(20.0)
-            maxWidth = NodeConfig.MODAL_WIDTH
-            maxHeight = NodeConfig.MODAL_HEIGHT
-            background = Background(
-                BackgroundFill(
-                    NodeConfig.COLOR_BACKGROUND,
-                    CornerRadii.EMPTY,
-                    Insets.EMPTY
-                )
-            )
-        }
+        val modal =  ModalImportPattern()
 
         children.addAll(backgroundRect, modal)
     }
