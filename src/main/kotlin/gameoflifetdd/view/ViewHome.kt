@@ -1,6 +1,5 @@
 package gameoflifetdd.view
 
-import com.sun.prism.paint.Color
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
@@ -14,7 +13,6 @@ import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
-import javafx.scene.layout.Background
 
 class ViewHome() : StackPane() {
 
@@ -28,7 +26,7 @@ class ViewHome() : StackPane() {
 
     // Input grid width
     private val labelWidth = Label("Grid width").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val inputWidth = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
@@ -40,7 +38,7 @@ class ViewHome() : StackPane() {
 
     // Input grid height
     private val labelHeight = Label("Grid height").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val inputHeight = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
@@ -52,7 +50,7 @@ class ViewHome() : StackPane() {
 
     // Input number of cells
     private val labelNbCells = Label("Number of cells").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val inputNbCells = TextField().apply {
         maxWidth = NodeConfig.TEXT_FIELDS_MAX_WIDTH
@@ -64,7 +62,7 @@ class ViewHome() : StackPane() {
 
     // Button to launch game
     private val startButton = Button("Start").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
         id = NodeConfig.BUTTON_START_ID
         minHeight = 40.0
         maxWidth = NodeConfig.BUTTON_MAX_WIDTH

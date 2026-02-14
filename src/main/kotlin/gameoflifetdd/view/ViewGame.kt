@@ -11,8 +11,6 @@ import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
 import javafx.scene.layout.*
-import javafx.scene.paint.Color
-import javafx.scene.shape.Rectangle
 
 class ViewGame() : StackPane() {
 
@@ -24,39 +22,24 @@ class ViewGame() : StackPane() {
         toFront()
     }
 
-    private val modalOverlay = StackPane().apply {
-        isVisible = false
-
-        val backgroundRect = Rectangle().apply {
-            widthProperty().bind(this@ViewGame.widthProperty())
-            heightProperty().bind(this@ViewGame.heightProperty())
-            fill = Color.rgb(150, 150, 150, 0.5)
-        }
-        val modal =  ModalImportPattern().apply {
-            padding = Insets(200.0)
-        }
-        children.addAll(backgroundRect, modal)
-        alignment = Pos.CENTER
-    }
-
 
     private var centerContainer = StackPane()
     private val rightContainer = StackPane()
 
-    private var continueButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
+    private var continueButton = Util.createIconButton("/icons/game/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
 
-    private val clearButton = Util.createIconButton("/icons/clear.svg", NodeConfig.BUTTON_CLEAR_ID)
+    private val clearButton = Util.createIconButton("/icons/game/clear.svg", NodeConfig.BUTTON_CLEAR_ID)
 
-    private val regenerateButton = Util.createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
+    private val regenerateButton = Util.createIconButton("/icons/game/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
 
-    private val backButton = Util.createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
+    private val backButton = Util.createIconButton("/icons/game/back.svg", NodeConfig.BUTTON_BACK_ID)
 
-    private val importButton = Util.createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
+    private val importButton = Util.createIconButton("/icons/game/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val exportButton = Util.createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
+    private val exportButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
     private val speedLabel = Label("Speed").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val speedSlider = Slider().apply {
         id = NodeConfig.SLIDER_SPEED_ID
@@ -65,7 +48,7 @@ class ViewGame() : StackPane() {
     }
 
     private val nbCellsLabel = Label("Number of cells").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val nbCellsSlider = Slider().apply {
         id = NodeConfig.SLIDER_NB_CELLS_ID
@@ -105,7 +88,6 @@ class ViewGame() : StackPane() {
 
         setAlignment(cellGrid, Pos.CENTER)
         children.add(mainContainer)
-        children.add(modalOverlay)
     }
 
     fun fixButtonControler(buttonToFix : Button, controler : EventHandler<ActionEvent>) {
@@ -136,14 +118,6 @@ class ViewGame() : StackPane() {
         }
     }
 
-    fun getContainerById(id: String): Region {
-        return when (id) {
-            NodeConfig.CENTER_CONTAINER_ID -> centerContainer
-            NodeConfig.RIGHT_CONTAINER_ID -> rightContainer
-            else -> throw IllegalArgumentException("Id : $id doesn't exist")
-        }
-    }
-
     fun setSliderNbCellsMax(max: Double) {
         nbCellsSlider.max = max
     }
@@ -154,20 +128,9 @@ class ViewGame() : StackPane() {
 
     fun toggleIcon(state: Boolean) {
         continueButton = if (state) {
-            Util.changeButtonIcon("/icons/stop.svg", continueButton)
+            Util.changeButtonIcon("/icons/game/stop.svg", continueButton)
         } else {
-            Util.changeButtonIcon("/icons/run.svg", continueButton)
+            Util.changeButtonIcon("/icons/game/run.svg", continueButton)
         }
-    }
-
-    fun showImportModal() {
-        modalOverlay.isVisible = true
-        modalOverlay.toFront()
-        modalOverlay.isMouseTransparent = false
-    }
-
-    fun hideImportModal() {
-        modalOverlay.isVisible = false
-        modalOverlay.isMouseTransparent = true
     }
 }

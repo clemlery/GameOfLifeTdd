@@ -2,6 +2,7 @@ package gameoflifetdd.controler
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.config.NodeConfig
+import gameoflifetdd.model.dataccess.CsvDAO
 import gameoflifetdd.view.ViewGame
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -22,7 +23,6 @@ class ControlerFeatureGameButton(val view : ViewGame, val game : GameEngine) : E
             }
             NodeConfig.BUTTON_CLEAR_ID -> game.clear()
             NodeConfig.BUTTON_REGEN_ID -> game.regenerate()
-            NodeConfig.BUTTON_IMPORT_ID -> view.showImportModal()
             NodeConfig.BUTTON_EXPORT_ID -> game.export()
         }
     }

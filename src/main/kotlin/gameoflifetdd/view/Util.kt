@@ -7,7 +7,7 @@ import javafx.scene.shape.SVGPath
 import kotlin.math.max
 
 object Util {
-    fun getIconGroup(path : String) : Group {
+    fun getIconGroup(path : String, size: Int, cssClass: String = "button-icon") : Group {
         val svgText = javaClass
             .getResource(path)
             ?.readText()
@@ -21,7 +21,7 @@ object Util {
         val svgNodes = paths.map { d ->
             SVGPath().apply {
                 content = d
-                styleClass.add("button-icon")
+                styleClass.add(cssClass)
             }
         }
 
@@ -31,7 +31,7 @@ object Util {
 
         val bounds = group.boundsInLocal
 
-        val scaleFactor = 40 / max(bounds.width, bounds.height)
+        val scaleFactor = size / max(bounds.width, bounds.height)
 
         group.scaleX = scaleFactor
         group.scaleY = scaleFactor
@@ -39,23 +39,25 @@ object Util {
         return group
     }
 
-    fun createIconButton(path: String, buttonId : String?): Button {
+    fun createIconButton(
+        path: String,
+        buttonId: String?,
+        size: Int = 40,
+        cssClass: String = "icon-button"  // ← Nouveau paramètre
+    ): Button {
+        val group = getIconGroup(path, size, cssClass)
 
-        val group = getIconGroup(path)
-
-        val button = Button().apply {
+        return Button().apply {
             isPickOnBounds = true
             graphic = group
             alignment = Pos.CENTER
-            styleClass.add("icon-button")
+            this.styleClass.add(cssClass)  // ← Utiliser le paramètre
             id = buttonId
         }
-
-        return button
     }
 
-    fun changeButtonIcon(path : String, button: Button) : Button {
-        val group = getIconGroup(path)
+    fun changeButtonIcon(path : String, button: Button, size : Int = 40) : Button {
+        val group = getIconGroup(path, size)
 
         return button.apply {
             graphic = group

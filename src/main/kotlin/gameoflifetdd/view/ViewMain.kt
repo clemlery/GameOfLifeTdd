@@ -1,16 +1,22 @@
 package gameoflifetdd.view
 
 import gameoflifetdd.config.NodeConfig
+import javafx.geometry.Insets
+import javafx.geometry.Pos
 import javafx.scene.Node
+import javafx.scene.layout.Background
+import javafx.scene.layout.BackgroundFill
+import javafx.scene.layout.CornerRadii
 import javafx.scene.layout.Region
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
+import javafx.scene.paint.Color
+import javafx.scene.shape.Rectangle
 
 class ViewMain() : StackPane() {
 
     var viewHome = ViewHome()
     var viewGame = ViewGame()
-    val viewSearchPattern = ModalImportPattern()
     val topBar = TopBar()
     val background = CellGrid(
         NodeConfig.BKGRD_CELL_SIZE,
@@ -24,6 +30,17 @@ class ViewMain() : StackPane() {
             }
         }
     }
+    val modal = ModalImportPattern()
+    val backgroundModal = Rectangle().apply {
+        widthProperty().bind(this@ViewMain.widthProperty())
+        heightProperty().bind(this@ViewMain.heightProperty())
+        fill = Color.rgb(150, 150, 150, 0.5)
+    }
+
+    val modalOverlay = StackPane().apply {
+        isVisible = false
+        children.addAll(backgroundModal, modal)
+    }
 
     val mainContainer = VBox(
         topBar,
@@ -31,8 +48,12 @@ class ViewMain() : StackPane() {
     )
 
     init {
-        children.add(background)
-        children.add(mainContainer)
+        children.addAll(
+            background,
+            mainContainer,
+            modalOverlay
+        )
+        setAlignment(modalOverlay, Pos.CENTER)
         styleClass.add(NodeConfig.MAIN_VIEW_CSS_CLASS)
     }
 
@@ -48,7 +69,14 @@ class ViewMain() : StackPane() {
         mainContainer.children.add(newView)
     }
 
-    fun displayModal(modal : Node) {
-        mainContainer.children.add(modal)
+    fun showImportModal() {
+        modalOverlay.isVisible = true
+        modalOverlay.toFront()
+        modalOverlay.isMouseTransparent = false
+    }
+
+    fun hideImportModal() {
+        modalOverlay.isVisible = false
+        modalOverlay.isMouseTransparent = true
     }
 }

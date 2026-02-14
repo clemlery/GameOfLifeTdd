@@ -76,7 +76,26 @@ class NodeConfig {
         const val BACKGROUND_GRID_HEIGHT = 50
 
         // MODAL PATTERN
-        const val MODAL_WIDTH = 200.0
-        const val MODAL_HEIGHT = 50.0
+        const val MODAL_WIDTH = 600.0
+        const val MODAL_HEIGHT = 250.0
+        const val MODAL_PADDING = 20.0
+        const val GRID_CONTAINER_HGAP = 20.0
+        const val GRID_CONTAINER_VGAP = 15.0
+        const val BUTTON_CONTAINER_PADDING = 5.0
+        const val BUTTON_CONTAINER_SPACING = 15.0
+
+        const val MODAL_IMPORT_CSS_CLASS = "modal"
+        const val TEXTFIELD_SEARCH_CSS_CLASS = "search-textfield"
+        const val BUTTON_SEARCH_CSS_CLASS = "search-button"
+        const val LABEL_PATTERN_CSS_CLASS = "pattern-label"
+        const val BUTTON_PAGE_CSS_CLASS = "button-page"
+        const val BUTTON_CURRENT_PAGE_CSS_CLASS = "current-button-page"
+
+        const val BUTTON_SEARCH_ID = "modal-import-button-search"
+        const val BUTTON_PREVIOUS_ID = "modal-import-button-previous"
+        const val BUTTON_CURRENT_PAGE_ID = "modal-import-button-current-page"
+        const val BUTTON_NEXT_PAGE_ID = "modal-import-button-next-page"
+        const val BUTTON_NEXT_ID = "modal-import-button-next"
+        const val BUTTON_ICON_SMALL_CSS_CLASS = "icon-button-small"
     }
 }
