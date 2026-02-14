@@ -7,7 +7,7 @@ import javafx.scene.shape.SVGPath
 import kotlin.math.max
 
 object Util {
-    fun getIconGroup(path : String, size: Int) : Group {
+    fun getIconGroup(path : String, size: Int, cssClass: String = "button-icon") : Group {
         val svgText = javaClass
             .getResource(path)
             ?.readText()
@@ -21,7 +21,7 @@ object Util {
         val svgNodes = paths.map { d ->
             SVGPath().apply {
                 content = d
-                styleClass.add("button-icon")
+                styleClass.add(cssClass)
             }
         }
 
@@ -39,19 +39,21 @@ object Util {
         return group
     }
 
-    fun createIconButton(path: String, buttonId : String?, size: Int = 40): Button {
+    fun createIconButton(
+        path: String,
+        buttonId: String?,
+        size: Int = 40,
+        cssClass: String = "icon-button"  // ← Nouveau paramètre
+    ): Button {
+        val group = getIconGroup(path, size, cssClass)
 
-        val group = getIconGroup(path, size)
-
-        val button = Button().apply {
+        return Button().apply {
             isPickOnBounds = true
             graphic = group
             alignment = Pos.CENTER
-            styleClass.add("icon-button")
+            this.styleClass.add(cssClass)  // ← Utiliser le paramètre
             id = buttonId
         }
-
-        return button
     }
 
     fun changeButtonIcon(path : String, button: Button, size : Int = 40) : Button {

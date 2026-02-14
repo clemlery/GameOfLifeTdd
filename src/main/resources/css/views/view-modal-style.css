@@ -4,42 +4,45 @@
 
 .search-textfield {
     -fx-background-color: white;
-    -fx-border-radius: 5%;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .pattern-label {
     -fx-background-color: white;
-    -fx-border-radius: 5%;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-fill: white;
 }
 
 .button-page {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-border-radius: 5%;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 .current-button-page {
+    -fx-text-fill: white;
     -fx-background-color: #1B1B1B;
 }
 
-/* set default fill of svg path */
-.icon-button .button-icon {
-    -fx-fill: black;
-}
-
-/* set default fill of svg path */
-.icon-button:focused {
+.icon-button-small {
     -fx-background-color: transparent;
-    -fx-background-radius: 0;
+    -fx-pref-height: 20;
+    -fx-pref-width: 20;
+    -fx-min-height: 20;
+    -fx-min-width: 20;
+    -fx-max-height: 20;
+    -fx-max-width: 20;
 }
 
-/* remove default button style & set size */
-.icon-button {
-    -fx-background-color: transparent, transparent, transparent, transparent, transparent;
-    -fx-pref-height: 30;
-    -fx-pref-width: 30;
-    -fx-min-height: 30;
-    -fx-min-width: 30;
-    -fx-max-height: 30;
-    -fx-max-width: 30;
+.icon-button-small {
+    -fx-fill: black;
+    -fx-stroke: black;  /* ← Ajouter */
+    -fx-stroke-width: 2;  /* ← Ajouter */
+}
+
+.icon-button-small:pressed .button-icon {
+    -fx-fill: #444444;
 }

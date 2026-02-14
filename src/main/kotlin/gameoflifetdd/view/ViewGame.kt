@@ -39,7 +39,7 @@ class ViewGame() : StackPane() {
     private val exportButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
     private val speedLabel = Label("Speed").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val speedSlider = Slider().apply {
         id = NodeConfig.SLIDER_SPEED_ID
@@ -48,7 +48,7 @@ class ViewGame() : StackPane() {
     }
 
     private val nbCellsLabel = Label("Number of cells").apply {
-        font = AppConfig.TEXT_FONT
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val nbCellsSlider = Slider().apply {
         id = NodeConfig.SLIDER_NB_CELLS_ID

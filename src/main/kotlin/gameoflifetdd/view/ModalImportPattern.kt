@@ -1,5 +1,6 @@
 package gameoflifetdd.view
 
+import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
 import javafx.geometry.Insets
 import javafx.geometry.Pos
@@ -23,6 +24,7 @@ class ModalImportPattern : StackPane() {
         promptText = "Type Something ..."
         maxWidth = Double.MAX_VALUE
         styleClass.add(NodeConfig.TEXTFIELD_SEARCH_CSS_CLASS)
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val gridContainer = GridPane().apply {
         hgap = NodeConfig.GRID_CONTAINER_HGAP
@@ -42,22 +44,36 @@ class ModalImportPattern : StackPane() {
             padding = Insets(10.0)
             maxWidth = Double.MAX_VALUE
             styleClass.add(NodeConfig.LABEL_PATTERN_CSS_CLASS)
-        }
+            font = AppConfig.TEXT_FONT_SMALL
+         }
     }
-
-    private val previousButton = Util.createIconButton("/icons/import-modal/previous.svg", NodeConfig.BUTTON_PREVIOUS_ID, 20)
-    private val nextButton = Util.createIconButton("/icons/import-modal/next.svg", NodeConfig.BUTTON_NEXT_ID, 20)
+    private val previousButton = Util.createIconButton(
+        "/icons/import-modal/previous.svg",
+        NodeConfig.BUTTON_PREVIOUS_ID,
+        20,
+        NodeConfig.BUTTON_ICON_SMALL_CSS_CLASS
+    )
+    private val nextButton = Util.createIconButton(
+        "/icons/import-modal/next.svg",
+        NodeConfig.BUTTON_NEXT_ID,
+        20,
+        NodeConfig.BUTTON_ICON_SMALL_CSS_CLASS
+    )
     private val pagination1Button = Button("1").apply {
         styleClass.addAll(NodeConfig.BUTTON_PAGE_CSS_CLASS, NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
         id = NodeConfig.BUTTON_CURRENT_PAGE_ID
+        font = AppConfig.TEXT_FONT_SMALL
     }
     private val pagination2Button = Button("2").apply {
         styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
         id = NodeConfig.BUTTON_NEXT_PAGE_ID
+        font = AppConfig.TEXT_FONT_SMALL
     }
 
     init {
-        gridContainer.add(searchTextField, 0, 0, 3, 1)
+        gridContainer.add(
+            searchTextField,
+            0, 0, 3, 1)
         (patterns.withIndex()).forEach { (i, patternLabel) ->
             val column = i%3
             val row = i/3
@@ -71,12 +87,15 @@ class ModalImportPattern : StackPane() {
         ).apply {
             alignment = Pos.CENTER
             padding = Insets(NodeConfig.BUTTON_CONTAINER_PADDING)
+            spacing = NodeConfig.BUTTON_CONTAINER_SPACING
         }
 
         val mainContainer = VBox(
             gridContainer,
             buttonContainer
-        )
+        ).apply {
+            spacing = NodeConfig.GRID_CONTAINER_VGAP
+        }
         children.add(mainContainer)
         padding = Insets(NodeConfig.MODAL_PADDING)
         maxWidth = NodeConfig.MODAL_WIDTH
