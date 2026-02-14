@@ -1,0 +1,45 @@
+.modal {
+    -fx-background-color: #D9D9D9;
+}
+
+.search-textfield {
+    -fx-background-color: white;
+    -fx-border-radius: 5%;
+}
+
+.pattern-label {
+    -fx-background-color: white;
+    -fx-border-radius: 5%;
+}
+
+.button-page {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5%;
+}
+
+.current-button-page {
+    -fx-background-color: #1B1B1B;
+}
+
+/* set default fill of svg path */
+.icon-button .button-icon {
+    -fx-fill: black;
+}
+
+/* set default fill of svg path */
+.icon-button:focused {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+/* remove default button style & set size */
+.icon-button {
+    -fx-background-color: transparent, transparent, transparent, transparent, transparent;
+    -fx-pref-height: 30;
+    -fx-pref-width: 30;
+    -fx-min-height: 30;
+    -fx-min-width: 30;
+    -fx-max-height: 30;
+    -fx-max-width: 30;
+}

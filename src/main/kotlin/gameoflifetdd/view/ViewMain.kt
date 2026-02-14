@@ -31,7 +31,7 @@ class ViewMain() : StackPane() {
         }
     }
 
-    private val modalOverlay = StackPane().apply {
+    val modalOverlay = StackPane().apply {
         isVisible = false
 
         val backgroundRect = Rectangle().apply {

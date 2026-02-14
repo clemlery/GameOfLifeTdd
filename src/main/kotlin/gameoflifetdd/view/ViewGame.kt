@@ -11,8 +11,6 @@ import javafx.scene.control.Slider
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
 import javafx.scene.layout.*
-import javafx.scene.paint.Color
-import javafx.scene.shape.Rectangle
 
 class ViewGame() : StackPane() {
 
@@ -25,21 +23,20 @@ class ViewGame() : StackPane() {
     }
 
 
-
     private var centerContainer = StackPane()
     private val rightContainer = StackPane()
 
-    private var continueButton = Util.createIconButton("/icons/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
+    private var continueButton = Util.createIconButton("/icons/game/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
 
-    private val clearButton = Util.createIconButton("/icons/clear.svg", NodeConfig.BUTTON_CLEAR_ID)
+    private val clearButton = Util.createIconButton("/icons/game/clear.svg", NodeConfig.BUTTON_CLEAR_ID)
 
-    private val regenerateButton = Util.createIconButton("/icons/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
+    private val regenerateButton = Util.createIconButton("/icons/game/regenerate.svg", NodeConfig.BUTTON_REGEN_ID)
 
-    private val backButton = Util.createIconButton("/icons/back.svg", NodeConfig.BUTTON_BACK_ID)
+    private val backButton = Util.createIconButton("/icons/game/back.svg", NodeConfig.BUTTON_BACK_ID)
 
-    private val importButton = Util.createIconButton("/icons/import.svg", NodeConfig.BUTTON_IMPORT_ID)
+    private val importButton = Util.createIconButton("/icons/game/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val exportButton = Util.createIconButton("/icons/export.svg", NodeConfig.BUTTON_EXPORT_ID)
+    private val exportButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_EXPORT_ID)
 
     private val speedLabel = Label("Speed").apply {
         font = AppConfig.TEXT_FONT
@@ -139,9 +136,9 @@ class ViewGame() : StackPane() {
 
     fun toggleIcon(state: Boolean) {
         continueButton = if (state) {
-            Util.changeButtonIcon("/icons/stop.svg", continueButton)
+            Util.changeButtonIcon("/icons/game/stop.svg", continueButton)
         } else {
-            Util.changeButtonIcon("/icons/run.svg", continueButton)
+            Util.changeButtonIcon("/icons/game/run.svg", continueButton)
         }
     }
 }

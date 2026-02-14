@@ -1,19 +1,16 @@
 package gameoflifetdd.view
 
-import com.sun.prism.paint.Color
-import com.sun.prism.paint.Paint
 import gameoflifetdd.config.NodeConfig
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 
 class TopBar : HBox() {
 
-    private val closeButton = Util.createIconButton("/icons/close.svg", NodeConfig.BUTTON_CLOSE_ID)
-    private val settingsButton = Util.createIconButton("/icons/settings.svg", NodeConfig.BUTTON_SETTINGS_ID)
+    private val closeButton = Util.createIconButton("/icons/top-bar/close.svg", NodeConfig.BUTTON_CLOSE_ID)
+    private val settingsButton = Util.createIconButton("/icons/top-bar/settings.svg", NodeConfig.BUTTON_SETTINGS_ID)
 
     init {
         children.addAll(
