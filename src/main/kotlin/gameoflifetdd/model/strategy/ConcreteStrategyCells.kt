@@ -1,7 +1,7 @@
 package gameoflifetdd.model.strategy
 
-import gameoflifetdd.model.dataccess.Pattern
-import gameoflifetdd.model.dataccess.Scraper
+import gameoflifetdd.model.data.Pattern
+import gameoflifetdd.model.data.Scraper
 import gameoflifetdd.model.game.CellState
 
 object ConcreteStrategyCells : Strategy {
@@ -19,7 +19,7 @@ object ConcreteStrategyCells : Strategy {
                     'O' -> CellState.ALIVE
                     '.' -> CellState.DEAD
                     else -> throw IllegalArgumentException(
-                        "Invalid character '$character' at position ($x,$y)"
+                        "Invalid character '$character' at position ($x,$y) for pattern $pattern"
                     )
                 }
                 cellsLine.add(state)

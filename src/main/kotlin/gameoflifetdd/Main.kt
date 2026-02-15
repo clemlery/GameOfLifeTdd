@@ -17,7 +17,8 @@ import gameoflifetdd.controler.modal.ControlerSearchTextField
 import gameoflifetdd.controler.game.ControlerSpeedSlider
 import gameoflifetdd.controler.topbar.ControlerTopBarButton
 import gameoflifetdd.controler.GameEngineSubscriberBackground
-import gameoflifetdd.model.dataccess.CsvDAO
+import gameoflifetdd.controler.modal.ControlerSelectionLabel
+import gameoflifetdd.model.data.CsvDAO
 import gameoflifetdd.view.ViewMain
 
 class Main : Application() {
@@ -85,6 +86,7 @@ class Main : Application() {
         view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_NEXT_ID), ControlerModalsButton(view, dao))
         view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_NEXT_PAGE_ID), ControlerModalsButton(view, dao))
         view.modal.fixTextFieldSearchControler(ControlerSearchTextField(view, dao))
+        view.modal.fixLabelsControler(ControlerSelectionLabel(view, game, dao))
 
         stage.title = "Game of Life - Conway"
         stage.scene = scene

@@ -1,4 +1,4 @@
-package gameoflifetdd.model.dataccess
+package gameoflifetdd.model.data
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
@@ -66,6 +66,10 @@ class CsvDAO(
         }
 
         return patternsFound
+    }
+
+    fun getPattern(patternName: String) : Pattern? {
+        return patterns.firstOrNull() { it.toString() == patternName }
     }
 
     fun next() : MutableList<Pattern>? {

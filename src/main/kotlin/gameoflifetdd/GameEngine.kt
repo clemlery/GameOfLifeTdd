@@ -1,5 +1,6 @@
 package gameoflifetdd
 
+import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.game.Cell
 import gameoflifetdd.model.game.Grid
 import gameoflifetdd.model.game.NextGenerationCalculator
@@ -96,8 +97,9 @@ class GameEngine {
 
     fun getGrid() = grid
 
-    fun import() {
-        TODO()
+    fun import(pattern : Pattern) {
+        grid.loadPatternInGrid(pattern)
+        notifyObservers()
     }
 
     fun export() {

@@ -1,6 +1,5 @@
-package gameoflifetdd.model
+package gameoflifetdd.model.game
 
-import gameoflifetdd.model.game.Grid
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 

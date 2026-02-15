@@ -9,6 +9,7 @@ import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Background
 import javafx.scene.layout.BackgroundFill
 import javafx.scene.layout.ColumnConstraints
@@ -121,6 +122,12 @@ class ModalImportPattern : StackPane() {
         searchTextField.onAction = controler
     }
 
+    fun fixLabelsControler(controler : EventHandler<MouseEvent>) {
+        patterns.forEach { pattern ->
+            pattern.onMouseClicked = controler
+        }
+    }
+
     fun getButtonById(id : String) : Button {
         return when (id) {
             NodeConfig.BUTTON_PREVIOUS_ID -> previousButton
@@ -132,7 +139,7 @@ class ModalImportPattern : StackPane() {
         }
     }
 
-    fun getTextFromSearch() = searchTextField.text
+    fun getTextFromSearch(): String? = searchTextField.text
 
     fun resetNodes() {
         searchTextField.text = ""

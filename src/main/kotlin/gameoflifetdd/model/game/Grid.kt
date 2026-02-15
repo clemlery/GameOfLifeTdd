@@ -1,6 +1,6 @@
 package gameoflifetdd.model.game
 
-import gameoflifetdd.model.dataccess.Pattern
+import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.strategy.Context
 import kotlin.math.ceil
 import kotlin.properties.Delegates
@@ -24,7 +24,7 @@ class Grid : GridInterface {
         return this.cells[x][y]
     }
 
-    fun loadPatternInGrid(pattern: Pattern) {
+    override fun loadPatternInGrid(pattern: Pattern) {
         val context = Context()
         val cellsMatrixPattern = context.load(pattern)
 

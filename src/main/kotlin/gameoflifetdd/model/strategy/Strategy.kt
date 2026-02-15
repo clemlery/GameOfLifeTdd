@@ -1,7 +1,6 @@
 package gameoflifetdd.model.strategy
 
-import gameoflifetdd.model.dataccess.Pattern
-import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.game.CellState
 
 interface Strategy {

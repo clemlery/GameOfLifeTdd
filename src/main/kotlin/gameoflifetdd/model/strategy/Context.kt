@@ -1,8 +1,7 @@
 package gameoflifetdd.model.strategy
 
-import gameoflifetdd.model.dataccess.Pattern
-import gameoflifetdd.model.dataccess.PatternType
-import gameoflifetdd.model.game.Cell
+import gameoflifetdd.model.data.Pattern
+import gameoflifetdd.model.data.PatternType
 import gameoflifetdd.model.game.CellState
 
 class Context {

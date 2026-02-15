@@ -1,4 +1,4 @@
-package gameoflifetdd.model.dataccess
+package gameoflifetdd.model.data
 
 import gameoflifetdd.config.ModelConfig
 import okhttp3.OkHttpClient
@@ -9,7 +9,7 @@ object Scraper {
 
     fun getPatternContent(pattern: Pattern) : String? {
         val request = Request.Builder()
-            .url(ModelConfig.PATTERNS_RAW_BASE_URL + pattern.toString())
+            .url(ModelConfig.PATTERNS_BANK_URL + pattern.toString())
             .build()
 
         return client.newCall(request).execute().use { response ->

@@ -1,7 +1,7 @@
 package gameoflifetdd.controler.modal
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.dataccess.CsvDAO
+import gameoflifetdd.model.data.CsvDAO
 import gameoflifetdd.view.ViewMain
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
