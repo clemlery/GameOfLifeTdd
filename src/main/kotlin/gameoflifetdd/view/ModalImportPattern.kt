@@ -63,26 +63,15 @@ class ModalImportPattern : StackPane() {
         20,
         NodeConfig.BUTTON_ICON_SMALL_CSS_CLASS
     )
-    private val pagination1Button = Button("1").apply {
-        styleClass.addAll(NodeConfig.BUTTON_PAGE_CSS_CLASS, NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-        id = NodeConfig.BUTTON_PREVIOUS_ID
-        font = AppConfig.TEXT_FONT_SMALL
-    }
-    private val pagination2Button = Button("2").apply {
-        styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
-        id = NodeConfig.BUTTON_CURRENT_PAGE_ID
-        font = AppConfig.TEXT_FONT_SMALL
-    }
-    private val pagination3Button = Button("3").apply {
-        styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
-        id = NodeConfig.BUTTON_NEXT_ID
+
+    private val labelPageNb = Label("").apply {
+        styleClass.add(NodeConfig.LABEL_PAGE_CSS_CLASS)
         font = AppConfig.TEXT_FONT_SMALL
     }
 
     private val buttonContainer = HBox(
         previousButton,
-        pagination1Button,
-        pagination2Button,
+        labelPageNb,
         nextButton
     ).apply {
         alignment = Pos.CENTER
@@ -131,9 +120,6 @@ class ModalImportPattern : StackPane() {
     fun getButtonById(id : String) : Button {
         return when (id) {
             NodeConfig.BUTTON_PREVIOUS_ID -> previousButton
-            NodeConfig.BUTTON_PREVIOUS_PAGE_ID -> pagination1Button
-            NodeConfig.BUTTON_CURRENT_PAGE_ID -> pagination2Button
-            NodeConfig.BUTTON_NEXT_PAGE_ID -> pagination3Button
             NodeConfig.BUTTON_NEXT_ID -> nextButton
             else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
@@ -152,28 +138,7 @@ class ModalImportPattern : StackPane() {
     }
 
     fun loadPagination(currentPage : Int) {
-        when (currentPage) {
-            1 -> {
-                buttonContainer.children.remove(pagination3Button)
-                pagination1Button.text = "1"
-                pagination2Button.text = "2"
-                pagination2Button.styleClass.remove(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-                pagination1Button.styleClass.add(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-            }
-            2 -> {
-                if (pagination3Button !in buttonContainer.children) buttonContainer.children.add(3, pagination3Button)
-                pagination1Button.text = "1"
-                pagination2Button.text = "2"
-                pagination3Button.text = "3"
-                pagination1Button.styleClass.remove(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-                pagination2Button.styleClass.add(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-            }
-            else -> {
-                pagination1Button.text = (currentPage - 1).toString()
-                pagination2Button.text = currentPage.toString()
-                pagination3Button.text = (currentPage + 1).toString()
-            }
-        }
+        labelPageNb.text = currentPage.toString()
     }
 
 }

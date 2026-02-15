@@ -82,9 +82,7 @@ class Main : Application() {
 
         view.backgroundModal.onMouseClicked = ControlerHideModal(view)
         view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_PREVIOUS_ID), ControlerModalsButton(view, dao))
-        view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_PREVIOUS_PAGE_ID), ControlerModalsButton(view, dao))
         view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_NEXT_ID), ControlerModalsButton(view, dao))
-        view.modal.fixButtonControler(view.modal.getButtonById(NodeConfig.BUTTON_NEXT_PAGE_ID), ControlerModalsButton(view, dao))
         view.modal.fixTextFieldSearchControler(ControlerSearchTextField(view, dao))
         view.modal.fixLabelsControler(ControlerSelectionLabel(view, game, dao))
 

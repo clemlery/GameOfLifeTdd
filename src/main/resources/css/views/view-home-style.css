@@ -1,13 +1,17 @@
 .text-field{
     -fx-background-color: white;
+    -fx-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-border-color: black;
-    -fx-border-radius: 5;
 }
 
 .button-standard {
     -fx-background-color: white;
+    -fx-fill: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-border-color: black;
-    -fx-border-radius: 5;
 }
 
 

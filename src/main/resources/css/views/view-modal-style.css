@@ -10,9 +10,9 @@
 
 .pattern-label {
     -fx-background-color: white;
+    -fx-fill: white;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-fill: white;
 }
 
 .pattern-label:hover {

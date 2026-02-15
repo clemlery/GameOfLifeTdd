@@ -1,3 +1,8 @@
 .top-bar-container {
     -fx-background-color: #D9D9D9;
 }
+
+.icon-button:hover {
+    -fx-border-color: grey;
+    -fx-border-radius: 5.0;
+}
