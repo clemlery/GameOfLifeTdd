@@ -1,4 +1,4 @@
 package gameoflifetdd.model.strategy
 
-class TestStrategyCells {
+class TestStrategyCellsIntegration {
 }

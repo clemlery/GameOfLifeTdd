@@ -99,7 +99,7 @@ class GameEngine {
 
     fun import(pattern : Pattern) {
         grid.loadPatternInGrid(pattern)
-        notifyObservers()
+        notifyInitObservers()
     }
 
     fun export() {

@@ -1,5 +1,6 @@
 package gameoflifetdd.model.game
 
+import gameoflifetdd.config.ModelConfig
 import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.strategy.Context
 import kotlin.math.ceil
@@ -49,7 +50,19 @@ class Grid : GridInterface {
 
         for ((i, x) in (startPointX until endPointX).withIndex()) {
             for ((j, y) in (startPointY until endPointY).withIndex()) {
-                newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern.getOrNull(i)?.get(j) ?: CellState.DEAD)
+                try {
+                    newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern.getOrNull(i)?.getOrNull(j) ?: CellState.DEAD)
+                } catch (e: IndexOutOfBoundsException) {
+                    println("startpoint : ($startPointX, $startPointY)")
+                    println("endpoint : ($endPointX, $endPointY)")
+                    println("pattern size : $patternWidth x $patternHeight")
+                    println("max grid size : $maxGridWidth x $maxGridHeight")
+                    println("x : $x ; y : $y")
+                    println("i : $i ; j : $j")
+                    println("pattern name : $pattern")
+                    println("pattern content : ${ModelConfig.PATTERNS_BANK_URL + pattern.toString()}")
+                    throw e
+                }
             }
         }
 
