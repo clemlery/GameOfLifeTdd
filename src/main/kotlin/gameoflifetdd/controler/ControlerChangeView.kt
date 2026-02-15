@@ -5,7 +5,6 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.view.CellUI
 import gameoflifetdd.view.ViewMain
 import javafx.geometry.Insets
 import javafx.scene.layout.Background

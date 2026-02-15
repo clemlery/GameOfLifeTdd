@@ -34,6 +34,7 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
         draw(grid)
     }
 
+
     fun updateCellShape(newHeight: Double, game: GameEngine) {
         val availableHeight: Double = newHeight - NodeConfig.GRID_CELLS_UP_MARGIN * 2
         view.cellGrid.cellSize  = availableHeight / game.getGridWidth()

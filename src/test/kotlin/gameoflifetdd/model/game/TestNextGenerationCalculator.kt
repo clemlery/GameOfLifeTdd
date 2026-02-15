@@ -1,7 +1,4 @@
-package gameoflifetdd.model
-import gameoflifetdd.model.game.CellState
-import gameoflifetdd.model.game.Grid
-import gameoflifetdd.model.game.NextGenerationCalculator
+package gameoflifetdd.model.game
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

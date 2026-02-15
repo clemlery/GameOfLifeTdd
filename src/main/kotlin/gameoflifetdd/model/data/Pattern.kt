@@ -1,4 +1,4 @@
-package gameoflifetdd.model.dataccess
+package gameoflifetdd.model.data
 
 data class Pattern(
     val name: String,

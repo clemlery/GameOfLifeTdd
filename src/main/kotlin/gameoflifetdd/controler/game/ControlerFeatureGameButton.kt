@@ -1,8 +1,7 @@
-package gameoflifetdd.controler
+package gameoflifetdd.controler.game
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.model.dataccess.CsvDAO
 import gameoflifetdd.view.ViewGame
 import javafx.event.ActionEvent
 import javafx.event.EventHandler

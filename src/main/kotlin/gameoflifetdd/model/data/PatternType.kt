@@ -1,4 +1,4 @@
-package gameoflifetdd.model.dataccess
+package gameoflifetdd.model.data
 
 enum class PatternType(val filenameExtension: String) {
     RLE("rle"),

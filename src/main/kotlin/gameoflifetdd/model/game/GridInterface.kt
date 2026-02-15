@@ -1,6 +1,6 @@
 package gameoflifetdd.model.game
 
-import gameoflifetdd.model.dataccess.Pattern
+import gameoflifetdd.model.data.Pattern
 
 interface GridInterface {
     val cells : Array<Array<Cell>>
@@ -17,7 +17,6 @@ interface GridInterface {
      */
     fun cellAt(x: Int, y: Int): Cell
 
-    fun loadFromPattern(pattern: Pattern) {
-        TODO()
-    }
+
+    fun loadPatternInGrid(pattern: Pattern)
 }

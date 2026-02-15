@@ -1,10 +1,8 @@
-package gameoflifetdd.controler
+package gameoflifetdd.controler.game
 
 import gameoflifetdd.GameEngine
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import javafx.event.ActionEvent
-import javafx.event.EventHandler
 
 class ControlerNbCellsSlider(val game: GameEngine) : ChangeListener<Number> {
 

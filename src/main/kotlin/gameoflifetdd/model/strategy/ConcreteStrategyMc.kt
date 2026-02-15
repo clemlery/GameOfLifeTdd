@@ -1,6 +1,6 @@
 package gameoflifetdd.model.strategy
 
-import gameoflifetdd.model.dataccess.Pattern
+import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.game.CellState
 
 object ConcreteStrategyMc: Strategy {

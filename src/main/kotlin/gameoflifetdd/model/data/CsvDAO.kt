@@ -1,4 +1,4 @@
-package gameoflifetdd.model.dataccess
+package gameoflifetdd.model.data
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
@@ -20,7 +20,7 @@ class CsvDAO(
         loadAllPatterns(source)
     }
 
-    fun loadAllPatterns(file: File) {
+    private fun loadAllPatterns(file: File) {
         val lines = csvReader {
             delimiter = ','
             quoteChar = '"'
@@ -41,7 +41,8 @@ class CsvDAO(
 
     fun searchPatterns(
         search: String = "",
-        offset: Int = 0
+        offset: Int = 0,
+        updateLastSearch : Boolean = false
     ): MutableList<Pattern> {
         val patternsFound = mutableListOf<Pattern>()
         val patternsUsed = if (search != "") {
@@ -58,7 +59,17 @@ class CsvDAO(
         for (i in offset until stop) {
             patternsFound.add(patternsUsed[i])
         }
+
+        if (updateLastSearch) {
+            lastSearch = search
+            lastOffset = 0
+        }
+
         return patternsFound
+    }
+
+    fun getPattern(patternName: String) : Pattern? {
+        return patterns.firstOrNull() { it.toString() == patternName }
     }
 
     fun next() : MutableList<Pattern>? {
@@ -84,6 +95,8 @@ class CsvDAO(
             )
         }
     }
+
+    fun getCurrentPage() = lastOffset / 9 + 1
 
     fun addToBookmarks(
         pattern: Pattern
