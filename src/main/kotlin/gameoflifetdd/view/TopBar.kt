@@ -32,5 +32,4 @@ class TopBar : HBox() {
             else -> throw IllegalArgumentException()
         }
     }
-
 }

@@ -11,6 +11,7 @@ class ControlerImportButton(val view: ViewMain, val dao : CsvDAO, val game : Gam
     override fun handle(event: ActionEvent?) {
         val patterns = dao.searchPatterns()
         view.modal.loadLabels(patterns.map { it.toString() })
+        view.modal.loadPagination(dao.getCurrentPage())
         view.showImportModal()
     }
 

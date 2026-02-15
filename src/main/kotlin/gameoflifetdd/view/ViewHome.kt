@@ -33,6 +33,7 @@ class ViewHome() : StackPane() {
         minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_WIDTH
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
+        prefWidth = Double.MAX_VALUE
     }
     private val vboxWidth = VBox()
 
@@ -45,6 +46,7 @@ class ViewHome() : StackPane() {
         minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_HEIGHT
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
+        prefWidth = Double.MAX_VALUE
     }
     private val vboxHeight = VBox()
 
@@ -57,6 +59,7 @@ class ViewHome() : StackPane() {
         minHeight = NodeConfig.TEXT_FIELDS_MIN_HEIGHT
         id = NodeConfig.TEXT_FIELD_NB_OF_CELLS
         background = NodeConfig.TEXT_FIELDS_BACKGROUND_COLOR
+        prefWidth = Double.MAX_VALUE
     }
     private val vboxNbCells = VBox()
 

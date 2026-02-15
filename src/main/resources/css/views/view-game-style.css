@@ -5,7 +5,7 @@ Retrieved 2026-02-05, License - CC BY-SA 4.0
 */
 
 /* set default fill of svg path */
-.icon-button .button-icon {
+.icon-button {
     -fx-fill: black;
 }
 
@@ -27,17 +27,13 @@ Retrieved 2026-02-05, License - CC BY-SA 4.0
 }
 
 /* modify svg path fill for hovered/pressed button */
-.icon-button:pressed .button-icon {
+.icon-button:pressed {
     -fx-fill: #444444;
 }
 
-.icon-button:hover, .button-icon:hover {
+.icon-button:hover {
     -fx-border-color: black;
     -fx-border-radius: 5.0;
-}
-
-.grid-cells {
-    -fx-border-color: black;
 }
 
 .view-game-container {
