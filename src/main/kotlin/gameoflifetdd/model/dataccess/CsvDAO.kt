@@ -41,7 +41,8 @@ class CsvDAO(
 
     fun searchPatterns(
         search: String = "",
-        offset: Int = 0
+        offset: Int = 0,
+        updateLastSearch : Boolean = false
     ): MutableList<Pattern> {
         val patternsFound = mutableListOf<Pattern>()
         val patternsUsed = if (search != "") {
@@ -58,6 +59,12 @@ class CsvDAO(
         for (i in offset until stop) {
             patternsFound.add(patternsUsed[i])
         }
+
+        if (updateLastSearch) {
+            lastSearch = search
+            lastOffset = 0
+        }
+
         return patternsFound
     }
 
@@ -85,7 +92,7 @@ class CsvDAO(
         }
     }
 
-    fun getCurrentPage() = lastOffset / 9
+    fun getCurrentPage() = lastOffset / 9 + 1
 
     fun addToBookmarks(
         pattern: Pattern

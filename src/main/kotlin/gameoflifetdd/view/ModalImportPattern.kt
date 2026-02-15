@@ -76,7 +76,17 @@ class ModalImportPattern : StackPane() {
         styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
         id = NodeConfig.BUTTON_NEXT_ID
         font = AppConfig.TEXT_FONT_SMALL
-        isVisible = false
+    }
+
+    private val buttonContainer = HBox(
+        previousButton,
+        pagination1Button,
+        pagination2Button,
+        nextButton
+    ).apply {
+        alignment = Pos.CENTER
+        padding = Insets(NodeConfig.BUTTON_CONTAINER_PADDING)
+        spacing = NodeConfig.BUTTON_CONTAINER_SPACING
     }
 
     init {
@@ -87,17 +97,6 @@ class ModalImportPattern : StackPane() {
             val column = i%3
             val row = i/3
             gridContainer.add(patternLabel, column, row+1)
-        }
-        val buttonContainer = HBox(
-            previousButton,
-            pagination1Button,
-            pagination2Button,
-            pagination3Button,
-            nextButton
-        ).apply {
-            alignment = Pos.CENTER
-            padding = Insets(NodeConfig.BUTTON_CONTAINER_PADDING)
-            spacing = NodeConfig.BUTTON_CONTAINER_SPACING
         }
 
         val mainContainer = VBox(
@@ -118,14 +117,25 @@ class ModalImportPattern : StackPane() {
         buttonToFix.onAction = controler
     }
 
+    fun fixTextFieldSearchControler(controler : EventHandler<ActionEvent>) {
+        searchTextField.onAction = controler
+    }
+
     fun getButtonById(id : String) : Button {
         return when (id) {
             NodeConfig.BUTTON_PREVIOUS_ID -> previousButton
-            NodeConfig.BUTTON_CURRENT_PAGE_ID -> pagination1Button
-            NodeConfig.BUTTON_NEXT_PAGE_ID -> pagination2Button
+            NodeConfig.BUTTON_PREVIOUS_PAGE_ID -> pagination1Button
+            NodeConfig.BUTTON_CURRENT_PAGE_ID -> pagination2Button
+            NodeConfig.BUTTON_NEXT_PAGE_ID -> pagination3Button
             NodeConfig.BUTTON_NEXT_ID -> nextButton
             else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
+    }
+
+    fun getTextFromSearch() = searchTextField.text
+
+    fun resetNodes() {
+        searchTextField.text = ""
     }
 
     fun loadLabels(patternsName: List<String>) {
@@ -136,20 +146,24 @@ class ModalImportPattern : StackPane() {
 
     fun loadPagination(currentPage : Int) {
         when (currentPage) {
-            0 -> {
-                pagination3Button.isVisible = false
+            1 -> {
+                buttonContainer.children.remove(pagination3Button)
                 pagination1Button.text = "1"
                 pagination2Button.text = "2"
+                pagination2Button.styleClass.remove(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
+                pagination1Button.styleClass.add(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
             }
-            1 -> {
-                pagination3Button.isVisible = true
-                pagination1Button.text = "0"
-                pagination2Button.text = "1"
+            2 -> {
+                if (pagination3Button !in buttonContainer.children) buttonContainer.children.add(3, pagination3Button)
+                pagination1Button.text = "1"
+                pagination2Button.text = "2"
                 pagination3Button.text = "3"
+                pagination1Button.styleClass.remove(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
+                pagination2Button.styleClass.add(NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
             }
             else -> {
-                pagination2Button.text = (currentPage - 1).toString()
-                pagination1Button.text = (currentPage).toString()
+                pagination1Button.text = (currentPage - 1).toString()
+                pagination2Button.text = currentPage.toString()
                 pagination3Button.text = (currentPage + 1).toString()
             }
         }

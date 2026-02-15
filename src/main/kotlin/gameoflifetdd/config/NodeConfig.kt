@@ -93,6 +93,7 @@ class NodeConfig {
 
         const val BUTTON_SEARCH_ID = "modal-import-button-search"
         const val BUTTON_PREVIOUS_ID = "modal-import-button-previous"
+        const val BUTTON_PREVIOUS_PAGE_ID = "modal-import-button-previous-page"
         const val BUTTON_CURRENT_PAGE_ID = "modal-import-button-current-page"
         const val BUTTON_NEXT_PAGE_ID = "modal-import-button-next-page"
         const val BUTTON_NEXT_ID = "modal-import-button-next"

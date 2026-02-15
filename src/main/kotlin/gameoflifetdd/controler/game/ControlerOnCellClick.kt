@@ -1,4 +1,4 @@
-package gameoflifetdd.controler
+package gameoflifetdd.controler.game
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.model.game.Cell
