@@ -15,12 +15,17 @@ class ControlerModalsButton(val view: ViewMain,val dao: CsvDAO ) : EventHandler<
             NodeConfig.BUTTON_NEXT_ID -> {
                 val patterns = dao.next() ?: return
                 view.modal.loadLabels(patterns.map { it.toString() })
+                val currentPage = dao.getCurrentPage()
+                println("current page : $currentPage")
+                view.modal.loadPagination(dao.getCurrentPage())
             }
             NodeConfig.BUTTON_PREVIOUS_ID -> {
                 val patterns = dao.previous() ?: return
                 view.modal.loadLabels(patterns.map { it.toString() })
+                val currentPage = dao.getCurrentPage()
+                println("current page : $currentPage")
+                view.modal.loadPagination(dao.getCurrentPage())
             }
         }
     }
-
 }

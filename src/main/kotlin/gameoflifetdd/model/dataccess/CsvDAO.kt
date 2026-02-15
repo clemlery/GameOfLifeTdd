@@ -20,7 +20,7 @@ class CsvDAO(
         loadAllPatterns(source)
     }
 
-    fun loadAllPatterns(file: File) {
+    private fun loadAllPatterns(file: File) {
         val lines = csvReader {
             delimiter = ','
             quoteChar = '"'
@@ -84,6 +84,8 @@ class CsvDAO(
             )
         }
     }
+
+    fun getCurrentPage() = lastOffset / 9
 
     fun addToBookmarks(
         pattern: Pattern

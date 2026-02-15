@@ -64,13 +64,19 @@ class ModalImportPattern : StackPane() {
     )
     private val pagination1Button = Button("1").apply {
         styleClass.addAll(NodeConfig.BUTTON_PAGE_CSS_CLASS, NodeConfig.BUTTON_CURRENT_PAGE_CSS_CLASS)
-        id = NodeConfig.BUTTON_CURRENT_PAGE_ID
+        id = NodeConfig.BUTTON_PREVIOUS_ID
         font = AppConfig.TEXT_FONT_SMALL
     }
     private val pagination2Button = Button("2").apply {
         styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
-        id = NodeConfig.BUTTON_NEXT_PAGE_ID
+        id = NodeConfig.BUTTON_CURRENT_PAGE_ID
         font = AppConfig.TEXT_FONT_SMALL
+    }
+    private val pagination3Button = Button("3").apply {
+        styleClass.add(NodeConfig.BUTTON_PAGE_CSS_CLASS)
+        id = NodeConfig.BUTTON_NEXT_ID
+        font = AppConfig.TEXT_FONT_SMALL
+        isVisible = false
     }
 
     init {
@@ -86,6 +92,7 @@ class ModalImportPattern : StackPane() {
             previousButton,
             pagination1Button,
             pagination2Button,
+            pagination3Button,
             nextButton
         ).apply {
             alignment = Pos.CENTER
@@ -124,6 +131,27 @@ class ModalImportPattern : StackPane() {
     fun loadLabels(patternsName: List<String>) {
         patterns.zip(patternsName).forEach { (pattern, patternName) ->
             pattern.text = patternName
+        }
+    }
+
+    fun loadPagination(currentPage : Int) {
+        when (currentPage) {
+            0 -> {
+                pagination3Button.isVisible = false
+                pagination1Button.text = "1"
+                pagination2Button.text = "2"
+            }
+            1 -> {
+                pagination3Button.isVisible = true
+                pagination1Button.text = "0"
+                pagination2Button.text = "1"
+                pagination3Button.text = "3"
+            }
+            else -> {
+                pagination2Button.text = (currentPage - 1).toString()
+                pagination1Button.text = (currentPage).toString()
+                pagination3Button.text = (currentPage + 1).toString()
+            }
         }
     }
 
