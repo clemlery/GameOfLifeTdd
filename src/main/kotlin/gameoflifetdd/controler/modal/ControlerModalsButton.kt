@@ -2,6 +2,7 @@ package gameoflifetdd.controler.modal
 
 import gameoflifetdd.config.NodeConfig
 import gameoflifetdd.model.data.CsvDAO
+import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.view.ViewMain
 import javafx.event.ActionEvent
 import javafx.event.EventHandler

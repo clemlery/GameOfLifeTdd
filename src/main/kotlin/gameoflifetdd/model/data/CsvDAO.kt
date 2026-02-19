@@ -72,6 +72,10 @@ class CsvDAO(
         return patterns.firstOrNull() { it.toString() == patternName }
     }
 
+    fun getCurrentPatterns() : MutableList<Pattern> {
+        return searchPatterns(lastSearch, lastOffset)
+    }
+
     fun next() : MutableList<Pattern>? {
         val currentSearch = searchPatterns(lastSearch, lastOffset)
         if (currentSearch.size == limit) {

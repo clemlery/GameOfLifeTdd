@@ -2,6 +2,7 @@ package gameoflifetdd.view
 
 import gameoflifetdd.config.AppConfig
 import gameoflifetdd.config.NodeConfig
+import javafx.beans.value.ChangeListener
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
@@ -49,6 +50,7 @@ class ModalImportPattern : StackPane() {
             maxWidth = Double.MAX_VALUE
             styleClass.add(NodeConfig.LABEL_PATTERN_CSS_CLASS)
             font = AppConfig.TEXT_FONT_SMALL
+            visibleProperty().bind(textProperty().isNotEmpty())
          }
     }
     private val previousButton = Util.createIconButton(
@@ -132,8 +134,8 @@ class ModalImportPattern : StackPane() {
     }
 
     fun loadLabels(patternsName: List<String>) {
-        patterns.zip(patternsName).forEach { (pattern, patternName) ->
-            pattern.text = patternName
+        patterns.withIndex().forEach { (i, pattern) ->
+            pattern.text = patternsName.getOrNull(i) ?: ""
         }
     }
 
