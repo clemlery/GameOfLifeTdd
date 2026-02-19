@@ -22,8 +22,19 @@ class ViewGame() : StackPane() {
         toFront()
     }
 
+    private val patternLabel = Label("3enginecordershiprake.cells").apply {
+        font = AppConfig.TEXT_FONT_SMALL
+    }
+    private val bookmarkButton = Util.createIconButton("/icons/game/bookmark.svg", NodeConfig.BUTTON_BOOKMARK_ID).apply {
+    }
+    private val patternBar = BorderPane().apply {
+        left = patternLabel
+        right = bookmarkButton
+        alignment = Pos.CENTER
+        isVisible = true
+        prefWidthProperty().bind(cellGrid.widthProperty())
+    }
 
-    private var centerContainer = StackPane()
     private val rightContainer = StackPane()
 
     private var continueButton = Util.createIconButton("/icons/game/run.svg", NodeConfig.BUTTON_CONTINUE_ID)
@@ -70,7 +81,9 @@ class ViewGame() : StackPane() {
 
     init {
         val mainContainer = BorderPane()
-        mainContainer.center = cellGrid
+        mainContainer.center = VBox(patternBar, cellGrid).apply {
+            alignment = Pos.CENTER
+        }
 
         rightContainer.children.add(gridSettings)
         rightContainer.apply {
