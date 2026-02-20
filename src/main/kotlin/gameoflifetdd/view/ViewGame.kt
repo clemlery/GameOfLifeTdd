@@ -12,7 +12,7 @@ import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
 import javafx.scene.layout.*
 
-class ViewGame() : StackPane() {
+class ViewGame : StackPane() {
 
     val cellGrid = CellGrid(
         0.0,
@@ -24,15 +24,17 @@ class ViewGame() : StackPane() {
 
     private val patternLabel = Label("3enginecordershiprake.cells").apply {
         font = AppConfig.TEXT_FONT_SMALL
+        alignment = Pos.BOTTOM_LEFT
+        padding = Insets(20.0, 0.0, 20.0, 0.0)
     }
     private val bookmarkButton = Util.createIconButton("/icons/game/bookmark.svg", NodeConfig.BUTTON_BOOKMARK_ID).apply {
     }
     private val patternBar = BorderPane().apply {
         left = patternLabel
         right = bookmarkButton
-        alignment = Pos.CENTER
         isVisible = true
-        prefWidthProperty().bind(cellGrid.widthProperty())
+        maxWidthProperty().bind(cellGrid.widthProperty())
+        alignment = Pos.CENTER
     }
 
     private val rightContainer = StackPane()
@@ -80,6 +82,8 @@ class ViewGame() : StackPane() {
     }
 
     init {
+        BorderPane.setAlignment(patternLabel, Pos.BOTTOM_LEFT)
+
         val mainContainer = BorderPane()
         mainContainer.center = VBox(patternBar, cellGrid).apply {
             alignment = Pos.CENTER

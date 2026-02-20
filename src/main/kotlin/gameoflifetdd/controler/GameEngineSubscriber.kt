@@ -40,6 +40,8 @@ class GameEngineSubscriber(val view: ViewGame) : GameObserver{
         view.cellGrid.cellSize  = availableHeight / game.getGridWidth()
         view.cellGrid.width = view.cellGrid.cellSize * game.getGridWidth()
         view.cellGrid.height = view.cellGrid.cellSize * game.getGridHeight()
+        view.cellGrid.prefWidth(view.cellGrid.cellSize * game.getGridWidth())
+        view.cellGrid.prefHeight(view.cellGrid.cellSize * game.getGridHeight())
     }
 
     fun draw(grid: Grid) {
