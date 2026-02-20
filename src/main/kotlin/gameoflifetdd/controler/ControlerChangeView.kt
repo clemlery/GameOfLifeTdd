@@ -34,6 +34,7 @@ class ControlerChangeView(var view: ViewMain, val game: GameEngine) : EventHandl
             }
             NodeConfig.BUTTON_BACK_ID -> {
                 view.changeView(view.viewHome)
+                view.viewGame.setPatternName("")
                 game.stop()
                 game.removeObserver()
                 game.addObserver(GameEngineSubscriberBackground(view.background))

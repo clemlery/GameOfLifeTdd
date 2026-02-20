@@ -101,8 +101,4 @@ class GameEngine {
         grid.loadPatternInGrid(pattern)
         notifyInitObservers()
     }
-
-    fun export() {
-        TODO()
-    }
 }

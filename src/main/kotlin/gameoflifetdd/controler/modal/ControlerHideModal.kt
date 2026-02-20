@@ -8,7 +8,7 @@ class ControlerHideModal(val view: ViewMain) : EventHandler<MouseEvent> {
 
     override fun handle(event: MouseEvent?) {
         view.hideImportModal()
-        view.modal.resetNodes()
+        view.currentModal.resetNodes()
     }
 
 }

@@ -1,18 +1,26 @@
 package gameoflifetdd.controler.modal
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.data.CsvDAO
-import gameoflifetdd.model.data.Pattern
+import gameoflifetdd.model.data.CsvDao
 import gameoflifetdd.view.ViewMain
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 
-class ControlerImportButton(val view: ViewMain, val dao : CsvDAO, val game : GameEngine) : EventHandler<ActionEvent> {
+class ControlerImportButton(
+    val view: ViewMain,
+    val dao : CsvDao,
+    val game : GameEngine,
+    val modalId: String
+) : EventHandler<ActionEvent> {
 
     override fun handle(event: ActionEvent?) {
+        println("current modal id : $modalId")
+
         val patterns = dao.getCurrentPatterns()
-        view.modal.loadLabels(patterns.map { it.toString() })
-        view.modal.loadPagination(dao.getCurrentPage())
-        view.showImportModal()
+        println("patterns : $patterns")
+        view.showImportModal(modalId)
+        view.currentModal.loadLabels(patterns.map { it.toString() })
+        view.currentModal.loadPagination(dao.getCurrentPage())
+
     }
 }

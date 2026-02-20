@@ -12,7 +12,7 @@ import javafx.beans.value.ChangeListener
 import javafx.scene.control.Label
 import javafx.scene.layout.*
 
-class ViewGame() : StackPane() {
+class ViewGame : StackPane() {
 
     val cellGrid = CellGrid(
         0.0,
@@ -22,17 +22,18 @@ class ViewGame() : StackPane() {
         toFront()
     }
 
-    private val patternLabel = Label("3enginecordershiprake.cells").apply {
+    private val patternLabel = Label("").apply {
         font = AppConfig.TEXT_FONT_SMALL
+        alignment = Pos.BOTTOM_LEFT
+        padding = Insets(20.0, 0.0, 20.0, 0.0)
     }
-    private val bookmarkButton = Util.createIconButton("/icons/game/bookmark.svg", NodeConfig.BUTTON_BOOKMARK_ID).apply {
-    }
+    private val bookmarkButton = Util.createIconButton("/icons/game/bookmark.svg", NodeConfig.BUTTON_BOOKMARK_ID)
     private val patternBar = BorderPane().apply {
         left = patternLabel
         right = bookmarkButton
+        maxWidthProperty().bind(cellGrid.widthProperty())
         alignment = Pos.CENTER
-        isVisible = true
-        prefWidthProperty().bind(cellGrid.widthProperty())
+        visibleProperty().bind(patternLabel.textProperty().isNotEmpty())
     }
 
     private val rightContainer = StackPane()
@@ -47,7 +48,7 @@ class ViewGame() : StackPane() {
 
     private val importButton = Util.createIconButton("/icons/game/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val exportButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_EXPORT_ID)
+    private val showBookmarksButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_SHOW_BOOKMARKS_ID)
 
     private val speedLabel = Label("Speed").apply {
         font = AppConfig.TEXT_FONT_SMALL
@@ -72,7 +73,7 @@ class ViewGame() : StackPane() {
         add(regenerateButton, 2, 0)
         add(backButton, 0, 1)
         add(importButton, 1, 1)
-        add(exportButton, 2, 1)
+        add(showBookmarksButton, 2, 1)
         add(VBox(speedLabel, speedSlider), 0, 2, 3, 1)
         add(VBox(nbCellsLabel, nbCellsSlider), 0, 3, 3, 1)
         vgap = 80.0
@@ -80,6 +81,8 @@ class ViewGame() : StackPane() {
     }
 
     init {
+        BorderPane.setAlignment(patternLabel, Pos.BOTTOM_LEFT)
+
         val mainContainer = BorderPane()
         mainContainer.center = VBox(patternBar, cellGrid).apply {
             alignment = Pos.CENTER
@@ -126,9 +129,16 @@ class ViewGame() : StackPane() {
             NodeConfig.BUTTON_REGEN_ID -> regenerateButton
             NodeConfig.BUTTON_BACK_ID -> backButton
             NodeConfig.BUTTON_IMPORT_ID -> importButton
-            NodeConfig.BUTTON_EXPORT_ID -> exportButton
+            NodeConfig.BUTTON_SHOW_BOOKMARKS_ID -> showBookmarksButton
+            NodeConfig.BUTTON_BOOKMARK_ID -> bookmarkButton
             else -> throw IllegalArgumentException("Id : $id doesn't exist")
         }
+    }
+
+    fun getPatternName(): String? = patternLabel.text
+
+    fun setPatternName(name: String) {
+        patternLabel.text = name
     }
 
     fun setSliderNbCellsMax(max: Double) {
@@ -139,11 +149,17 @@ class ViewGame() : StackPane() {
         cellGrid.clearCanvas()
     }
 
-    fun toggleIcon(state: Boolean) {
-        continueButton = if (state) {
-            Util.changeButtonIcon("/icons/game/stop.svg", continueButton)
-        } else {
-            Util.changeButtonIcon("/icons/game/run.svg", continueButton)
+    fun toggleIconById(state: Boolean, buttonId: String) {
+        when (buttonId) {
+            NodeConfig.BUTTON_CONTINUE_ID -> {
+                if (state) Util.changeButtonIcon("/icons/game/stop.svg", continueButton)
+                else Util.changeButtonIcon("/icons/game/run.svg", continueButton)
+            }
+            NodeConfig.BUTTON_BOOKMARK_ID -> {
+                if (state) Util.changeButtonIcon("/icons/game/bookmarked.svg", bookmarkButton)
+                else Util.changeButtonIcon("/icons/game/bookmark.svg", bookmarkButton)
+            }
+            else -> throw IllegalArgumentException("Id : $buttonId doesn't exist")
         }
     }
 }

@@ -1,9 +1,9 @@
 package gameoflifetdd.controler.modal
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.data.CsvDAO
+import gameoflifetdd.model.data.CsvDao
+import gameoflifetdd.model.data.CsvDaoBookmark
 import gameoflifetdd.view.ViewMain
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
@@ -11,7 +11,8 @@ import javafx.scene.input.MouseEvent
 class ControlerSelectionLabel(
     val view: ViewMain,
     val game: GameEngine,
-    val dao: CsvDAO
+    val dao: CsvDao,
+    val daoBookmark: CsvDaoBookmark
 ) : EventHandler<MouseEvent> {
 
     override fun handle(event: MouseEvent?) {
@@ -19,8 +20,8 @@ class ControlerSelectionLabel(
         if (event.clickCount == 2) {
             val pattern = dao.getPattern(label.text) ?: return
             game.import(pattern)
+            view.viewGame.setPatternName(pattern.toString())
             view.hideImportModal()
         }
     }
-
 }

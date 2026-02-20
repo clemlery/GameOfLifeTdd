@@ -1,18 +1,15 @@
 package gameoflifetdd.model.data
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import gameoflifetdd.config.ModelConfig
 import java.io.File
 import kotlin.text.uppercase
 
-class CsvDAO(
-    source: File,
-    val bookmarks: File
+open class CsvDao(
+    source: File
 ) {
-
     private val limit = 9
-    private val patterns : MutableList<Pattern> = mutableListOf()
+    protected val patterns : MutableList<Pattern> = mutableListOf()
     private var lastSearch = ""
     private var lastOffset = 0
 
@@ -25,13 +22,13 @@ class CsvDAO(
             delimiter = ','
             quoteChar = '"'
             charset = Charsets.UTF_8.toString()
-        }.readAllWithHeader(file).drop(1)
+        }.readAllWithHeader(file)
 
         lines.forEach { line ->
             try {
                 patterns.add(Pattern(
-                    line.get(ModelConfig.CSV_PATTERN_NAME_FIELD)!!,
-                    PatternType.valueOf(line.get(ModelConfig.CSV_TYPE_NAME_FIELD)!!.uppercase())
+                    line[ModelConfig.CSV_PATTERN_NAME_FIELD]!!,
+                    PatternType.valueOf(line[ModelConfig.CSV_TYPE_NAME_FIELD]!!.uppercase())
                 ))
             } catch (_: Exception) {
                 return@forEach
@@ -68,8 +65,8 @@ class CsvDAO(
         return patternsFound
     }
 
-    fun getPattern(patternName: String) : Pattern? {
-        return patterns.firstOrNull() { it.toString() == patternName }
+    fun getPattern(name: String) : Pattern? {
+        return patterns.firstOrNull { it.toString() == name }
     }
 
     fun getCurrentPatterns() : MutableList<Pattern> {
@@ -101,14 +98,4 @@ class CsvDAO(
     }
 
     fun getCurrentPage() = lastOffset / 9 + 1
-
-    fun addToBookmarks(
-        pattern: Pattern
-    ) {
-        csvWriter {
-            delimiter = ','
-        }.open(bookmarks, append = true) {
-            writeRow(pattern.name, pattern.type.name.lowercase())
-        }
-    }
 }
