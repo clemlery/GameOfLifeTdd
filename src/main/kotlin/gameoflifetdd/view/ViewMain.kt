@@ -68,11 +68,13 @@ class ViewMain() : StackPane() {
     }
 
     fun showImportModal(modalId: String) {
+        modalOverlay.children.remove(currentModal)
         currentModal = when (modalId) {
             NodeConfig.MODAL_PATTERNS_ID -> modalPatterns
             NodeConfig.MODAL_BOOKMARKS_ID -> modalBookmarks
             else -> throw IllegalArgumentException("Id : $modalId doesn't exist")
         }
+        modalOverlay.children.add(currentModal)
         modalOverlay.isVisible = true
         modalOverlay.toFront()
         modalOverlay.isMouseTransparent = false

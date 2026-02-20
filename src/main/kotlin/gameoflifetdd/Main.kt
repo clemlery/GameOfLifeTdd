@@ -96,8 +96,8 @@ class Main : Application() {
         view.modalPatterns.fixTextFieldSearchControler(ControlerSearchTextField(view, dao))
         view.modalPatterns.fixLabelsControler(ControlerSelectionLabel(view, game, dao))
 
-        view.modalBookmarks.fixButtonControler(view.modalPatterns.getButtonById(NodeConfig.BUTTON_PREVIOUS_ID), ControlerModalsButton(view, daoBookmark))
-        view.modalBookmarks.fixButtonControler(view.modalPatterns.getButtonById(NodeConfig.BUTTON_NEXT_ID), ControlerModalsButton(view, daoBookmark))
+        view.modalBookmarks.fixButtonControler(view.modalBookmarks.getButtonById(NodeConfig.BUTTON_PREVIOUS_ID), ControlerModalsButton(view, daoBookmark))
+        view.modalBookmarks.fixButtonControler(view.modalBookmarks.getButtonById(NodeConfig.BUTTON_NEXT_ID), ControlerModalsButton(view, daoBookmark))
         view.modalBookmarks.fixTextFieldSearchControler(ControlerSearchTextField(view, daoBookmark))
         view.modalBookmarks.fixLabelsControler(ControlerSelectionLabel(view, game, daoBookmark))
 

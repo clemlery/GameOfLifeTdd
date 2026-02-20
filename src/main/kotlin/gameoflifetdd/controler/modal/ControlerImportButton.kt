@@ -14,9 +14,13 @@ class ControlerImportButton(
 ) : EventHandler<ActionEvent> {
 
     override fun handle(event: ActionEvent?) {
+        println("current modal id : $modalId")
+
         val patterns = dao.getCurrentPatterns()
+        println("patterns : $patterns")
         view.showImportModal(modalId)
         view.currentModal.loadLabels(patterns.map { it.toString() })
         view.currentModal.loadPagination(dao.getCurrentPage())
+
     }
 }

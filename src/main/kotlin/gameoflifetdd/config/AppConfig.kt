@@ -14,7 +14,7 @@ class AppConfig {
         val TEXT_FONT_SMALL : Font = loadFont("/fonts/CarroisGothic-Regular.ttf", 25.0)
 
         val SOURCE_FILE = File(AppConfig::class.java.getResource("/data/patterns.csv")!!.toURI())
-        val BOOKMARKED_FILE = File(AppConfig::class.java.getResource("/data/bookmarked.csv")!!.toURI())
+        val BOOKMARKED_FILE = File(System.getProperty("user.dir"), "bookmarked.csv")
 
     }
 }

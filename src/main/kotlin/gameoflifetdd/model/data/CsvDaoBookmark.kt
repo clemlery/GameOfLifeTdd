@@ -36,4 +36,10 @@ class CsvDaoBookmark(source: File) : CsvDao(source) {
             charset = Charsets.UTF_8.toString()
         }.writeAll(linesToWrite, bookmarks, false)
     }
+
+    fun isBookmarked(
+        pattern: Pattern
+    ) : Boolean {
+        return pattern in patterns
+    }
 }

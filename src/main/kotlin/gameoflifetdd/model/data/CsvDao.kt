@@ -22,7 +22,7 @@ open class CsvDao(
             delimiter = ','
             quoteChar = '"'
             charset = Charsets.UTF_8.toString()
-        }.readAllWithHeader(file).drop(1)
+        }.readAllWithHeader(file)
 
         lines.forEach { line ->
             try {
