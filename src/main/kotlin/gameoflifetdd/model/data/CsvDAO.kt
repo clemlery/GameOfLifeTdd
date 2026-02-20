@@ -4,11 +4,12 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import gameoflifetdd.config.ModelConfig
 import java.io.File
+import java.nio.charset.Charset
 import kotlin.text.uppercase
 
 class CsvDAO(
     source: File,
-    val bookmarks: File
+    private val bookmarks: File
 ) {
 
     private val limit = 9
@@ -30,8 +31,8 @@ class CsvDAO(
         lines.forEach { line ->
             try {
                 patterns.add(Pattern(
-                    line.get(ModelConfig.CSV_PATTERN_NAME_FIELD)!!,
-                    PatternType.valueOf(line.get(ModelConfig.CSV_TYPE_NAME_FIELD)!!.uppercase())
+                    line[ModelConfig.CSV_PATTERN_NAME_FIELD]!!,
+                    PatternType.valueOf(line[ModelConfig.CSV_TYPE_NAME_FIELD]!!.uppercase())
                 ))
             } catch (_: Exception) {
                 return@forEach
@@ -68,8 +69,8 @@ class CsvDAO(
         return patternsFound
     }
 
-    fun getPattern(patternName: String) : Pattern? {
-        return patterns.firstOrNull() { it.toString() == patternName }
+    fun getPattern(name: String) : Pattern? {
+        return patterns.firstOrNull { it.toString() == name }
     }
 
     fun getCurrentPatterns() : MutableList<Pattern> {
@@ -102,7 +103,7 @@ class CsvDAO(
 
     fun getCurrentPage() = lastOffset / 9 + 1
 
-    fun addToBookmarks(
+    fun addBookmark(
         pattern: Pattern
     ) {
         csvWriter {
@@ -110,5 +111,21 @@ class CsvDAO(
         }.open(bookmarks, append = true) {
             writeRow(pattern.name, pattern.type.name.lowercase())
         }
+    }
+
+    fun deleteBookmark(
+        pattern: Pattern
+    ) {
+        var lines = csvReader {
+            delimiter = ','
+            quoteChar = '"'
+            charset = Charsets.UTF_8.toString()
+        }.readAllWithHeader(bookmarks)
+        lines = lines.filter { it[ModelConfig.CSV_PATTERN_NAME_FIELD] != pattern.name || it[ModelConfig.CSV_TYPE_NAME_FIELD] != pattern.type.toString() }
+        val linesToWrite = listOf(listOf("name", "type")) + lines.map { listOf(it[ModelConfig.CSV_PATTERN_NAME_FIELD],it[ModelConfig.CSV_TYPE_NAME_FIELD]) }
+        csvWriter {
+            delimiter = ','
+            charset = Charsets.UTF_8.toString()
+        }.writeAll(linesToWrite, bookmarks, false)
     }
 }

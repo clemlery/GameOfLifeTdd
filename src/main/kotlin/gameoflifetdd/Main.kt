@@ -67,10 +67,11 @@ class Main : Application() {
         view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_IMPORT_ID),
             ControlerImportButton(view, dao, game)
         )
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CONTINUE_ID), ControlerFeatureGameButton(view.viewGame, game))
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CLEAR_ID), ControlerFeatureGameButton(view.viewGame, game))
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_REGEN_ID), ControlerFeatureGameButton(view.viewGame, game))
-        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CONTINUE_ID), ControlerFeatureGameButton(view.viewGame, game, dao))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_CLEAR_ID), ControlerFeatureGameButton(view.viewGame, game, dao))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_REGEN_ID), ControlerFeatureGameButton(view.viewGame, game, dao))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_EXPORT_ID), ControlerFeatureGameButton(view.viewGame, game, dao))
+        view.viewGame.fixButtonControler(view.viewGame.getButtonById(NodeConfig.BUTTON_BOOKMARK_ID), ControlerFeatureGameButton(view.viewGame, game, dao))
 
         view.viewGame.fixSliderControler(view.viewGame.getSliderById(NodeConfig.SLIDER_SPEED_ID),
             ControlerSpeedSlider(game))
