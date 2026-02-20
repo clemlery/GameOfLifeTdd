@@ -1,7 +1,7 @@
 package gameoflifetdd.controler.modal
 
 import gameoflifetdd.GameEngine
-import gameoflifetdd.model.data.CsvDAO
+import gameoflifetdd.model.data.CsvDao
 import gameoflifetdd.view.ViewMain
 import javafx.event.EventHandler
 import javafx.scene.control.Label
@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent
 class ControlerSelectionLabel(
     val view: ViewMain,
     val game: GameEngine,
-    val dao: CsvDAO
+    val dao: CsvDao
 ) : EventHandler<MouseEvent> {
 
     override fun handle(event: MouseEvent?) {

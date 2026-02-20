@@ -2,13 +2,19 @@ package gameoflifetdd.controler.game
 
 import gameoflifetdd.GameEngine
 import gameoflifetdd.config.NodeConfig
-import gameoflifetdd.model.data.CsvDAO
+import gameoflifetdd.model.data.CsvDao
+import gameoflifetdd.model.data.CsvDaoBookmark
 import gameoflifetdd.view.ViewGame
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Button
 
-class ControlerFeatureGameButton(val view : ViewGame, val game : GameEngine, val dao: CsvDAO) : EventHandler<ActionEvent> {
+class ControlerFeatureGameButton(
+    val view : ViewGame,
+    val game : GameEngine,
+    val dao : CsvDao,
+    val daoBookmark: CsvDaoBookmark
+) : EventHandler<ActionEvent> {
 
     var toggleContinue = false
     var toggleBookmark = false
@@ -25,14 +31,13 @@ class ControlerFeatureGameButton(val view : ViewGame, val game : GameEngine, val
             NodeConfig.BUTTON_BOOKMARK_ID -> {
                 val patternName = view.getPatternName() ?: return
                 val pattern = dao.getPattern(patternName) ?: return
-                if (toggleBookmark) dao.deleteBookmark(pattern)
-                else dao.addBookmark(pattern)
+                if (toggleBookmark) daoBookmark.deleteBookmark(pattern)
+                else daoBookmark.addBookmark(pattern)
                 toggleBookmark = !toggleBookmark
                 view.toggleIconById(toggleBookmark, NodeConfig.BUTTON_BOOKMARK_ID)
             }
             NodeConfig.BUTTON_CLEAR_ID -> game.clear()
             NodeConfig.BUTTON_REGEN_ID -> game.regenerate()
-            NodeConfig.BUTTON_EXPORT_ID -> game.export()
         }
     }
 }

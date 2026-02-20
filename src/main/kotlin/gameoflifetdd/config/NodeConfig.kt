@@ -48,7 +48,7 @@ class NodeConfig {
         const val BUTTON_CONTINUE_ID = "game-button-continue-id"
         const val BUTTON_CLEAR_ID = "game-button-clear-id"
         const val BUTTON_IMPORT_ID = "game-button-import-id"
-        const val BUTTON_EXPORT_ID = "game-button-export-id"
+        const val BUTTON_SHOW_BOOKMARKS_ID = "game-button-show-bookmarks-id"
         const val BUTTON_REGEN_ID = "game-button-regen-id"
         const val BUTTON_BOOKMARK_ID = "game-button-bookmark-id"
 
@@ -77,6 +77,7 @@ class NodeConfig {
         const val BACKGROUND_GRID_HEIGHT = 50
 
         // MODAL PATTERN
+        const val MODAL_PATTERNS_ID = "modal-patterns-id"
         const val MODAL_WIDTH = 600.0
         const val MODAL_HEIGHT = 250.0
         const val MODAL_PADDING = 20.0
@@ -98,5 +99,8 @@ class NodeConfig {
         const val BUTTON_NEXT_PAGE_ID = "modal-import-button-next-page"
         const val BUTTON_NEXT_ID = "modal-import-button-next"
         const val BUTTON_ICON_SMALL_CSS_CLASS = "icon-button-small"
+
+        // MODAL BOOKMARKS
+        const val MODAL_BOOKMARKS_ID = "modal-bookmarks-id"
     }
 }

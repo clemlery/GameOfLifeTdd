@@ -1,19 +1,15 @@
 package gameoflifetdd.model.data
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import gameoflifetdd.config.ModelConfig
 import java.io.File
-import java.nio.charset.Charset
 import kotlin.text.uppercase
 
-class CsvDAO(
-    source: File,
-    private val bookmarks: File
+open class CsvDao(
+    source: File
 ) {
-
     private val limit = 9
-    private val patterns : MutableList<Pattern> = mutableListOf()
+    protected val patterns : MutableList<Pattern> = mutableListOf()
     private var lastSearch = ""
     private var lastOffset = 0
 
@@ -102,30 +98,4 @@ class CsvDAO(
     }
 
     fun getCurrentPage() = lastOffset / 9 + 1
-
-    fun addBookmark(
-        pattern: Pattern
-    ) {
-        csvWriter {
-            delimiter = ','
-        }.open(bookmarks, append = true) {
-            writeRow(pattern.name, pattern.type.name.lowercase())
-        }
-    }
-
-    fun deleteBookmark(
-        pattern: Pattern
-    ) {
-        var lines = csvReader {
-            delimiter = ','
-            quoteChar = '"'
-            charset = Charsets.UTF_8.toString()
-        }.readAllWithHeader(bookmarks)
-        lines = lines.filter { it[ModelConfig.CSV_PATTERN_NAME_FIELD] != pattern.name || it[ModelConfig.CSV_TYPE_NAME_FIELD] != pattern.type.toString() }
-        val linesToWrite = listOf(listOf("name", "type")) + lines.map { listOf(it[ModelConfig.CSV_PATTERN_NAME_FIELD],it[ModelConfig.CSV_TYPE_NAME_FIELD]) }
-        csvWriter {
-            delimiter = ','
-            charset = Charsets.UTF_8.toString()
-        }.writeAll(linesToWrite, bookmarks, false)
-    }
 }

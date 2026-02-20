@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 
-class ModalImportPattern : StackPane() {
+class ModalImportPattern() : StackPane() {
 
     private val searchTextField = TextField().apply {
         promptText = "Type Something ..."

@@ -1,12 +1,8 @@
 package gameoflifetdd.view
 
 import gameoflifetdd.config.NodeConfig
-import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.Node
-import javafx.scene.layout.Background
-import javafx.scene.layout.BackgroundFill
-import javafx.scene.layout.CornerRadii
 import javafx.scene.layout.Region
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
@@ -30,7 +26,9 @@ class ViewMain() : StackPane() {
             }
         }
     }
-    val modal = ModalImportPattern()
+    val modalPatterns = ModalImportPattern().apply { id = NodeConfig.MODAL_PATTERNS_ID }
+    val modalBookmarks = ModalImportPattern().apply { id = NodeConfig.MODAL_BOOKMARKS_ID }
+    var currentModal = modalPatterns
     val backgroundModal = Rectangle().apply {
         widthProperty().bind(this@ViewMain.widthProperty())
         heightProperty().bind(this@ViewMain.heightProperty())
@@ -39,7 +37,7 @@ class ViewMain() : StackPane() {
 
     val modalOverlay = StackPane().apply {
         isVisible = false
-        children.addAll(backgroundModal, modal)
+        children.addAll(backgroundModal, currentModal)
     }
 
     val mainContainer = VBox(
@@ -69,7 +67,12 @@ class ViewMain() : StackPane() {
         mainContainer.children.add(newView)
     }
 
-    fun showImportModal() {
+    fun showImportModal(modalId: String) {
+        currentModal = when (modalId) {
+            NodeConfig.MODAL_PATTERNS_ID -> modalPatterns
+            NodeConfig.MODAL_BOOKMARKS_ID -> modalBookmarks
+            else -> throw IllegalArgumentException("Id : $modalId doesn't exist")
+        }
         modalOverlay.isVisible = true
         modalOverlay.toFront()
         modalOverlay.isMouseTransparent = false
