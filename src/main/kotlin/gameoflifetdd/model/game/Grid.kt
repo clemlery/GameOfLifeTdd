@@ -1,6 +1,5 @@
 package gameoflifetdd.model.game
 
-import gameoflifetdd.config.ModelConfig
 import gameoflifetdd.model.data.Pattern
 import gameoflifetdd.model.strategy.Context
 import kotlin.math.ceil
@@ -25,6 +24,17 @@ class Grid : GridInterface {
         return this.cells[x][y]
     }
 
+    /**
+     * Loads a pattern into the grid, resizing it to twice the pattern dimensions
+     * and centering the pattern in the resulting grid.
+     *
+     * The method creates a new grid of size (patternWidth * 2) x (patternHeight * 2),
+     * places the pattern cells at the center, and replaces the current grid state
+     * with the result. Cells outside the pattern area are set to DEAD.
+     *
+     * @param pattern the pattern to load, decoded via [Context]
+     * @throws IndexOutOfBoundsException if the pattern cells exceed the computed grid bounds
+     */
     override fun loadPatternInGrid(pattern: Pattern) {
         val context = Context()
         val cellsMatrixPattern = context.load(pattern)
@@ -53,14 +63,6 @@ class Grid : GridInterface {
                 try {
                     newGrid.cells[x][y] = Cell(x, y, cellsMatrixPattern.getOrNull(i)?.getOrNull(j) ?: CellState.DEAD)
                 } catch (e: IndexOutOfBoundsException) {
-                    println("startpoint : ($startPointX, $startPointY)")
-                    println("endpoint : ($endPointX, $endPointY)")
-                    println("pattern size : $patternWidth x $patternHeight")
-                    println("max grid size : $maxGridWidth x $maxGridHeight")
-                    println("x : $x ; y : $y")
-                    println("i : $i ; j : $j")
-                    println("pattern name : $pattern")
-                    println("pattern content : ${ModelConfig.PATTERNS_BANK_URL + pattern.toString()}")
                     throw e
                 }
             }

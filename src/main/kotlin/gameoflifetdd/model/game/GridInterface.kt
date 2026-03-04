@@ -18,5 +18,11 @@ interface GridInterface {
     fun cellAt(x: Int, y: Int): Cell
 
 
+    /**
+     * Loads a pattern into the grid, resizing it to twice the pattern dimensions
+     * and centering the pattern in the resulting grid.
+     *
+     * @param pattern the pattern to load
+     */
     fun loadPatternInGrid(pattern: Pattern)
 }
