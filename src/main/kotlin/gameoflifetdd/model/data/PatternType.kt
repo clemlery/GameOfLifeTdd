@@ -6,5 +6,8 @@ enum class PatternType(val filenameExtension: String) {
     MC("mc");
 
 
+    /**
+     * Returns the file extension string associated with this pattern type.
+     */
     override fun toString(): String = filenameExtension
 }

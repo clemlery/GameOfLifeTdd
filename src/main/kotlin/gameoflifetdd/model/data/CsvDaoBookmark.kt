@@ -9,6 +9,11 @@ class CsvDaoBookmark(source: File) : CsvDao(source) {
 
     private val bookmarks = source
 
+    /**
+     * Adds a pattern to the bookmarks, persisting it by appending a row to the CSV file.
+     *
+     * @param pattern the pattern to bookmark
+     */
     fun addBookmark(
         pattern: Pattern
     ) {
@@ -20,6 +25,11 @@ class CsvDaoBookmark(source: File) : CsvDao(source) {
         }
     }
 
+    /**
+     * Removes a pattern from the bookmarks and rewrites the CSV file without it.
+     *
+     * @param pattern the pattern to remove from bookmarks
+     */
     fun deleteBookmark(
         pattern: Pattern
     ) {
@@ -37,6 +47,12 @@ class CsvDaoBookmark(source: File) : CsvDao(source) {
         }.writeAll(linesToWrite, bookmarks, false)
     }
 
+    /**
+     * Checks whether the given pattern is currently bookmarked.
+     *
+     * @param pattern the pattern to check
+     * @return true if the pattern is in the bookmarks, false otherwise
+     */
     fun isBookmarked(
         pattern: Pattern
     ) : Boolean {

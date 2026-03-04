@@ -17,6 +17,13 @@ open class CsvDao(
         loadAllPatterns(source)
     }
 
+    /**
+     * Reads all patterns from the given CSV file and populates the internal list.
+     *
+     * Lines that cannot be parsed (missing fields, unknown type) are silently skipped.
+     *
+     * @param file the CSV source file with columns for pattern name and type
+     */
     private fun loadAllPatterns(file: File) {
         val lines = csvReader {
             delimiter = ','
@@ -36,6 +43,15 @@ open class CsvDao(
         }
     }
 
+    /**
+     * Searches for patterns whose string representation contains the given search term,
+     * and returns a paginated subset starting at the given offset.
+     *
+     * @param search the search term to filter patterns by; empty string matches all patterns
+     * @param offset the index to start the result window from
+     * @param updateLastSearch if true, stores the search term and resets the pagination offset
+     * @return a list of up to [limit] matching patterns, or an empty list if none match
+     */
     fun searchPatterns(
         search: String = "",
         offset: Int = 0,
@@ -65,14 +81,30 @@ open class CsvDao(
         return patternsFound
     }
 
+    /**
+     * Returns the pattern whose string representation exactly matches the given name.
+     *
+     * @param name the exact string representation of the pattern (e.g. "glider.rle")
+     * @return the matching [Pattern], or null if not found
+     */
     fun getPattern(name: String) : Pattern? {
         return patterns.firstOrNull { it.toString() == name }
     }
 
+    /**
+     * Returns the current page of patterns based on the last search term and offset.
+     *
+     * @return a list of patterns for the current page
+     */
     fun getCurrentPatterns() : MutableList<Pattern> {
         return searchPatterns(lastSearch, lastOffset)
     }
 
+    /**
+     * Advances to the next page of search results.
+     *
+     * @return the next page of patterns, or null if the current page is the last one
+     */
     fun next() : MutableList<Pattern>? {
         val currentSearch = searchPatterns(lastSearch, lastOffset)
         if (currentSearch.size == limit) {
@@ -86,6 +118,11 @@ open class CsvDao(
         }
     }
 
+    /**
+     * Goes back to the previous page of search results.
+     *
+     * @return the previous page of patterns, or null if already on the first page
+     */
     fun previous() : MutableList<Pattern>? {
         if (lastOffset == 0) return null
         else {
@@ -97,5 +134,10 @@ open class CsvDao(
         }
     }
 
+    /**
+     * Returns the current 1-based page number.
+     *
+     * @return the current page number
+     */
     fun getCurrentPage() = lastOffset / 9 + 1
 }

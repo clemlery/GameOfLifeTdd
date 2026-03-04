@@ -2,6 +2,19 @@ package gameoflifetdd.model.game
 
 class NextGenerationCalculator {
 
+    /**
+     * Computes the next generation of the Game of Life from the given grid.
+     *
+     * Applies the standard rules for each cell:
+     * - A living cell with exactly 2 or 3 living neighbors survives.
+     * - A dead cell with exactly 3 living neighbors becomes alive.
+     * - All other cells die or stay dead.
+     *
+     * Cells outside the grid boundaries are considered dead (finite grid, no wrapping).
+     *
+     * @param grid the current generation grid
+     * @return a new grid representing the next generation
+     */
     fun next(grid: Grid): Grid {
         val next = Grid()
         next.width = grid.width
