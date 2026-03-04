@@ -48,7 +48,7 @@ class ViewGame : StackPane() {
 
     private val importButton = Util.createIconButton("/icons/game/import.svg", NodeConfig.BUTTON_IMPORT_ID)
 
-    private val showBookmarksButton = Util.createIconButton("/icons/game/export.svg", NodeConfig.BUTTON_SHOW_BOOKMARKS_ID)
+    private val showBookmarksButton = Util.createIconButton("/icons/game/bookmarks.svg", NodeConfig.BUTTON_SHOW_BOOKMARKS_ID)
 
     private val speedLabel = Label("Speed").apply {
         font = AppConfig.TEXT_FONT_SMALL

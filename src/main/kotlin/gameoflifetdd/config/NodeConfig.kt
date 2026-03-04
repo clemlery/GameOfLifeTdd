@@ -13,7 +13,6 @@ class NodeConfig {
         val COLOR_BACKGROUND: Color = Color.web("#D9D9D9")
 
         // VIEW HOME
-
         const val VIEW_HOME_CSS_CLASS = "view-home-container"
 
         const val BUTTON_STANDARD_CSS_CLASS = "button-standard"
